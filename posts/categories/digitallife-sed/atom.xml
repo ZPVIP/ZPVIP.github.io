@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: DigitalLife,sed | 简洁的想法]]></title>
+  <link href="http://ZPVIP.github.io/posts/categories/digitallife-sed/atom.xml" rel="self"/>
+  <link href="http://ZPVIP.github.io/"/>
+  <updated>2016-06-16T15:58:01+02:00</updated>
+  <id>http://ZPVIP.github.io/</id>
+  <author>
+    <name><![CDATA[Peter]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[PDF version found 1.5 but allowed 1.4]]></title>
+    <link href="http://ZPVIP.github.io/posts/2012/08/01/pdf-version-found-1-dot-5-but-allowed-1-dot-4/"/>
+    <updated>2012-08-01T09:47:00+02:00</updated>
+    <id>http://ZPVIP.github.io/posts/2012/08/01/pdf-version-found-1-dot-5-but-allowed-1-dot-4</id>
+    <content type="html"><![CDATA[<p>用Latex的时候，如果嵌入的PDF图片版本是1.5，而Latex只支持1.4的时候，就会出现很多Warning：</p>
+
+<p><code>
+ pdflatex (file ./graphics/abcde.pdf): PDF inclusion: found PDF version &lt;1.5&gt;, but at most version &lt;1.4&gt; allowed...
+</code></p>
+
+<p>Warning只是不好看，PDF还是会正确生成的，我不愿像传说中的程序员那样不关心Warning，但也无力把PDF图片改成1.4的版本，只好用sed大法了：
+<code>bash
+$ cd graphics
+$ for i in *.pdf; do sed -i -e  "s/%PDF-1.5/%PDF-1.4/" $i; done
+</code></p>
+
+<p>附上那个老掉牙的程序员笑话吧:</p>
+
+<blockquote><p>有一个小伙子在一个办公大楼的门口抽着烟，一个妇女路过他身边，并对他说，“你知道不知道这个东西会危害你的健康？我是说，你有没有注意到香烟盒上的那个警告（Warning）？” 小伙子说，“没事儿，我是一个程序员”。 那妇女说，“这又怎样？” 程序员说，“我们从来不关心Warning，只心关心Error。”</p></blockquote>
+]]></content>
+  </entry>
+  
+</feed>

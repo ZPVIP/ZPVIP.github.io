@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: DigitalLife | 简洁的想法]]></title>
+  <link href="http://ZPVIP.github.io/posts/categories/digitallife/atom.xml" rel="self"/>
+  <link href="http://ZPVIP.github.io/"/>
+  <updated>2016-06-16T15:58:01+02:00</updated>
+  <id>http://ZPVIP.github.io/</id>
+  <author>
+    <name><![CDATA[Peter]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Use FFmpeg to burn subtitles into the video]]></title>
+    <link href="http://ZPVIP.github.io/posts/2013/10/06/use-ffmpeg-to-burn-subtitles-into-the-video/"/>
+    <updated>2013-10-06T12:41:00+02:00</updated>
+    <id>http://ZPVIP.github.io/posts/2013/10/06/use-ffmpeg-to-burn-subtitles-into-the-video</id>
+    <content type="html"><![CDATA[<p><a href="http://www.ffmpeg.org/">FFmpeg</a> 是个强大的跨平台软件，在Mac下使用的时候要稍注意一下。我这记录一下自己的摸索过程。</p>
+
+<p>我想在一个 MP4 文件里面添加字幕，不是把 .srt 字幕文件集成到 MP4 文件里，然后在播放器里选择字幕，这种集成字幕比较简单，速度也相当快：
+<code>bash
+ffmpeg -i input.mp4 -i subtitles.srt -c:s mov_text -c:v copy -c:a copy output.mp4
+</code></p>
+
+<p>我希望字幕直接显示出来，其实也不难，两句命令而已：
+<code>bash
+ffmpeg -i subtitle.srt subtitle.ass
+ffmpeg -i input.mp4 -vf ass=subtitle.ass output.mp4
+</code></p>
+
+<p>但在 Mac 下处理不成功，我看到有错误信息：
+<code>
+Fontconfig error: Cannot load default config file
+[Parsed_ass_0 @ 0x102d00000] No usable fontconfig configuration file found, using fallback.
+Fontconfig error: Cannot load default config file
+</code></p>
+
+<p>看来是 Fontconfig 出了问题，我的解决方案是：</p>
+
+<p>一、在~/.bashrc 最后添加一句：
+<code>bash
+export FONTCONFIG_PATH=/opt/X11/lib/X11/fontconfig
+</code></p>
+
+<p>使之有效：
+<code>bash
+source ~/.bashrc
+</code></p>
+
+<p>二、编辑 /opt/X11/lib/X11/fontconfig/fonts.conf
+在字体目录添加 /Library/Fonts
+``` xml
+:</p>
+
+<!-- Font directory list -->
+
+
+<pre><code>&lt;dir&gt;/opt/X11/share/fonts&lt;/dir&gt;
+&lt;dir&gt;/usr/X11R6/lib/X11/fonts&lt;/dir&gt;
+&lt;dir&gt;~/.fonts&lt;/dir&gt;
+&lt;dir&gt;/Library/Fonts&lt;/dir&gt;
+</code></pre>
+
+<p>:
+```</p>
+
+<p>再次运行添加 ass 字幕的命令就可以了，简单吧。市面上那么多视频处理软件，我估计都是FFmpeg加了个UI而已，如果命令行用得好，效率会高很多的。</p>
+
+<p>更多 fontconfig 的信息可以参考<a href="http://www.freedesktop.org/software/fontconfig/fontconfig-user.html">这里</a>。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Mac OS X 10.8.2 Problems after update]]></title>
+    <link href="http://ZPVIP.github.io/posts/2012/10/18/mac-os-x-10-dot-8-2-problems-after-update/"/>
+    <updated>2012-10-18T21:51:00+02:00</updated>
+    <id>http://ZPVIP.github.io/posts/2012/10/18/mac-os-x-10-dot-8-2-problems-after-update</id>
+    <content type="html"><![CDATA[<p>Mac OS X 升级到10.8.2 以后，至少Retina Mac Pro 连接HDMI设备会出现问题，表现是笔记本和外接设备都黑屏，并且有个大大的鼠标，就像是分辨率变小了似的。</p>
+
+<p>系统升级到OS X 10.8.2 (12C60)之后也没有改观。</p>
+
+<p><a href="https://discussions.apple.com/thread/4312536?start=45&amp;tstart=0">Google之后</a>发现三步可以解决问题：
+<code>bash
+sudo rm /Library/Preferences/com.apple.windowserver.plist
+rm ~/Library/Preferences/ByHost/com.apple.windowserver.C751F3F4-AAAF-5E66-BDBF-91FD6960CC19.plist
+sudo shutdown -r now
+</code></p>
+
+<p>第二步最后的文件名windowserver后面可能有点不一样，第三步是重启电脑，有打开的文件别忘记先存盘。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Mac Octopress IOError invalid Python installation]]></title>
+    <link href="http://ZPVIP.github.io/posts/2012/08/02/mac-octopress-ioerror-invalid-python-installation/"/>
+    <updated>2012-08-02T21:49:00+02:00</updated>
+    <id>http://ZPVIP.github.io/posts/2012/08/02/mac-octopress-ioerror-invalid-python-installation</id>
+    <content type="html"><![CDATA[<p>经过这么多天的与Warning的邂逅，今天终于开云见日迎来了一个Error. 就在全国人民喜迎这个<code>IOError</code>之际，我三省吾身，不知道是因为升级了Mountain Lion 还是因为我最近折腾系统太厉害的缘故，好好的一个Octopress今天居然在<code>rake generate</code>的时候给我报错：
+<code>
+Building site: source -&gt; public
+Traceback (most recent call last):
+  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site.py", line 565, in &lt;module&gt;
+  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site.py", line 547, in main
+  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site.py", line 278, in addusersitepackages
+  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site.py", line 253, in getusersitepackages
+  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site.py", line 243, in getuserbase
+  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/sysconfig.py", line 523, in get_config_var
+  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/sysconfig.py", line 419, in get_config_vars
+  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/sysconfig.py", line 298, in _init_posix
+IOError: invalid Python installation: unable to open /usr/include/python2.7/pyconfig.h (No such file or directory)
+</code>
+前面一堆文件都是在<code>/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/</code>，不知道为什么最后会找到这个文件夹去<code>/usr/include/python2.7/</code>。</p>
+
+<p>这类找不到文件的问题在*nix下其实还是很好解决的，只要我能找到这个文件， 再把它<code>ln</code>过去就好了：
+<code>
+$ sudo mkdir /usr/include/
+$ sudo ln -s /System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7/ /usr/include/python2.7
+</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[RStudio non-UTF8 warning message]]></title>
+    <link href="http://ZPVIP.github.io/posts/2012/08/02/rstudio-non-utf8-warning-message/"/>
+    <updated>2012-08-02T20:06:00+02:00</updated>
+    <id>http://ZPVIP.github.io/posts/2012/08/02/rstudio-non-utf8-warning-message</id>
+    <content type="html"><![CDATA[<p>Rstudio 是一个不错的R语言IDE, 因为集成<a href="http://yihui.name/knitr">knitr</a>, 使得这样一个编程IDE可以用Markdown来生成漂亮的PDF文本，甚至可以用LaTEX的语法加入公式，这样小篇幅的科技短文都可以用Markdown来写了。</p>
+
+<p>我饶有兴致地安装了RStudio，结果一运行居然报了一个Warning，看来最近我的Warning不少。</p>
+
+<pre><code>During startup - Warning messages: 
+1: Setting LC_CTYPE failed, using "C" 
+2: Setting LC_COLLATE failed, using "C" 
+3: Setting LC_TIME failed, using "C" 
+4: Setting LC_MESSAGES failed, using "C" 
+WARNING: You're using a non-UTF8 locale, therefore only ASCII 
+characters will work. 
+Please read R for Mac OS X FAQ (see Help) section 9 and adjust your 
+system preferences accordingly. 
+</code></pre>
+
+<p>解决的方法也就一句话，放在R控制台运行一下就好了：
+<code>
+system("defaults write org.R-project.R force.LANG en_US.UTF-8")
+</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[sed 批量替换文件中的字符]]></title>
+    <link href="http://ZPVIP.github.io/posts/2012/05/16/sed-pi-liang-ti-huan-wen-jian-zhong-de-zi-fu/"/>
+    <updated>2012-05-16T20:49:00+02:00</updated>
+    <id>http://ZPVIP.github.io/posts/2012/05/16/sed-pi-liang-ti-huan-wen-jian-zhong-de-zi-fu</id>
+    <content type="html"><![CDATA[<p>下载了ruby的Standard Library Documentation, 发现其离线版本的home链接居然是'/', 这在使用中会指向file:///, 所以还是替换一下吧:
+把
+<code>html
+&lt;a href='http://ZPVIP.github.io/' target='_top' &gt;Home&lt;/a&gt;
+</code>
+替换成
+<code>html
+&lt;a href='index' target='_top' &gt;Home&lt;/a&gt;
+</code>
+用这个命令:
+<code>bash
+$ sed -i -e "s/'\/' target/'\/index.html' target/g" *.html
+</code></p>
+
+<p>如果想替换前做个备份:
+<code>bash
+$ sed -i.bak -e "s/'\/' target/'\/index.html' target/g" *.html
+</code></p>
+
+<p>如果想把当前目录及子目录下的文件都替换掉, 那可以这样写:</p>
+
+<pre><code class="bash">$ find . -type f | xargs sed -i.bak -e "s/'\/' target/'\/index.html' target/g"
+</code></pre>
+
+<p>当然这只是个例子, 因为子目录下的html文件中的home链接如果也换成了index.html, 那还是不能链接到父目录中的index.html.</p>
+
+<p>因为换成了octopress, 所以留言也托管到disqus了, 导入留言后, 发现blog下方的留言不能显示, 查看源代码发现链接最后没有斜线 "/", 我在disqus里面换链接的时候, 设置成都以斜线结尾.</p>
+
+<!-- more -->
+
+
+<p>``` javascript 链接最后没有斜线</p>
+
+<script type="text/javascript">
+      var disqus_shortname = 'neten';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.neten.de/posts/345/';
+        var disqus_url = 'http://blog.neten.de/posts/345/';
+        var disqus_script = 'embed.js';
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+<pre><code>
+打开source/_posts/2012-03-25-345.textile
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>permalink: /posts/345</span></code></pre></td></tr></table></div></figure></notextile></div>
+发现345后面没有斜线, 如果在vi里面可以这样替换掉:
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>:g/\(permalink:\s\/posts\/\d\+\)$/s//\1\//g</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+但面对 source/_posts/下面二百多篇文章, 一个一个加斜线显然不现实, 那只好请出强大的sed
+</code></pre>
+
+<p>$ sed -i -e 's/permalink:(.<em>$)/permalink:\1\//g' </em>.textile
+```</p>
+
+<p>最后再写一个<a href="http://www.tutorialspoint.com/unix/unix-regular-expressions.htm">网上</a>看到的处理电话号码的scripts作为结束吧.
+一个文本文件phone.txt里面包含内容如下:
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>5555551212
+</span><span class='line'>5555551213
+</span><span class='line'>5555551214
+</span><span class='line'>6665551215
+</span><span class='line'>6665551216
+</span><span class='line'>7775551217</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>前三位是区号, 要用()包起来, 使用"&amp;"来匹配前面查找的内容:
+<code>bash
+$ sed -e 's/^[[:digit:]][[:digit:]][[:digit:]]/(&amp;)/g' phone.txt
+</code>
+参数不含"-i", 所以不会改动文件, 只会显示结果如下:
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>(555)5551212
+</span><span class='line'>(555)5551213
+</span><span class='line'>(555)5551214
+</span><span class='line'>(666)5551215
+</span><span class='line'>(666)5551216
+</span><span class='line'>(777)5551217</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>如果想先把区位用括号包起来, 然后在这之后的第三位想再加入一个"-", 这时可以多个命令一起用:
+<code>bash
+$ sed -e 'command1' -e 'command2' ... -e 'commandN' files
+</code>
+例子:
+<code>bash
+$ sed -e 's/^[[:digit:]]\{3\}/(&amp;)/g' -e 's/)[[:digit:]]\{3\}/&amp;-/g' phone.txt
+</code>
+结果如下:
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>(555)555-1212
+</span><span class='line'>(555)555-1213
+</span><span class='line'>(555)555-1214
+</span><span class='line'>(666)555-1215
+</span><span class='line'>(666)555-1216
+</span><span class='line'>(777)555-1217</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>如果想表达得更清楚, 可以这样玩:
+<code>bash
+$ cat phone.txt | sed 's/^(\(.*\))\(.*\)-\(.*$\)/Area code: \1 Second: \2 Third: \3/'
+</code>
+结果如下:
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Area code: 555 Second: 555 Third: 1212
+</span><span class='line'>Area code: 555 Second: 555 Third: 1213
+</span><span class='line'>Area code: 555 Second: 555 Third: 1214
+</span><span class='line'>Area code: 666 Second: 555 Third: 1215
+</span><span class='line'>Area code: 666 Second: 555 Third: 1216
+</span><span class='line'>Area code: 777 Second: 555 Third: 1217</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
+  
+</feed>

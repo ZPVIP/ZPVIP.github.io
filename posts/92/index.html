@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>PHP4 update to PHP5 - 简洁的想法</title>
+  <meta name="author" content="Peter">
+
+  
+  <meta name="description" content="patched gd lib:http://www.rime.com.au/gd/wget http://downloads.rhyme.com.au/gd/gd-2.0.26gif.tar.gz./configure &#8212;prefix=/usr/local/gd2 &#8212; &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ZPVIP.github.io/posts/92">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="简洁的想法" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">简洁的想法</a></h1>
+  
+    <h2>仁爱、喜乐、和平、忍耐、恩慈、良善、信实、温柔、节制</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ZPVIP.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">日志</a></li>
+  <li><a href="/blog/archives">归档</a></li>
+  <li><a href="/posts/categories/website/">网站工程</a></li>
+  <li><a href="/posts/categories/collections/">网文收集</a></li>
+  <li><a href="/posts/categories/digitallife/">数字生活</a></li>
+  <li><a href="/posts/categories/memories/">路已成歌</a></li>
+  <li><a href="/posts/categories/beautifulsongs/">美曲美境</a></li>
+  <li><a href="/posts/categories/travel/">忆影斑斓</a></li>
+  <li><a href="http://bbs.neten.de">论坛</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">PHP4 Update to PHP5</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-12-14T00:00:00+01:00" pubdate data-updated="true">Dec 14<span>th</span>, 2006</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>patched gd lib:<br/>http://www.rime.com.au/gd/<br/><coolcode>wget http://downloads.rhyme.com.au/gd/gd-2.0.26gif.tar.gz<br />./configure &#8212;prefix=/usr/local/gd2 &#8212;with-zlib=/usr/local/zlib2/ &#8212;with-png=/usr/local/libpng2/ &#8212;with-jpeg=/usr/local/jpeg6/ &#8212;with-freetype=/usr/local/freetype2/</coolcode><br/><coolcode>./configure &#8212;prefix=/usr/share/php5 &#8212;datadir=/usr/share/php &#8212;mandir=/usr/share/man/php5 &#8212;bindir=/usr/bin &#8212;libdir=/usr/share &#8212;includedir=/usr/include &#8212;sysconfdir=/etc &#8212;with-<em>lib=lib &#8212;with-config-file-path=/etc/php5 &#8212;with-exec-dir=/usr/lib/php5/bin &#8212;disable-debug &#8212;enable-inline-optimization &#8212;enable-memory-limit &#8212;enable-magic-quotes &#8212;enable-safe-mode &#8212;enable-sigchild &#8212;disable-ctype &#8212;enable-session &#8212;with-jpeg-dir=/usr/local &#8212;with-zlib-dir=/usr/local &#8212;with-png-dir=/usr/local &#8212;with-gd=/usr/local/gd2  &#8212;with-mysql &#8212;disable-cli &#8212;without-pear &#8212;with-openssl &#8212;with-apxs2=/usr/sbin/apxs2-prefork</coolcode> <br/><br/>/etc/sysconfig/apache2<br/><coolcode>APACHE_MODULES=&quot;access actions alias auth auth_dbm autoindex cgi dir env expires include log_config mime negotiation setenvif ssl suexec userdir php5 &quot;</coolcode><br/><br/>/etc/apache2/sysconfig.d/loadmodule.conf<br/><coolcode>LoadModule php5</em>module<br />/usr/lib/apache2-prefork/libphp5.so</coolcode><br/><br/>在默认的情况下，服务器不会在系统开机时自动启动。它需要以root用户的身份执行以下命令才能启动：MyServer:#/etc/init.d/apache2 start<br/>如果想让服务器在系统开机时自动启动，就要多执行一条命令：<br/>MyServer:#/etc/init.dinsserv apache2 <br/><br/>not finished&#8230;</p></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Peter</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-12-14T00:00:00+01:00" pubdate data-updated="true">Dec 14<span>th</span>, 2006</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/posts/categories/website/'>Website</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/posts/91/" title="Previous Post: 显示桌面 快捷方式的恢复方法">&laquo; 显示桌面 快捷方式的恢复方法</a>
+      
+      
+        <a class="basic-alignment right" href="/posts/93/" title="Next Post: 来几个Linux命令">来几个Linux命令 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/2014/01/27/install-mysql-using-homebrew/">在 Mac 下用 Homebrew 安装 MySQL</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2013/10/06/use-ffmpeg-to-burn-subtitles-into-the-video/">Use FFmpeg to burn subtitles into the video</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2013/02/17/ruby-block-proc-and-lambda/">Ruby -- block Proc and lambda</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/10/18/mac-os-x-10-dot-8-2-problems-after-update/">Mac OS X 10.8.2 Problems after update</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/02/mac-octopress-ioerror-invalid-python-installation/">Mac Octopress IOError invalid Python installation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/02/rstudio-non-utf8-warning-message/">RStudio non-UTF8 warning message</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/01/pdf-version-found-1-dot-5-but-allowed-1-dot-4/">PDF version found 1.5 but allowed 1.4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/07/21/fatal-error-stdio-dot-h-file-not-found/">fatal error: stdio.h file not found</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/06/06/mongodb-scaffolding-devise-omniauth-cancan-2/">MongoDB Scaffolding Devise Omniauth CanCan (2)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/05/19/mongodb-scaffolding-devise-omniauth-cancan-1/">MongoDB Scaffolding Devise Omniauth CanCan (1)</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>最近评论</h1>
+  <script type="text/javascript" src="http://neten.disqus.com/combination_widget.js?num_items=5&hide_mods=0&color=grey&default_tab=recent&excerpt_length=200"></script>
+</section>
+<section>
+  <h1>常用资料</h1>
+    <ul id="recent_posts">
+      <li class="post">
+        <a href="/posts/93">来几个Linux命令</a>
+      </li>
+      <li class="post">
+        <a href="/posts/344">Mysql 改变数据库目录</a>
+      </li>
+      <li class="post">
+        <a href="/posts/254">Latex & TexMakerX</a>
+      </li>
+      <li class="post">
+        <a href="/posts/241">在Ubuntu上通过SSH安装Virtualbox</a>
+      </li>
+      <li class="post">
+        <a href="/posts/73">汉德词典 for MDict & Babylon</a>
+      </li>
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2005 - 2016 - Peter - | 
+  <span><a href="/posts/94">Impressum</a></span>
+  <span class="credit" style="float:right">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'neten';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ZPVIP.github.io/posts/92/';
+        var disqus_url = 'http://ZPVIP.github.io/posts/92/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="/javascripts/jimdoclockzip.js"></script>
+</body>
+</html>

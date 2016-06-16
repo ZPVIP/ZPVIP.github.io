@@ -1,0 +1,470 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>require_once,include_once,require, include的区别 - 简洁的想法</title>
+  <meta name="author" content="Peter">
+
+  
+  <meta name="description" content="由于PHP具有快速、可靠、跨平台应用、源代码开放等特点，使得PHP成为最受欢迎的服务器端Script语言之一。我根据自己在工作中体会到的，向大家介绍PHP使用的心得，希望对大家有所帮助。 利用PHP的Include files维护你的网站
+不管你所开发的网站的规模是大是小， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ZPVIP.github.io/posts/28">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="简洁的想法" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">简洁的想法</a></h1>
+  
+    <h2>仁爱、喜乐、和平、忍耐、恩慈、良善、信实、温柔、节制</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ZPVIP.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">日志</a></li>
+  <li><a href="/blog/archives">归档</a></li>
+  <li><a href="/posts/categories/website/">网站工程</a></li>
+  <li><a href="/posts/categories/collections/">网文收集</a></li>
+  <li><a href="/posts/categories/digitallife/">数字生活</a></li>
+  <li><a href="/posts/categories/memories/">路已成歌</a></li>
+  <li><a href="/posts/categories/beautifulsongs/">美曲美境</a></li>
+  <li><a href="/posts/categories/travel/">忆影斑斓</a></li>
+  <li><a href="http://bbs.neten.de">论坛</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Require_once,include_once,require, Include的区别</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-04-10T00:00:00+02:00" pubdate data-updated="true">Apr 10<span>th</span>, 2005</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>由于PHP具有快速、可靠、跨平台应用、源代码开放等特点，使得PHP成为最受欢迎的服务器端Script语言之一。我根据自己在工作中体会到的，向大家介绍PHP使用的心得，希望对大家有所帮助。</p>
+
+<p>利用PHP的Include files维护你的网站
+不管你所开发的网站的规模是大是小，你都应该要认识到重复使用程序代码的重要性，不论你重复使用的是 PHP 程序或者是 HTML 原始码。举个例子来说，网站页尾的版权宣告至少每年都得修改一次，如果你的网站有许多个页面，该怎么办呢？动手一个一个修改这些页面肯定是一件头痛的事情。通过 PHP 我们可以用几个不同的方式来重复使用程序代码。要使用哪些函数端视你要重复使用的是怎样的内容而定。</p>
+
+<p>这些主要的函数包括：<br/>
+include() 与 include_once()<br/>
+require() 与 require_once()</p>
+
+<p>1.include() 函数会将指定的档案读入并且执行里面的程序, 例如：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="x">include(&#39;/home/me/myfile&#39;); </span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<!-- more -->
+
+
+<p>被导入的档案中的程序代码都会被执行，而且这些程序在执行的时候会拥有和源文件中呼叫到 include() 函数的位置相同的变量范围(variable scope)。你可以导入同一个服务器中的静态档案，甚至可以通过合并使用 include() 与 fopen() 函数来导入其它服务器上面的档案。</p>
+
+<p>2.include_once()函数的作用和 include() 是几乎相同的</p>
+
+<p>唯一的差别在于 include_once() 函数会先检查要导入的档案是不是已经在该程序中的其它地方被导入过了，如果有的话就不会再次重复导入该档案(这项功能有时候是很重要的，比方说要导入的档案里面宣告了一些你自行定义好的函数，那么如果在同一个程序重复导入这个档案，在第二次导入的时候便会发生错误讯息，因为 PHP 不允许相同名称的函数被重复宣告第二次)。</p>
+
+<p>3.require()函数会将目标档案的内容读入，并且把自己本身代换成这些读入的内容。</p>
+
+<p>这个读入并且代换的动作是在 PHP 引擎编译你的程序代码的时候发生的，而不是发生在 PHP 引擎开始执行编译好的程序代码的时候(PHP 3.0 引擎的工作方式是编译一行执行一行，但是到了 PHP 4.0 就有所改变了，PHP 4.0 是先把整个程序代码全部编译完成后，再将这些编译好的程序代码一次执行完毕，在编译的过程中不会执行任何程序代码)。require() 通常来导入静态的内容，而 include() 则适合用来导入动态的程序代码。</p>
+
+<p>4.如同 include_once()函数，require_once() 函数会先检查目标档案的内容是不是在之前就已经导入过了，如果是的话，便不会再次重复导入同样的内容。</p>
+
+<p>我个人习惯使用 require() 函数来导入版权宣告(copyrights)，静态文字或其它本身不含有变量，或者本身需要倚赖其它执行过的程序才能正确执行的程序代码。例如：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="x">&lt;HTML&gt;</span>
+</span><span class='line'><span class="x">&lt;HEAD&gt;&lt;TITLE&gt;网页标题&lt;/TITLE&gt;&lt;/HEAD&gt;</span>
+</span><span class='line'><span class="x">&lt;BODY&gt;</span>
+</span><span class='line'><span class="x">一堆内容</span>
+</span><span class='line'><span class="cp">&lt;?</span>
+</span><span class='line'><span class="c1">// 导入版权宣告文字</span>
+</span><span class='line'><span class="k">require</span><span class="p">(</span><span class="s1">&#39;/home/me/mycopyright&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="cp">?&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">&lt;/BODY&gt;&lt;/HTML&gt; </span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>另一方面，我通常在程序的开头使用 include() 函数来导入一些函式库或者类似的程序代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?</span>
+</span><span class='line'><span class="c1">// 导入我的函式库</span>
+</span><span class='line'><span class="k">include</span><span class="p">(</span><span class="s1">&#39;/home/me/myfunctions&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// 利用之前导入的函式库里面定义好的 PHP 函数执行一些功能?&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">HTML</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">HEAD</span><span class="o">&gt;&lt;</span><span class="nx">TITLE</span><span class="o">&gt;</span><span class="err">网页标题</span><span class="o">&lt;/</span><span class="nx">TITLE</span><span class="o">&gt;&lt;/</span><span class="nx">HEAD</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">BODY</span><span class="o">&gt;</span>
+</span><span class='line'><span class="err">一堆内容</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">BODY</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">HTML</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接下来你可能会问这第一个挺符合逻辑的问题：「这些被导入的档案要放在哪儿呢？」简短的答案是：「放在服务器档案系统里的任何地方都行。」然而，要留意的是如果被导入的档案除了单纯的程序代码片段以外还包含了一些敏感资料，例如连结数据库系统要用到的帐号和密码，那么建议你不要把这些档案放在 Web 服务器的文件根目录之下，因为那样的话他人便可以很容易地窃取到这些资料了。</p>
+
+<p>你可以将这些被包含的档案放在系统的任何一个目录里面，唯一的条件是 PHP 本身用来执行的身分(www，nobody 或者其它身分)必须要有足够的权限能够读取这些档案就可以了。这些档案的扩展名也可以任意取，甚至没有附档名也无所谓。</p>
+
+<p>善用include()和 require()来将网站里面经常需要变动的共享内容做合理的分割，在更新网站内容的时候将会容易进行得多。</p>
+
+<p>利用PHP来维护档案系统</p>
+
+<p>PHP 提供了很多与档案系统相关的函数，让我们不仅可以开启档案，还能够显示目录的内容，搬移档案的位置以及其它更多功能。有的朋友甚至写了能够通过浏览器来管理档案内容的 PHP 程序。</p>
+
+<p>在开始介绍 PHP 的档案系统相关功能之前，我们要先理清一件事情：在 Windows操作系统里面，档案路径可以使用斜线(/)或者反斜线()来表示，但是在其它操作系统里面我们只会使用到斜线。为了保持统一性，下面的例子里面的档案路径都是使用斜线。</p>
+
+<p>下面的例子程序我将教大家基本的目录内容显示功能，每个步骤都有批注，请直接阅读。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?</span> <span class="c1">// $dir_name 这个变量的值是你想要读取的目录的完整路径</span>
+</span><span class='line'><span class="nv">$dir_name</span> <span class="o">=</span> <span class="s2">&quot;/home/me/&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="c1">// opendir()函数会开启某个目录，并且传回一个参考值(handle)</span>
+</span><span class='line'><span class="c1">// 让我们可以用来在程序中参照到该目录</span>
+</span><span class='line'><span class="nv">$dir</span> <span class="o">=</span> <span class="nb">opendir</span><span class="p">(</span><span class="nv">$dir_name</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// 开始建立一个字符串，这个字符串包含了 HTML 的列表卷标，用来显示目录中的文件名称。</span>
+</span><span class='line'><span class="nv">$file_list</span> <span class="o">=</span> <span class="s2">&quot;&lt;ul&gt;&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="c1">// 使用一个 while 循环叙述将前面开启的目录中的档案全部读取一遍。</span>
+</span><span class='line'><span class="c1">// 如果读取到的档名不是「.」或者「..」，就把该档名写入前面提到的字符串里面去。</span>
+</span><span class='line'><span class="k">while</span> <span class="p">(</span><span class="nv">$file_name</span> <span class="o">=</span> <span class="nb">readdir</span><span class="p">(</span><span class="nv">$dir</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'><span class="k">if</span> <span class="p">((</span><span class="nv">$file_name</span> <span class="o">!=</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nv">$file_name</span> <span class="o">!=</span> <span class="s2">&quot;..&quot;</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'><span class="nv">$file_list</span> <span class="o">.=</span> <span class="s2">&quot;&lt;li&gt;</span><span class="si">$file_name</span><span class="s2">&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="c1">// 替 HTML 列表卷标加上结尾</span>
+</span><span class='line'><span class="nv">$file_list</span> <span class="o">.=</span> <span class="s2">&quot;&lt;/ul&gt;&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="c1">// 关闭之前开启的目录并且结束这段 PHP 程序</span>
+</span><span class='line'><span class="nb">closedir</span><span class="p">(</span><span class="nv">$dir</span><span class="p">);</span>
+</span><span class='line'><span class="cp">?&gt;</span><span class="x">  </span>
+</span><span class='line'><span class="x">&lt;!— HTML原始码从这里开始 -&gt;</span>
+</span><span class='line'><span class="x">&lt;HTML&gt;</span>
+</span><span class='line'><span class="x">&lt;HEAD&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;/HEAD&gt;</span>
+</span><span class='line'><span class="x">&lt;BODY&gt;</span>
+</span><span class='line'><span class="x">&lt;!- 使用 PHP 程序来将我们所读取的目录名称显示在页面上 -&gt;</span>
+</span><span class='line'><span class="x">&lt;P&gt;Files in: </span><span class="cp">&lt;?</span> <span class="k">echo</span> <span class="s2">&quot;</span><span class="si">$dir_name</span><span class="s2">&quot;</span><span class="p">;</span> <span class="cp">?&gt;</span><span class="x">&lt;/p&gt;</span>
+</span><span class='line'><span class="x">&lt;!- 使用 PHP 程序将该目录中读取到的文件名显示在页面上 —&gt;</span>
+</span><span class='line'><span class="cp">&lt;?</span> <span class="k">echo</span> <span class="s2">&quot;</span><span class="si">$file_list</span><span class="s2">&quot;</span><span class="p">;</span> <span class="cp">?&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">&lt;/BODY&gt;</span>
+</span><span class='line'><span class="x">&lt;/HTML&gt; </span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>经过上面几步，你已经成功把某个目录中的文件名称显示在网页上了。但你要记住一点：要读取某个目录或者档案(读取档案内容的做法稍后会介绍)，PHP 本身执行所用的身分必须至少拥有该目录或者档案的读取权限才行，否则系统会显示权限不足的错误讯息。</p>
+
+<p>下一个例子我将教大家如何复制一个档案：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="c1">// 变量$orginal储存源文件的完整路径，变量$copied储存复制过去的新档案的完整路径</span>
+</span><span class='line'><span class="nv">$original</span> <span class="o">=</span> <span class="s2">&quot;/home/me/mydatabasedump&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="nv">$copied</span> <span class="o">=</span> <span class="s2">&quot;/archive/mydatabasedumo_1010&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="c1">// 呼叫 copy() 函数把档案从原始位置复制一份到新的位置去。如果无法复制，那么便终止程序的执行并且显示错误讯息。</span>
+</span><span class='line'><span class="o">@</span><span class="nb">copy</span><span class="p">(</span><span class="nv">$original</span><span class="p">,</span> <span class="nv">$copied</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s2">&quot;无法复制档案。&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="cp">?&gt;</span><span class="x"> </span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上面的例子程序可以用来扩充成为一个档案备份系统程序。当这个程序执行的时候，它会将数据库的数据文件复制到其它目录下面做为备份之用。只要修改系统的排程档案内容(crontab)，我们便可以让这个程序自动在每天的固定时间执行一次，达到系统自动备份，不需要人工手动执行。</p>
+
+<p>如果你的系统上面有安装 Lynx 软件(Lynx 是一种纯文字的 Web 浏览器)的话，你可以在系统排程档案里面加入下面这笔记录来让系统在固定时间自动激活 Lynx 并且呼叫我们之前写好的 PHP 备份程序。当 Lynx 呼叫(浏览)我们的 PHP 程序的时候，该程序就会被执行，并且产生备份文件。下面这个例子教你如何在每天早晨五点钟执行我们的备份程序，并且在执行完以后自动将 Lynx 程序关闭：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>0 5 * * * <span class="o">[</span>username<span class="o">]</span> lynx -dump http://localhost/copyfile.php 1&gt;/dev/null 2&gt;&amp;1
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果你的系统安装的是 CGI 版本的 PHP，那么你可以直接呼叫 PHP 执行档而不需要通过 Lynx 来呼叫我们的 PHP 程序。</p>
+
+<p><a href="http://www.phpx.com/happy/printthread.php?threadid=70881">来源</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Peter</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-04-10T00:00:00+02:00" pubdate data-updated="true">Apr 10<span>th</span>, 2005</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/posts/categories/website/'>Website</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/posts/32/" title="Previous Post: CSS 网页定位">&laquo; CSS 网页定位</a>
+      
+      
+        <a class="basic-alignment right" href="/posts/29/" title="Next Post: 我可以将12345678.9输出成12,345,678.90吗?">我可以将12345678.9输出成12,345,678.90吗? &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/2014/01/27/install-mysql-using-homebrew/">在 Mac 下用 Homebrew 安装 MySQL</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2013/10/06/use-ffmpeg-to-burn-subtitles-into-the-video/">Use FFmpeg to burn subtitles into the video</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2013/02/17/ruby-block-proc-and-lambda/">Ruby -- block Proc and lambda</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/10/18/mac-os-x-10-dot-8-2-problems-after-update/">Mac OS X 10.8.2 Problems after update</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/02/mac-octopress-ioerror-invalid-python-installation/">Mac Octopress IOError invalid Python installation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/02/rstudio-non-utf8-warning-message/">RStudio non-UTF8 warning message</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/01/pdf-version-found-1-dot-5-but-allowed-1-dot-4/">PDF version found 1.5 but allowed 1.4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/07/21/fatal-error-stdio-dot-h-file-not-found/">fatal error: stdio.h file not found</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/06/06/mongodb-scaffolding-devise-omniauth-cancan-2/">MongoDB Scaffolding Devise Omniauth CanCan (2)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/05/19/mongodb-scaffolding-devise-omniauth-cancan-1/">MongoDB Scaffolding Devise Omniauth CanCan (1)</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>最近评论</h1>
+  <script type="text/javascript" src="http://neten.disqus.com/combination_widget.js?num_items=5&hide_mods=0&color=grey&default_tab=recent&excerpt_length=200"></script>
+</section>
+<section>
+  <h1>常用资料</h1>
+    <ul id="recent_posts">
+      <li class="post">
+        <a href="/posts/93">来几个Linux命令</a>
+      </li>
+      <li class="post">
+        <a href="/posts/344">Mysql 改变数据库目录</a>
+      </li>
+      <li class="post">
+        <a href="/posts/254">Latex & TexMakerX</a>
+      </li>
+      <li class="post">
+        <a href="/posts/241">在Ubuntu上通过SSH安装Virtualbox</a>
+      </li>
+      <li class="post">
+        <a href="/posts/73">汉德词典 for MDict & Babylon</a>
+      </li>
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2005 - 2016 - Peter - | 
+  <span><a href="/posts/94">Impressum</a></span>
+  <span class="credit" style="float:right">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'neten';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ZPVIP.github.io/posts/28/';
+        var disqus_url = 'http://ZPVIP.github.io/posts/28/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="/javascripts/jimdoclockzip.js"></script>
+</body>
+</html>

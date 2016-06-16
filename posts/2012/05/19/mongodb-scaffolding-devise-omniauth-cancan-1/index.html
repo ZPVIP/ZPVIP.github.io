@@ -1,0 +1,1241 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>MongoDB Scaffolding Devise Omniauth CanCan (1) - 简洁的想法</title>
+  <meta name="author" content="Peter">
+
+  
+  <meta name="description" content="Ruby on Rails 的学习曲线还算是有一点陡的, 作为一个初学者, 建议先看一下Ruby的语法书, 再看一下Rails的入门教材和示例, 但真正做项目的时候, 可能就要和各种各样Gems打交道了, 因为自己走了很多弯路, 所以想把一些笔记分享出来, 希望对新生有点帮助. &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ZPVIP.github.io/posts/2012/05/19/mongodb-scaffolding-devise-omniauth-cancan-1">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="简洁的想法" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">简洁的想法</a></h1>
+  
+    <h2>仁爱、喜乐、和平、忍耐、恩慈、良善、信实、温柔、节制</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ZPVIP.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">日志</a></li>
+  <li><a href="/blog/archives">归档</a></li>
+  <li><a href="/posts/categories/website/">网站工程</a></li>
+  <li><a href="/posts/categories/collections/">网文收集</a></li>
+  <li><a href="/posts/categories/digitallife/">数字生活</a></li>
+  <li><a href="/posts/categories/memories/">路已成歌</a></li>
+  <li><a href="/posts/categories/beautifulsongs/">美曲美境</a></li>
+  <li><a href="/posts/categories/travel/">忆影斑斓</a></li>
+  <li><a href="http://bbs.neten.de">论坛</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">MongoDB Scaffolding Devise Omniauth CanCan (1)</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-19T22:42:00+02:00" pubdate data-updated="true">May 19<span>th</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><a id="TOP"></a>
+Ruby on Rails 的学习曲线还算是有一点陡的, 作为一个初学者, 建议先看一下Ruby的语法书, 再看一下Rails的<a href="http://guides.rubyonrails.org">入门教材和示例</a>, 但真正做项目的时候, 可能就要和各种各样Gems打交道了, 因为自己走了很多弯路, 所以想把一些笔记分享出来, 希望对新生有点帮助.</p>
+
+<p>我准备用一个Blog的示例把Scaffolding MongoDB Devise Omniauth CanCan串起来.</p>
+
+<ol>
+<li><a href="#MongoDB">MongoDB</a><br/>
+1.1 <a href="#Help">Help</a><br/>
+1.2. <a href="#CRUD">CRUD</a><br/>
+1.3. <a href="#Security">Security</a><br/>
+1.4. <a href="#Port">Port</a></li>
+<li><a href="#Prepare">准备工作</a></li>
+<li><a href="#Git">Git</a></li>
+<li><a href="#Scaffold">Scaffold</a><br/>
+4.1. <a href="#AddField">添加字段</a><br/>
+4.2. <a href="#Validations">验证输入</a><br/>
+4.3. <a href="#Associations">表关联</a><br/>
+4.4. <a href="#ReferenceTypeAssociations">引用关联</a></li>
+</ol>
+
+
+<!-- more -->
+
+
+<h2><a id="MongoDB"></a><a href="#TOP">MongoDB</a></h2>
+
+<p>首先讲 <a href="http://www.mongodb.org/">MongoDB</a>, Mongo 取自 hu<strong>mongo</strong>us, 意思是大得无比的.</p>
+
+<p>在Ubuntu上安装MongoDB相当简单. <a href="http://docs.mongodb.org/manual/tutorial/install-mongodb-on-debian-or-ubuntu-linux/">其网站上有详细资料</a>, 我仅copy一下几条命令:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
+</span><span class='line'><span class="nv">$ </span>sudo vi /etc/apt/sources.list.d/10gen.list
+</span><span class='line'>deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span>sudo apt-get update
+</span><span class='line'><span class="nv">$ </span>sudo apt-get install mongodb-10gen
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>配置文件, 可以改变数据库存储目录等, 默认是 <code>/var/lib/mongodb</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo vi /etc/mongodb.conf
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>数据库启动停用重启命令和其它service一样:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo service mongodb start | stop | restart
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>命令行输入<code>mongo</code>可以打开数据库操作台:</p>
+
+<h3><a id="Help"></a><a href="#TOP">Help</a></h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="o">&gt;</span> <span class="n">help</span>                          <span class="o">//</span> <span class="c1">--top level help</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">db</span><span class="p">.</span><span class="n">help</span><span class="p">()</span>                     <span class="o">//</span> <span class="c1">--help on db-specific methods</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">db</span><span class="p">.</span><span class="n">mycollection</span><span class="p">.</span><span class="n">help</span><span class="p">()</span>        <span class="o">//</span> <span class="c1">--help on collection methods</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">db</span><span class="p">.</span><span class="n">mycollection</span><span class="p">.</span><span class="n">find</span><span class="p">().</span><span class="n">help</span><span class="p">()</span> <span class="o">//</span> <span class="c1">--cursor help</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="o">&gt;</span> <span class="k">show</span> <span class="n">dbs</span> <span class="o">//</span> <span class="c1">--displays all the databases on the server you are connected to</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">use</span> <span class="n">db_name</span> <span class="o">//</span> <span class="c1">--switches to db_name on the same server</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="k">show</span> <span class="n">collections</span> <span class="o">//</span> <span class="c1">--displays a list of all the collections in the current database</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>不能免俗, 可以在默认的<code>test</code>数据库来个<code>hello world!</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="o">&gt;</span> <span class="n">db</span><span class="p">.</span><span class="n">test</span><span class="p">.</span><span class="n">save</span><span class="p">(</span> <span class="err">{</span> <span class="n">mongo</span><span class="p">:</span> <span class="ss">&quot;Hello World!&quot;</span> <span class="err">}</span> <span class="p">)</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">db</span><span class="p">.</span><span class="n">test</span><span class="p">.</span><span class="n">find</span><span class="p">()</span>
+</span><span class='line'><span class="err">{</span> <span class="ss">&quot;_id&quot;</span> <span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="ss">&quot;4fb947a9e7ffc7b413ce9c54&quot;</span><span class="p">),</span> <span class="ss">&quot;mongo&quot;</span> <span class="p">:</span> <span class="ss">&quot;Hello World!&quot;</span> <span class="err">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3><a id="CRUD"></a><a href="#TOP">CRUD</a></h3>
+
+<h4>C: create</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="o">&gt;</span> <span class="n">db</span><span class="p">.</span><span class="n">test</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="err">{</span> <span class="n">website</span> <span class="p">:</span> <span class="ss">&quot;blog.neten.de&quot;</span><span class="err">}</span><span class="p">);</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">db</span><span class="p">.</span><span class="n">test</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="err">{</span> <span class="n">website</span> <span class="p">:</span> <span class="ss">&quot;bbs.neten.de&quot;</span><span class="err">}</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>R: read</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="o">&gt;</span> <span class="n">db</span><span class="p">.</span><span class="n">test</span><span class="p">.</span><span class="n">find</span><span class="p">();</span>
+</span><span class='line'><span class="err">{</span> <span class="ss">&quot;_id&quot;</span> <span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="ss">&quot;4fb947a9e7ffc7b413ce9c54&quot;</span><span class="p">),</span> <span class="ss">&quot;mongo&quot;</span> <span class="p">:</span> <span class="ss">&quot;Hello World!&quot;</span> <span class="err">}</span>
+</span><span class='line'><span class="err">{</span> <span class="ss">&quot;_id&quot;</span> <span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="ss">&quot;4fb94971e7ffc7b413ce9c55&quot;</span><span class="p">),</span> <span class="ss">&quot;website&quot;</span> <span class="p">:</span> <span class="ss">&quot;blog.neten.de&quot;</span> <span class="err">}</span>
+</span><span class='line'><span class="err">{</span> <span class="ss">&quot;_id&quot;</span> <span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="ss">&quot;4fb94978e7ffc7b413ce9c56&quot;</span><span class="p">),</span> <span class="ss">&quot;website&quot;</span> <span class="p">:</span> <span class="ss">&quot;bbs.neten.de&quot;</span> <span class="err">}</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">db</span><span class="p">.</span><span class="n">test</span><span class="p">.</span><span class="n">findOne</span><span class="p">(</span> <span class="err">{</span> <span class="n">mongo</span><span class="p">:</span> <span class="ss">&quot;Hello World!&quot;</span> <span class="err">}</span> <span class="p">);</span>
+</span><span class='line'><span class="err">{</span>
+</span><span class='line'>      <span class="ss">&quot;_id&quot;</span> <span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="ss">&quot;4fb947a9e7ffc7b413ce9c54&quot;</span><span class="p">),</span>
+</span><span class='line'>      <span class="ss">&quot;mongo&quot;</span> <span class="p">:</span> <span class="ss">&quot;Hello World!&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="ss">&quot;website&quot;</span> <span class="p">:</span> <span class="ss">&quot;www.neten.de&quot;</span>
+</span><span class='line'><span class="err">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>U: update</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="o">&gt;</span> <span class="n">person</span> <span class="o">=</span> <span class="n">db</span><span class="p">.</span><span class="n">test</span><span class="p">.</span><span class="n">findOne</span><span class="p">(</span> <span class="err">{</span> <span class="n">mongo</span><span class="p">:</span> <span class="ss">&quot;Hello World!&quot;</span> <span class="err">}</span> <span class="p">);</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">person</span><span class="p">.</span><span class="n">website</span> <span class="o">=</span> <span class="ss">&quot;www.neten.de&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">db</span><span class="p">.</span><span class="n">test</span><span class="p">.</span><span class="n">save</span><span class="p">(</span> <span class="n">person</span> <span class="p">);</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">db</span><span class="p">.</span><span class="n">test</span><span class="p">.</span><span class="n">find</span><span class="p">();</span>
+</span><span class='line'><span class="err">{</span> <span class="ss">&quot;_id&quot;</span> <span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="ss">&quot;4fb94971e7ffc7b413ce9c55&quot;</span><span class="p">),</span> <span class="ss">&quot;website&quot;</span> <span class="p">:</span> <span class="ss">&quot;blog.neten.de&quot;</span> <span class="err">}</span>
+</span><span class='line'><span class="err">{</span> <span class="ss">&quot;_id&quot;</span> <span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="ss">&quot;4fb94978e7ffc7b413ce9c56&quot;</span><span class="p">),</span> <span class="ss">&quot;website&quot;</span> <span class="p">:</span> <span class="ss">&quot;bbs.neten.de&quot;</span> <span class="err">}</span>
+</span><span class='line'><span class="err">{</span> <span class="ss">&quot;_id&quot;</span> <span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="ss">&quot;4fb947a9e7ffc7b413ce9c54&quot;</span><span class="p">),</span> <span class="ss">&quot;mongo&quot;</span> <span class="p">:</span> <span class="ss">&quot;Hello World!&quot;</span><span class="p">,</span> <span class="ss">&quot;website&quot;</span> <span class="p">:</span> <span class="ss">&quot;www.neten.de&quot;</span> <span class="err">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>D: delete</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="o">&gt;</span> <span class="n">db</span><span class="p">.</span><span class="n">test</span><span class="p">.</span><span class="k">drop</span><span class="p">()</span> <span class="o">//</span> <span class="c1">--drop the entire test collection</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">db</span><span class="p">.</span><span class="n">test</span><span class="p">.</span><span class="n">remove</span><span class="p">()</span> <span class="o">//</span> <span class="c1">--remove all objects from the collection</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">db</span><span class="p">.</span><span class="n">test</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span> <span class="err">{</span> <span class="n">mongo</span> <span class="p">:</span> <span class="ss">&quot;Hello World!&quot;</span> <span class="err">}</span> <span class="p">)</span> <span class="o">//</span> <span class="c1">--remove objects from the collection where name is mongo</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">use</span> <span class="p">[</span><span class="k">database</span><span class="p">];</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">db</span><span class="p">.</span><span class="n">dropDatabase</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果删除Collection之后, 可能要重启才能看到Collection不见了.</p>
+
+<h3><a id="Security"></a><a href="#TOP">Security</a></h3>
+
+<p>还有一个重要工作就是<a href="http://www.mongodb.org/display/DOCS/Security+and+Authentication">安全工作</a>:</p>
+
+<p>添加管理员用户laoda(老大), 管理员的名字最好不要用admin, root之类的</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="o">&gt;</span> <span class="n">use</span> <span class="k">admin</span>
+</span><span class='line'><span class="n">switched</span> <span class="k">to</span> <span class="n">db</span> <span class="k">admin</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">db</span><span class="p">.</span><span class="n">addUser</span><span class="p">(</span><span class="ss">&quot;laoda&quot;</span><span class="p">,</span><span class="ss">&quot;neten&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="err">{</span> <span class="ss">&quot;n&quot;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="ss">&quot;connectionId&quot;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="ss">&quot;err&quot;</span> <span class="p">:</span> <span class="k">null</span><span class="p">,</span> <span class="ss">&quot;ok&quot;</span> <span class="p">:</span> <span class="mi">1</span> <span class="err">}</span>
+</span><span class='line'><span class="err">{</span>
+</span><span class='line'>  <span class="ss">&quot;user&quot;</span> <span class="p">:</span> <span class="ss">&quot;laoda&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">&quot;readOnly&quot;</span> <span class="p">:</span> <span class="k">false</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">&quot;pwd&quot;</span> <span class="p">:</span> <span class="ss">&quot;3d075670621dfa6f25d9b6b9caa1d987&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">&quot;_id&quot;</span> <span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="ss">&quot;4fbb5c2c124f3221f45162b4&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="err">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>验证函数:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="o">&gt;</span> <span class="n">db</span><span class="p">.</span><span class="n">auth</span><span class="p">(</span><span class="ss">&quot;laoda&quot;</span><span class="p">,</span><span class="ss">&quot;neten&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="mi">1</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">db</span><span class="p">.</span><span class="n">auth</span><span class="p">(</span><span class="ss">&quot;laoda&quot;</span><span class="p">,</span><span class="ss">&quot;neten.de&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="mi">0</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>添加普通用户xiaodi(小弟)和只读用户(龙套):</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="o">&gt;</span> <span class="n">use</span> <span class="n">test</span>
+</span><span class='line'><span class="n">switched</span> <span class="k">to</span> <span class="n">db</span> <span class="n">test</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">db</span><span class="p">.</span><span class="n">addUser</span><span class="p">(</span><span class="ss">&quot;xiaodi&quot;</span><span class="p">,</span><span class="ss">&quot;neten&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="err">{</span> <span class="ss">&quot;n&quot;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="ss">&quot;connectionId&quot;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="ss">&quot;err&quot;</span> <span class="p">:</span> <span class="k">null</span><span class="p">,</span> <span class="ss">&quot;ok&quot;</span> <span class="p">:</span> <span class="mi">1</span> <span class="err">}</span>
+</span><span class='line'><span class="err">{</span>
+</span><span class='line'>  <span class="ss">&quot;user&quot;</span> <span class="p">:</span> <span class="ss">&quot;xiaodi&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">&quot;readOnly&quot;</span> <span class="p">:</span> <span class="k">false</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">&quot;pwd&quot;</span> <span class="p">:</span> <span class="ss">&quot;8cb78b1a918c6c5cca2b9cea00673180&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">&quot;_id&quot;</span> <span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="ss">&quot;4fbb5c96124f3221f45162b5&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="err">}</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">db</span><span class="p">.</span><span class="n">addUser</span><span class="p">(</span><span class="ss">&quot;longtao&quot;</span><span class="p">,</span><span class="ss">&quot;neten&quot;</span><span class="p">,</span><span class="k">true</span><span class="p">)</span>
+</span><span class='line'><span class="err">{</span> <span class="ss">&quot;n&quot;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="ss">&quot;connectionId&quot;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="ss">&quot;err&quot;</span> <span class="p">:</span> <span class="k">null</span><span class="p">,</span> <span class="ss">&quot;ok&quot;</span> <span class="p">:</span> <span class="mi">1</span> <span class="err">}</span>
+</span><span class='line'><span class="err">{</span>
+</span><span class='line'>  <span class="ss">&quot;user&quot;</span> <span class="p">:</span> <span class="ss">&quot;longtao&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">&quot;readOnly&quot;</span> <span class="p">:</span> <span class="k">true</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">&quot;pwd&quot;</span> <span class="p">:</span> <span class="ss">&quot;fe130c893dd5c69a5a1cb96feba00f7d&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">&quot;_id&quot;</span> <span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="ss">&quot;4fbb5cc7124f3221f45162b6&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="err">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>虽然我取的密码都是neten, 但hash过后的字符串都不一样, 比md5靠谱.</p>
+
+<p>查找当前数据库用户:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="o">&gt;</span> <span class="n">db</span><span class="p">.</span><span class="k">system</span><span class="p">.</span><span class="n">users</span><span class="p">.</span><span class="n">find</span><span class="p">()</span>
+</span><span class='line'><span class="err">{</span> <span class="ss">&quot;_id&quot;</span> <span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="ss">&quot;4fbb5c96124f3221f45162b5&quot;</span><span class="p">),</span> <span class="ss">&quot;user&quot;</span> <span class="p">:</span> <span class="ss">&quot;xiaodi&quot;</span><span class="p">,</span> <span class="ss">&quot;readOnly&quot;</span> <span class="p">:</span> <span class="k">false</span><span class="p">,</span> <span class="ss">&quot;pwd&quot;</span> <span class="p">:</span> <span class="ss">&quot;8cb78b1a918c6c5cca2b9cea00673180&quot;</span> <span class="err">}</span>
+</span><span class='line'><span class="err">{</span> <span class="ss">&quot;_id&quot;</span> <span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="ss">&quot;4fbb5cc7124f3221f45162b6&quot;</span><span class="p">),</span> <span class="ss">&quot;user&quot;</span> <span class="p">:</span> <span class="ss">&quot;longtao&quot;</span><span class="p">,</span> <span class="ss">&quot;readOnly&quot;</span> <span class="p">:</span> <span class="k">true</span><span class="p">,</span> <span class="ss">&quot;pwd&quot;</span> <span class="p">:</span> <span class="ss">&quot;fe130c893dd5c69a5a1cb96feba00f7d&quot;</span> <span class="err">}</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">db</span><span class="p">.</span><span class="n">removeUser</span><span class="p">(</span> <span class="n">username</span> <span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>删除用户, 以下两种方法效果一样:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="n">db</span><span class="p">.</span><span class="n">removeUser</span><span class="p">(</span><span class="ss">&quot;longtao&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="n">db</span><span class="p">.</span><span class="k">system</span><span class="p">.</span><span class="n">users</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="err">{</span><span class="k">user</span><span class="p">:</span> <span class="ss">&quot;longtao&quot;</span><span class="err">}</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3><a id="Port"></a><a href="#TOP">Port</a></h3>
+
+<p>数据库默认端口:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Standalone mongod : 27017
+</span><span class='line'>mongos : 27017
+</span><span class='line'>shard server (mongod --shardsvr) : 27018
+</span><span class='line'>config server (mongod --configsvr) : 27019</span></code></pre></td></tr></table></div></figure>
+
+
+<h2><a id="Prepare"></a><a href="#TOP">准备工作</a></h2>
+
+<p>第一步, 创建一个Rails App:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rails new neten -T -O
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>用-T -O 是为了不产生Test::Unit 和 Active Record 文件. 由rails产生的Gemfile修改后的内容如下:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">source</span> <span class="s1">&#39;https://rubygems.org&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">gem</span> <span class="s1">&#39;rails&#39;</span><span class="p">,</span> <span class="s1">&#39;3.2.3&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">group</span> <span class="ss">:assets</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">gem</span> <span class="s1">&#39;sass-rails&#39;</span><span class="p">,</span>   <span class="s1">&#39;~&gt; 3.2.3&#39;</span>
+</span><span class='line'>  <span class="n">gem</span> <span class="s1">&#39;coffee-rails&#39;</span><span class="p">,</span> <span class="s1">&#39;~&gt; 3.2.1&#39;</span>
+</span><span class='line'>  <span class="n">gem</span> <span class="s1">&#39;uglifier&#39;</span><span class="p">,</span> <span class="s1">&#39;&gt;= 1.0.3&#39;</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">gem</span> <span class="s1">&#39;jquery-rails&#39;</span><span class="p">,</span> <span class="s1">&#39;2.0.2&#39;</span>
+</span><span class='line'><span class="n">gem</span> <span class="s2">&quot;mongoid&quot;</span><span class="p">,</span> <span class="s2">&quot;~&gt; 2.4&quot;</span>
+</span><span class='line'><span class="n">gem</span> <span class="s2">&quot;bson_ext&quot;</span><span class="p">,</span> <span class="s2">&quot;~&gt; 1.5&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最后两行是mongoid相关的.</p>
+
+<p>为项目管理方便, 可以创建gemset, 并设置它作为默认的gemset</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rvm --create 1.9.3@neten
+</span><span class='line'><span class="nv">$ </span>rvm --default use 1.9.3@neten
+</span><span class='line'><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;rvm 1.9.3@neten&quot;</span> &gt; .rvmrc
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>安装gems, 并检查本机安装的gems, 最好把Gemfile里面的gems都按<code>gem list</code>所显示的标上版本号, 这样在远程部署的时候就不会出现版本问题.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>bundle install
+</span><span class='line'><span class="nv">$ </span>gem list --local
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>为了简化过程, 在此就不涉及RSpec了, 但无用的test模块可以删除.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rm -rf <span class="nb">test</span>/
+</span><span class='line'><span class="nv">$ </span>vi config/application.rb
+</span><span class='line'><span class="c"># ...</span>
+</span><span class='line'><span class="c"># require &#39;rails/test_unit/railtie&#39;</span>
+</span><span class='line'><span class="c"># ...</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>使用Mongoid, 执行下面的命令后, 会生成配置文件<code>config/mongoid.yml</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rails generate mongoid:config
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Mongoid会自动处理<code>config/application.rb</code>文件, 禁用ActiveRecord, <code>require 'rails/all'</code>会被以下代码替代:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s2">&quot;action_controller/railtie&quot;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s2">&quot;action_mailer/railtie&quot;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s2">&quot;active_resource/railtie&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>原来的数据库配置文件<code>config/database.yml</code>可以删除了.</p>
+
+<h2><a id="Git"></a><a href="#TOP">Git</a></h2>
+
+<p>做了这么多工作, git是时候要登场了:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vi .gitignore
+</span><span class='line'>.bundle
+</span><span class='line'>db/*.sqlite3*
+</span><span class='line'>log/*.log
+</span><span class='line'>*.log
+</span><span class='line'>tmp/**/*
+</span><span class='line'>tmp/*
+</span><span class='line'>doc/api
+</span><span class='line'>doc/app
+</span><span class='line'>*.swp
+</span><span class='line'>*~
+</span><span class='line'>.*~
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span>git init
+</span><span class='line'>Initialized empty Git repository in /home/user/neten/.git/
+</span><span class='line'><span class="nv">$ </span>git add .
+</span><span class='line'><span class="nv">$ </span>git commit -am <span class="s2">&quot;Initial commit&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2><a id="Scaffold"></a><a href="#TOP">Scaffold</a></h2>
+
+<p>用 scaffold 生成文章系统, 主要copy于<a href="http://railscasts.com/episodes/238-mongoid?view=asciicast">railscasts</a></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rails g scaffold article name:string content:text
+</span><span class='line'>      invoke  mongoid
+</span><span class='line'>      create    app/models/article.rb
+</span><span class='line'>       route  resources :articles
+</span><span class='line'>      invoke  scaffold_controller
+</span><span class='line'>      create    app/controllers/articles_controller.rb
+</span><span class='line'>      invoke    erb
+</span><span class='line'>      create      app/views/articles
+</span><span class='line'>      create      app/views/articles/index.html.erb
+</span><span class='line'>      create      app/views/articles/edit.html.erb
+</span><span class='line'>      create      app/views/articles/show.html.erb
+</span><span class='line'>      create      app/views/articles/new.html.erb
+</span><span class='line'>      create      app/views/articles/_form.html.erb
+</span><span class='line'>      invoke    helper
+</span><span class='line'>      create      app/helpers/articles_helper.rb
+</span><span class='line'>      invoke  assets
+</span><span class='line'>      invoke    coffee
+</span><span class='line'>      create      app/assets/javascripts/articles.js.coffee
+</span><span class='line'>      invoke    scss
+</span><span class='line'>      create      app/assets/stylesheets/articles.css.scss
+</span><span class='line'>      invoke  scss
+</span><span class='line'>      create    app/assets/stylesheets/scaffolds.css.scss
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>事就这么成了:)  <code>rake db:migrate</code>? 不用了, MongoDB是schemaless database.</p>
+
+<p>因为首页还是默认的Welcome页面, 所以要处理一下:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rm public/index.html
+</span><span class='line'><span class="nv">$ </span>vi config/routes.rb
+</span><span class='line'>Neten::Application.routes.draw <span class="k">do</span>
+</span><span class='line'><span class="k">  </span>resources :articles
+</span><span class='line'>  root :to <span class="o">=</span>&gt; <span class="s1">&#39;articles#index&#39;</span>
+</span><span class='line'>end
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>现在去<a href="http://localhost:3000">http://localhost:3000</a> 预览一下吧</p>
+
+<h3><a id="AddField"></a><a href="#TOP">添加字段</a></h3>
+
+<p>Mongoid为model提供了generator, <code>ActiveRecord</code>没有用到, 包含了<code>Mongoid::Document</code>,如果到现在才发现没有加入文章发布时间也关系不大, MongoDB嘛, schema-less, 好处就是在model直接加个字段名称就好了, 不用在db文件夹那里添加东西了.</p>
+
+<p>另外因为加入了<code>Date</code>类型的字段, 所以要加上这句<code>include Mongoid::MultiParameterAttributes</code>, <a href="http://stackoverflow.com/questions/7620047">不然没办法显示出来</a>.</p>
+
+<figure class='code'><figcaption><span>/app/models/article.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Article</span>
+</span><span class='line'>  <span class="kp">include</span> <span class="no">Mongoid</span><span class="o">::</span><span class="no">Document</span>
+</span><span class='line'>  <span class="kp">include</span> <span class="no">Mongoid</span><span class="o">::</span><span class="no">MultiParameterAttributes</span>
+</span><span class='line'>  <span class="n">field</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:type</span> <span class="o">=&gt;</span> <span class="nb">String</span>
+</span><span class='line'>  <span class="n">field</span> <span class="ss">:content</span><span class="p">,</span> <span class="ss">:type</span> <span class="o">=&gt;</span> <span class="nb">String</span>
+</span><span class='line'>  <span class="n">field</span> <span class="ss">:published_on</span><span class="p">,</span> <span class="ss">:type</span> <span class="o">=&gt;</span> <span class="no">Date</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>view也要相应改一下:</p>
+
+<figure class='code'><figcaption><span>/app/views/articles/_form.html.erb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="x">&lt;div class=&quot;field&quot;&gt;</span>
+</span><span class='line'><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:name</span> <span class="cp">%&gt;</span><span class="x">&lt;br /&gt;</span>
+</span><span class='line'><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">text_field</span> <span class="ss">:name</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">&lt;/div&gt;</span>
+</span><span class='line'><span class="x">&lt;div class=&quot;field&quot;&gt;</span>
+</span><span class='line'><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:published_on</span> <span class="cp">%&gt;</span><span class="x">&lt;br /&gt;</span>
+</span><span class='line'><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">date_select</span> <span class="ss">:published_on</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">&lt;/div&gt;</span>
+</span><span class='line'><span class="x">&lt;div class=&quot;field&quot;&gt;</span>
+</span><span class='line'><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:content</span> <span class="cp">%&gt;</span><span class="x">&lt;br /&gt;</span>
+</span><span class='line'><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">text_area</span> <span class="ss">:content</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">&lt;/div&gt;</span>
+</span><span class='line'><span class="x">&lt;div class=&quot;actions&quot;&gt;</span>
+</span><span class='line'><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">submit</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">&lt;/div&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>/app/views/articles/show.html.erb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="x">&lt;p id=&quot;notice&quot;&gt;</span><span class="cp">&lt;%=</span> <span class="n">notice</span> <span class="cp">%&gt;</span><span class="x">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;</span>
+</span><span class='line'><span class="x">  &lt;b&gt;Name:&lt;/b&gt;</span>
+</span><span class='line'><span class="x">  </span><span class="cp">&lt;%=</span> <span class="vi">@article</span><span class="o">.</span><span class="n">name</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;</span>
+</span><span class='line'><span class="x">  &lt;b&gt;Content:&lt;/b&gt;</span>
+</span><span class='line'><span class="x">  </span><span class="cp">&lt;%=</span> <span class="vi">@article</span><span class="o">.</span><span class="n">content</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">&lt;/p&gt;</span>
+</span><span class='line'><span class="x">&lt;p&gt;</span>
+</span><span class='line'><span class="x">  &lt;b&gt;Published:&lt;/b&gt;</span>
+</span><span class='line'><span class="x">  </span><span class="cp">&lt;%=</span> <span class="vi">@article</span><span class="o">.</span><span class="n">published_on</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s1">&#39;Edit&#39;</span><span class="p">,</span> <span class="n">edit_article_path</span><span class="p">(</span><span class="vi">@article</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x"> |</span>
+</span><span class='line'><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s1">&#39;Back&#39;</span><span class="p">,</span> <span class="n">articles_path</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="cp">&lt;%=</span> <span class="n">debug</span> <span class="vi">@article</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>&lt;%= debug @article %&gt;</code> 是调试信息, 有这句话, 在前台页面上就会在页脚出现@article的信息.</p>
+
+<h3><a id="Validations"></a><a href="#TOP">验证输入 Validations</a></h3>
+
+<p>Mongoid 会使用 ActiveModel 来处理一些事务, 这就有点像我们熟悉的ActiveRecord一样. 比如说在ActiveRecord中用到的validations, callbacks, dirty tracking, attr_accessible都可以搬过来用.</p>
+
+<p>下面我们为<code>:name</code>字段加上 必需输入 的验证要求:</p>
+
+<figure class='code'><figcaption><span>/app/models/article.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Article</span>
+</span><span class='line'>  <span class="kp">include</span> <span class="no">Mongoid</span><span class="o">::</span><span class="no">Document</span>
+</span><span class='line'>  <span class="kp">include</span> <span class="no">Mongoid</span><span class="o">::</span><span class="no">MultiParameterAttributes</span>
+</span><span class='line'>  <span class="n">field</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:type</span> <span class="o">=&gt;</span> <span class="nb">String</span>
+</span><span class='line'>  <span class="n">field</span> <span class="ss">:content</span><span class="p">,</span> <span class="ss">:type</span> <span class="o">=&gt;</span> <span class="nb">String</span>
+</span><span class='line'>  <span class="n">field</span> <span class="ss">:published_on</span><span class="p">,</span> <span class="ss">:type</span> <span class="o">=&gt;</span> <span class="no">Date</span>
+</span><span class='line'>  <span class="n">validates_presence_of</span> <span class="ss">:name</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3><a id="Associations"></a><a href="#TOP">表关联 Associations</a></h3>
+
+<p>不允许评论的blog会表现得有点言论暴力, 要加上<code>comments</code>在用数据库的情况下, 一个<code>has_many</code>, 就解决问题了, 现在我们就要在mongoid中寻找<code>has_many</code>的替代了.</p>
+
+<figure class='code'><figcaption><span>/app/models/article.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Article</span>
+</span><span class='line'>  <span class="kp">include</span> <span class="no">Mongoid</span><span class="o">::</span><span class="no">Document</span>
+</span><span class='line'>  <span class="kp">include</span> <span class="no">Mongoid</span><span class="o">::</span><span class="no">MultiParameterAttributes</span>
+</span><span class='line'>  <span class="n">field</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:type</span> <span class="o">=&gt;</span> <span class="nb">String</span>
+</span><span class='line'>  <span class="n">field</span> <span class="ss">:content</span><span class="p">,</span> <span class="ss">:type</span> <span class="o">=&gt;</span> <span class="nb">String</span>
+</span><span class='line'>  <span class="n">field</span> <span class="ss">:published_on</span><span class="p">,</span> <span class="ss">:type</span> <span class="o">=&gt;</span> <span class="no">Date</span>
+</span><span class='line'>  <span class="n">validates_presence_of</span> <span class="ss">:name</span>
+</span><span class='line'>  <span class="n">embeds_many</span> <span class="ss">:comments</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>添加完关联后, 来生成评论model</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rails g model comment name:string content:text
+</span><span class='line'>      invoke  mongoid
+</span><span class='line'>      create    app/models/comment.rb
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>再让comment和article手拉手:</p>
+
+<figure class='code'><figcaption><span>app/models/comment.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Comment</span>
+</span><span class='line'>  <span class="kp">include</span> <span class="no">Mongoid</span><span class="o">::</span><span class="no">Document</span>
+</span><span class='line'>  <span class="n">field</span> <span class="ss">:name</span>
+</span><span class='line'>  <span class="n">field</span> <span class="ss">:content</span>
+</span><span class='line'>  <span class="n">embedded_in</span> <span class="ss">:article</span><span class="p">,</span> <span class="ss">:inverse_of</span> <span class="o">=&gt;</span> <span class="ss">:comments</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>embedded_in</code>顾名思意就是说Comment是嵌在Article里面的, <code>inverse_of</code>呢是表明comment是通过comments嵌套在Article里面的.</p>
+
+<p>这个手拉手的关系也要在routes里面申明一下:</p>
+
+<figure class='code'><figcaption><span>confing/routes.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Neten</span><span class="o">::</span><span class="no">Application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">draw</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">resources</span> <span class="ss">:articles</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">resources</span> <span class="ss">:comments</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>好了, 现在创建comment的controller</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rails g controller comments
+</span><span class='line'>      create  app/controllers/comments_controller.rb
+</span><span class='line'>      invoke  erb
+</span><span class='line'>      create    app/views/comments
+</span><span class='line'>      invoke  helper
+</span><span class='line'>      create    app/helpers/comments_helper.rb
+</span><span class='line'>      invoke  assets
+</span><span class='line'>      invoke    coffee
+</span><span class='line'>      create      app/assets/javascripts/comments.js.coffee
+</span><span class='line'>      invoke    scss
+</span><span class='line'>      create      app/assets/stylesheets/comments.css.scss
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Comment和Article手拉手之后, 一切都要看Article的眼色(:article_id)行事</p>
+
+<figure class='code'><figcaption><span>app/controllers/comments_controller.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">CommentsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">create</span>
+</span><span class='line'>    <span class="vi">@article</span> <span class="o">=</span> <span class="no">Article</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:article_id</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@comment</span> <span class="o">=</span> <span class="vi">@article</span><span class="o">.</span><span class="n">comments</span><span class="o">.</span><span class="n">create!</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:comment</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">redirect_to</span> <span class="vi">@article</span><span class="p">,</span> <span class="ss">:notice</span> <span class="o">=&gt;</span> <span class="s2">&quot;Comment created!&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在<code>app/views/articles/show.html.erb</code>的最后面加上comments的代码:</p>
+
+<figure class='code'><figcaption><span>app/views/articles/show.html.erb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="cp">&lt;%</span> <span class="k">if</span> <span class="vi">@article</span><span class="o">.</span><span class="n">comments</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">  &lt;h2&gt;Comments&lt;/h2&gt;</span>
+</span><span class='line'><span class="x">  </span><span class="cp">&lt;%</span> <span class="k">for</span> <span class="n">comment</span> <span class="k">in</span> <span class="vi">@article</span><span class="o">.</span><span class="n">comments</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">    &lt;h3&gt;</span><span class="cp">&lt;%=</span> <span class="n">comment</span><span class="o">.</span><span class="n">name</span> <span class="cp">%&gt;</span><span class="x">&lt;/h3&gt;</span>
+</span><span class='line'><span class="x">    &lt;p&gt;</span><span class="cp">&lt;%=</span> <span class="n">comment</span><span class="o">.</span><span class="n">content</span> <span class="cp">%&gt;</span><span class="x">&lt;/p&gt;</span>
+</span><span class='line'><span class="x">  </span><span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;h2&gt;New Comment&lt;/h2&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">&lt;%=</span> <span class="n">form_for</span> <span class="o">[</span><span class="vi">@article</span><span class="p">,</span> <span class="no">Comment</span><span class="o">.</span><span class="n">new</span><span class="o">]</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">  &lt;p&gt;</span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:name</span> <span class="cp">%&gt;</span><span class="x"> </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">text_field</span> <span class="ss">:name</span> <span class="cp">%&gt;</span><span class="x">&lt;/p&gt;</span>
+</span><span class='line'><span class="x">  &lt;p&gt;</span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">text_area</span> <span class="ss">:content</span><span class="p">,</span> <span class="ss">:rows</span> <span class="o">=&gt;</span> <span class="mi">10</span> <span class="cp">%&gt;</span><span class="x">&lt;/p&gt;</span>
+</span><span class='line'><span class="x">  &lt;p&gt;</span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">submit</span> <span class="cp">%&gt;</span><span class="x">&lt;/p&gt;</span>
+</span><span class='line'><span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>好, 现在打开网站尽情地发表自己的观点吧.</p>
+
+<h3><a id="ReferenceTypeAssociations"></a><a href="#TOP">引用关联 Reference Type Associations</a></h3>
+
+<p>有的blog可能是夫妻店, 所以把Blog的作者放到文章里面还是很有用处的, scaffold又要上班了.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rails g scaffold author name:string
+</span><span class='line'>      invoke  mongoid
+</span><span class='line'>      create    app/models/author.rb
+</span><span class='line'>       route  resources :authors
+</span><span class='line'>      invoke  scaffold_controller
+</span><span class='line'>      create    app/controllers/authors_controller.rb
+</span><span class='line'>      invoke    erb
+</span><span class='line'>      create      app/views/authors
+</span><span class='line'>      create      app/views/authors/index.html.erb
+</span><span class='line'>      create      app/views/authors/edit.html.erb
+</span><span class='line'>      create      app/views/authors/show.html.erb
+</span><span class='line'>      create      app/views/authors/new.html.erb
+</span><span class='line'>      create      app/views/authors/_form.html.erb
+</span><span class='line'>      invoke    helper
+</span><span class='line'>      create      app/helpers/authors_helper.rb
+</span><span class='line'>      invoke  assets
+</span><span class='line'>      invoke    coffee
+</span><span class='line'>      create      app/assets/javascripts/authors.js.coffee
+</span><span class='line'>      invoke    scss
+</span><span class='line'>      create      app/assets/stylesheets/authors.css.scss
+</span><span class='line'>      invoke  scss
+</span><span class='line'>   identical    app/assets/stylesheets/scaffolds.css.scss
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>添加一个key字段, 这样可以在生成链接的时候, 将小写的:name字段做链接名称, 并在表中作_id. 中文没有小写, 不过没关系, 直接用汉字做链接, 比如: <code>http://localhost:3000/authors/张三/edit</code>, <code>references_many</code>可以定义其与articles的关系.</p>
+
+<figure class='code'><figcaption><span>app/models/author.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Author</span>
+</span><span class='line'>  <span class="kp">include</span> <span class="no">Mongoid</span><span class="o">::</span><span class="no">Document</span>
+</span><span class='line'>  <span class="n">field</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:type</span> <span class="o">=&gt;</span> <span class="nb">String</span>
+</span><span class='line'>  <span class="n">key</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:type</span> <span class="o">=&gt;</span> <span class="nb">String</span>
+</span><span class='line'>  <span class="n">references_many</span> <span class="ss">:articles</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>用这个链接可以添加一些作者 <a href="http://localhost:3000/authors/">http://localhost:3000/authors/</a>
+添加过后去命令行看一下:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="o">&gt;</span> <span class="n">use</span> <span class="n">neten_development</span>
+</span><span class='line'><span class="n">switched</span> <span class="k">to</span> <span class="n">db</span> <span class="n">neten_development</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">db</span><span class="p">.</span><span class="n">authors</span><span class="p">.</span><span class="n">find</span><span class="p">()</span>
+</span><span class='line'><span class="err">{</span> <span class="ss">&quot;_id&quot;</span> <span class="p">:</span> <span class="ss">&quot;peter&quot;</span><span class="p">,</span> <span class="ss">&quot;name&quot;</span> <span class="p">:</span> <span class="ss">&quot;Peter&quot;</span> <span class="err">}</span>
+</span><span class='line'><span class="err">{</span> <span class="ss">&quot;_id&quot;</span> <span class="p">:</span> <span class="ss">&quot;paul&quot;</span><span class="p">,</span> <span class="ss">&quot;name&quot;</span> <span class="p">:</span> <span class="ss">&quot;Paul&quot;</span> <span class="err">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在<code>app/models/article.rb</code>里面要用<code>referenced_in</code>.</p>
+
+<figure class='code'><figcaption><span>app/models/article.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Article</span>
+</span><span class='line'>  <span class="kp">include</span> <span class="no">Mongoid</span><span class="o">::</span><span class="no">Document</span>
+</span><span class='line'>  <span class="n">field</span> <span class="ss">:name</span>
+</span><span class='line'>  <span class="n">field</span> <span class="ss">:content</span>
+</span><span class='line'>  <span class="n">field</span> <span class="ss">:published_on</span><span class="p">,</span> <span class="ss">:type</span> <span class="o">=&gt;</span> <span class="no">Date</span>
+</span><span class='line'>  <span class="n">validates_presence_of</span> <span class="ss">:name</span>
+</span><span class='line'>  <span class="n">embeds_many</span> <span class="ss">:comments</span>
+</span><span class='line'>  <span class="n">referenced_in</span> <span class="ss">:author</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>为了方便写Blog的人能够添加作者, 我们可以建立一个Select代码.</p>
+
+<figure class='code'><figcaption><span>app/views/articles/_form.html.erb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="x">&lt;div class=&quot;field&quot;&gt;</span>
+</span><span class='line'><span class="x">  </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:author_id</span> <span class="cp">%&gt;</span><span class="x">&lt;br /&gt;</span>
+</span><span class='line'><span class="x">  </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">collection_select</span> <span class="ss">:author_id</span><span class="p">,</span> <span class="no">Author</span><span class="o">.</span><span class="n">all</span><span class="p">,</span> <span class="ss">:id</span><span class="p">,</span> <span class="ss">:name</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">&lt;/div&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>当然不要忘记在展示页面也要让作者出现, 因为前面有可能没有定义作者, 还是加个if吧, 这样不会出错.</p>
+
+<figure class='code'><figcaption><span>app/views/articles/show.html.erb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="cp">&lt;%</span> <span class="k">if</span> <span class="vi">@article</span><span class="o">.</span><span class="n">author</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">&lt;p&gt;</span>
+</span><span class='line'><span class="x">  &lt;b&gt;Author:&lt;/b&gt;</span>
+</span><span class='line'><span class="x">  </span><span class="cp">&lt;%=</span> <span class="vi">@article</span><span class="o">.</span><span class="n">author</span><span class="o">.</span><span class="n">name</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">&lt;/p&gt;</span>
+</span><span class='line'><span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最后总结一下Comment和Author, 因为Comments是Embeded在Articles中的, 所以它就是个附庸, 没有自己的家(Collection), 而Author是一个Reference, 所以它有自己的房子(Collection).</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="o">&gt;</span> <span class="k">show</span> <span class="n">collections</span>
+</span><span class='line'><span class="n">articles</span>
+</span><span class='line'><span class="n">authors</span>
+</span><span class='line'><span class="k">system</span><span class="p">.</span><span class="n">indexes</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>从Rails控制台检索一下结果:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="err">$</span> <span class="n">rails</span> <span class="n">c</span>
+</span><span class='line'><span class="no">Loading</span> <span class="n">development</span> <span class="n">environment</span> <span class="p">(</span><span class="no">Rails</span> <span class="mi">3</span><span class="o">.</span><span class="mi">2</span><span class="o">.</span><span class="mi">3</span><span class="p">)</span>
+</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p194</span> <span class="p">:</span><span class="mo">001</span> <span class="o">&gt;</span> <span class="no">Article</span><span class="o">.</span><span class="n">first</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="c1">#&lt;Article _id: 4fbd001de6fc8c2470000002, _type: nil, name: &quot;first&quot;, content: &quot;first post&quot;, published_on: 2012-03-03 00:00:00 UTC, author_id: &quot;peter&quot;, published_on(1i): &quot;2012&quot;, published_on(2i): &quot;3&quot;, published_on(3i): &quot;3&quot;&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p194</span> <span class="p">:</span><span class="mo">00</span><span class="mi">9</span> <span class="o">&gt;</span> <span class="no">Article</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">comments</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="o">[</span><span class="c1">#&lt;Comment _id: 4fbe5755e6fc8c6c3f000004, _type: nil, name: &quot;good&quot;, content: &quot;this is a awesome blog&quot;&gt;]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>从MongoDB的命令行检索一下, 和上面作个对比:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="err">$</span> <span class="n">mongo</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">use</span> <span class="n">neten_development</span>
+</span><span class='line'><span class="n">switched</span> <span class="k">to</span> <span class="n">db</span> <span class="n">neten_development</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">db</span><span class="p">.</span><span class="n">articles</span><span class="p">.</span><span class="n">find</span><span class="p">(</span> <span class="err">{</span><span class="n">name</span><span class="p">:</span> <span class="ss">&quot;first&quot;</span><span class="err">}</span><span class="p">)</span>
+</span><span class='line'><span class="err">{</span> <span class="ss">&quot;_id&quot;</span> <span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="ss">&quot;4fbd001de6fc8c2470000002&quot;</span><span class="p">),</span> <span class="ss">&quot;author_id&quot;</span> <span class="p">:</span> <span class="ss">&quot;peter&quot;</span><span class="p">,</span> <span class="ss">&quot;comments&quot;</span> <span class="p">:</span> <span class="p">[</span>  <span class="err">{</span>  <span class="ss">&quot;_id&quot;</span> <span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="ss">&quot;4fbe5755e6fc8c6c3f000004&quot;</span><span class="p">),</span>   <span class="ss">&quot;name&quot;</span> <span class="p">:</span> <span class="ss">&quot;good&quot;</span><span class="p">,</span>  <span class="ss">&quot;content&quot;</span> <span class="p">:</span> <span class="ss">&quot;this is a awesome blog&quot;</span> <span class="err">}</span> <span class="p">],</span> <span class="ss">&quot;content&quot;</span> <span class="p">:</span> <span class="ss">&quot;first post&quot;</span><span class="p">,</span> <span class="ss">&quot;name&quot;</span> <span class="p">:</span> <span class="ss">&quot;first&quot;</span><span class="p">,</span> <span class="ss">&quot;published_on&quot;</span> <span class="p">:</span> <span class="n">ISODate</span><span class="p">(</span><span class="ss">&quot;2012-03-03T00:00:00Z&quot;</span><span class="p">),</span> <span class="ss">&quot;published_on(1i)&quot;</span> <span class="p">:</span> <span class="ss">&quot;2012&quot;</span><span class="p">,</span> <span class="ss">&quot;published_on(2i)&quot;</span> <span class="p">:</span> <span class="ss">&quot;3&quot;</span><span class="p">,</span> <span class="ss">&quot;published_on(3i)&quot;</span> <span class="p">:</span> <span class="ss">&quot;3&quot;</span> <span class="err">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Peter</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-19T22:42:00+02:00" pubdate data-updated="true">May 19<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/posts/categories/website/'>Website</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/posts/2012/05/16/sed-pi-liang-ti-huan-wen-jian-zhong-de-zi-fu/" title="Previous Post: sed 批量替换文件中的字符">&laquo; sed 批量替换文件中的字符</a>
+      
+      
+        <a class="basic-alignment right" href="/posts/2012/06/06/mongodb-scaffolding-devise-omniauth-cancan-2/" title="Next Post: MongoDB Scaffolding Devise Omniauth CanCan (2)">MongoDB Scaffolding Devise Omniauth CanCan (2) &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/2014/01/27/install-mysql-using-homebrew/">在 Mac 下用 Homebrew 安装 MySQL</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2013/10/06/use-ffmpeg-to-burn-subtitles-into-the-video/">Use FFmpeg to burn subtitles into the video</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2013/02/17/ruby-block-proc-and-lambda/">Ruby -- block Proc and lambda</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/10/18/mac-os-x-10-dot-8-2-problems-after-update/">Mac OS X 10.8.2 Problems after update</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/02/mac-octopress-ioerror-invalid-python-installation/">Mac Octopress IOError invalid Python installation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/02/rstudio-non-utf8-warning-message/">RStudio non-UTF8 warning message</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/01/pdf-version-found-1-dot-5-but-allowed-1-dot-4/">PDF version found 1.5 but allowed 1.4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/07/21/fatal-error-stdio-dot-h-file-not-found/">fatal error: stdio.h file not found</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/06/06/mongodb-scaffolding-devise-omniauth-cancan-2/">MongoDB Scaffolding Devise Omniauth CanCan (2)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/05/19/mongodb-scaffolding-devise-omniauth-cancan-1/">MongoDB Scaffolding Devise Omniauth CanCan (1)</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>最近评论</h1>
+  <script type="text/javascript" src="http://neten.disqus.com/combination_widget.js?num_items=5&hide_mods=0&color=grey&default_tab=recent&excerpt_length=200"></script>
+</section>
+<section>
+  <h1>常用资料</h1>
+    <ul id="recent_posts">
+      <li class="post">
+        <a href="/posts/93">来几个Linux命令</a>
+      </li>
+      <li class="post">
+        <a href="/posts/344">Mysql 改变数据库目录</a>
+      </li>
+      <li class="post">
+        <a href="/posts/254">Latex & TexMakerX</a>
+      </li>
+      <li class="post">
+        <a href="/posts/241">在Ubuntu上通过SSH安装Virtualbox</a>
+      </li>
+      <li class="post">
+        <a href="/posts/73">汉德词典 for MDict & Babylon</a>
+      </li>
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2005 - 2016 - Peter - | 
+  <span><a href="/posts/94">Impressum</a></span>
+  <span class="credit" style="float:right">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'neten';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ZPVIP.github.io/posts/2012/05/19/mongodb-scaffolding-devise-omniauth-cancan-1/';
+        var disqus_url = 'http://ZPVIP.github.io/posts/2012/05/19/mongodb-scaffolding-devise-omniauth-cancan-1/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="/javascripts/jimdoclockzip.js"></script>
+</body>
+</html>

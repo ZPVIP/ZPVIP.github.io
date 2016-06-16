@@ -5,14 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>简洁的想法</title>
+  <title>Ruby -- block Proc and lambda - 简洁的想法</title>
   <meta name="author" content="Peter">
 
   
-  <meta name="description" content="在 Mac 下用 Homebrew 安装 MySQL, 网上的教程倒是很多，不过大多数都很默契地雷同。如果稍有点定制要求，就无从下手了。 我先也不免俗，从基本的开始： 一、首先安装 Homebrew 1
-2
-3
-$ ruby -e &quot;$(curl -fsSL https://raw. &hellip;">
+  <meta name="description" content="Block是Ruby中相当sexy的特性。对于常年在C/C++中Coding的码农来说，不管是表达方式还是思考方式都有点让人感觉不适应。
+Block是一个统称，中文名称又叫闭包，英文是Closure，表现形式有block, Proc and lambda。Proc是对block的面向对象的封装， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,7 +19,7 @@ $ ruby -e &quot;$(curl -fsSL https://raw. &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://ZPVIP.github.io">
+  <link rel="canonical" href="http://ZPVIP.github.io/posts/2013/02/17/ruby-block-proc-and-lambda">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -72,193 +70,12 @@ $ ruby -e &quot;$(curl -fsSL https://raw. &hellip;">
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/posts/2014/01/27/install-mysql-using-homebrew/">在 Mac 下用 Homebrew 安装 MySQL</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T21:27:00+01:00" pubdate data-updated="true">Jan 27<span>th</span>, 2014</time>
-        
-         | <a href="/posts/2014/01/27/install-mysql-using-homebrew/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>在 Mac 下用 Homebrew 安装 MySQL, 网上的教程倒是很多，不过大多数都很默契地雷同。如果稍有点定制要求，就无从下手了。</p>
-
-<p>我先也不免俗，从基本的开始：</p>
-
-<h2>一、首先安装 Homebrew</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>ruby -e <span class="s2">&quot;$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)&quot;</span>
-</span><span class='line'><span class="nv">$ </span>brew install git
-</span><span class='line'><span class="nv">$ </span>brew update
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p></p>
-
-<h2>二、安装 MySQL</h2>
-
-<p>用下面的命令就可以自动安装了：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew install mysql
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p></p>
-
-<p>如果想让 MySQL 开机自动启动，可以如下操作：</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/posts/2014/01/27/install-mysql-using-homebrew/">More &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/posts/2013/10/06/use-ffmpeg-to-burn-subtitles-into-the-video/">Use FFmpeg to Burn Subtitles Into the Video</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-06T12:41:00+02:00" pubdate data-updated="true">Oct 6<span>th</span>, 2013</time>
-        
-         | <a href="/posts/2013/10/06/use-ffmpeg-to-burn-subtitles-into-the-video/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://www.ffmpeg.org/">FFmpeg</a> 是个强大的跨平台软件，在Mac下使用的时候要稍注意一下。我这记录一下自己的摸索过程。</p>
-
-<p>我想在一个 MP4 文件里面添加字幕，不是把 .srt 字幕文件集成到 MP4 文件里，然后在播放器里选择字幕，这种集成字幕比较简单，速度也相当快：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>ffmpeg -i input.mp4 -i subtitles.srt -c:s mov_text -c:v copy -c:a copy output.mp4
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>我希望字幕直接显示出来，其实也不难，两句命令而已：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>ffmpeg -i subtitle.srt subtitle.ass
-</span><span class='line'>ffmpeg -i input.mp4 -vf <span class="nv">ass</span><span class="o">=</span>subtitle.ass output.mp4
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>但在 Mac 下处理不成功，我看到有错误信息：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>Fontconfig error: Cannot load default config file
-</span><span class='line'><span class="o">[</span>Parsed_ass_0 @ 0x102d00000<span class="o">]</span> No usable fontconfig configuration file found, using fallback.
-</span><span class='line'>Fontconfig error: Cannot load default config file
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>看来是 Fontconfig 出了问题，我的解决方案是：</p>
-
-<p>一、在~/.bashrc 最后添加一句：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">export </span><span class="nv">FONTCONFIG_PATH</span><span class="o">=</span>/opt/X11/lib/X11/fontconfig
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>使之有效：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">source</span> ~/.bashrc
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>二、编辑 /opt/X11/lib/X11/fontconfig/fonts.conf
-在字体目录添加 /Library/Fonts</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='xml'><span class='line'>:
-</span><span class='line'><span class="c">&lt;!-- Font directory list --&gt;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="nt">&lt;dir&gt;</span>/opt/X11/share/fonts<span class="nt">&lt;/dir&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;dir&gt;</span>/usr/X11R6/lib/X11/fonts<span class="nt">&lt;/dir&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;dir&gt;</span>~/.fonts<span class="nt">&lt;/dir&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;dir&gt;</span>/Library/Fonts<span class="nt">&lt;/dir&gt;</span>
-</span><span class='line'>:
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>再次运行添加 ass 字幕的命令就可以了，简单吧。市面上那么多视频处理软件，我估计都是FFmpeg加了个UI而已，如果命令行用得好，效率会高很多的。</p>
-
-<p>更多 fontconfig 的信息可以参考<a href="http://www.freedesktop.org/software/fontconfig/fontconfig-user.html">这里</a>。</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/posts/2013/02/17/ruby-block-proc-and-lambda/">Ruby &#8211; Block Proc and Lambda</a></h1>
+      <h1 class="entry-title">Ruby -- Block Proc and Lambda</h1>
     
     
       <p class="meta">
@@ -276,14 +93,14 @@ $ ruby -e &quot;$(curl -fsSL https://raw. &hellip;">
 
 <time datetime="2013-02-17T20:05:00+01:00" pubdate data-updated="true">Feb 17<span>th</span>, 2013</time>
         
-         | <a href="/posts/2013/02/17/ruby-block-proc-and-lambda/#disqus_thread">Comments</a>
+         | <a href="#disqus_thread">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Block是Ruby中相当sexy的特性。对于常年在C/C++中Coding的码农来说，不管是表达方式还是思考方式都有点让人感觉不适应。
+<div class="entry-content"><p>Block是Ruby中相当sexy的特性。对于常年在C/C++中Coding的码农来说，不管是表达方式还是思考方式都有点让人感觉不适应。
 Block是一个统称，中文名称又叫闭包，英文是Closure，表现形式有block, Proc and lambda。Proc是对block的面向对象的封装， lambda是对Proc的进一步封装。</p>
 
 <h1>block</h1>
@@ -598,75 +415,16 @@ Block是一个统称，中文名称又叫闭包，英文是Closure，表现形�
 
 <p><a href="http://ruby-windy.iteye.com/blog/1197302">理解Ruby中block的本质</a></p>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/posts/2012/10/18/mac-os-x-10-dot-8-2-problems-after-update/">Mac OS X 10.8.2 Problems After Update</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
   
 
+<span class="byline author vcard">Posted by <span class="fn">Peter</span></span>
 
-<time datetime="2012-10-18T21:51:00+02:00" pubdate data-updated="true">Oct 18<span>th</span>, 2012</time>
-        
-         | <a href="/posts/2012/10/18/mac-os-x-10-dot-8-2-problems-after-update/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Mac OS X 升级到10.8.2 以后，至少Retina Mac Pro 连接HDMI设备会出现问题，表现是笔记本和外接设备都黑屏，并且有个大大的鼠标，就像是分辨率变小了似的。</p>
-
-<p>系统升级到OS X 10.8.2 (12C60)之后也没有改观。</p>
-
-<p><a href="https://discussions.apple.com/thread/4312536?start=45&amp;tstart=0">Google之后</a>发现三步可以解决问题：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo rm /Library/Preferences/com.apple.windowserver.plist
-</span><span class='line'>rm ~/Library/Preferences/ByHost/com.apple.windowserver.C751F3F4-AAAF-5E66-BDBF-91FD6960CC19.plist
-</span><span class='line'>sudo shutdown -r now
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>第二步最后的文件名windowserver后面可能有点不一样，第三步是重启电脑，有打开的文件别忘记先存盘。</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/posts/2012/08/02/mac-octopress-ioerror-invalid-python-installation/">Mac Octopress IOError Invalid Python Installation</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
@@ -678,464 +436,44 @@ Block是一个统称，中文名称又叫闭包，英文是Closure，表现形�
   
 
 
-<time datetime="2012-08-02T21:49:00+02:00" pubdate data-updated="true">Aug 2<span>nd</span>, 2012</time>
-        
-         | <a href="/posts/2012/08/02/mac-octopress-ioerror-invalid-python-installation/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>经过这么多天的与Warning的邂逅，今天终于开云见日迎来了一个Error. 就在全国人民喜迎这个<code>IOError</code>之际，我三省吾身，不知道是因为升级了Mountain Lion 还是因为我最近折腾系统太厉害的缘故，好好的一个Octopress今天居然在<code>rake generate</code>的时候给我报错：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Building site: source -&gt; public
-</span><span class='line'>Traceback (most recent call last):
-</span><span class='line'>  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site.py", line 565, in &lt;module&gt;
-</span><span class='line'>  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site.py", line 547, in main
-</span><span class='line'>  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site.py", line 278, in addusersitepackages
-</span><span class='line'>  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site.py", line 253, in getusersitepackages
-</span><span class='line'>  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site.py", line 243, in getuserbase
-</span><span class='line'>  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/sysconfig.py", line 523, in get_config_var
-</span><span class='line'>  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/sysconfig.py", line 419, in get_config_vars
-</span><span class='line'>  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/sysconfig.py", line 298, in _init_posix
-</span><span class='line'>IOError: invalid Python installation: unable to open /usr/include/python2.7/pyconfig.h (No such file or directory)</span></code></pre></td></tr></table></div></figure>
-
-
-<p>前面一堆文件都是在<code>/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/</code>，不知道为什么最后会找到这个文件夹去<code>/usr/include/python2.7/</code>。</p>
-
-<p>这类找不到文件的问题在*nix下其实还是很好解决的，只要我能找到这个文件， 再把它<code>ln</code>过去就好了：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo mkdir /usr/include/
-</span><span class='line'>$ sudo ln -s /System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7/ /usr/include/python2.7</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
+<time datetime="2013-02-17T20:05:00+01:00" pubdate data-updated="true">Feb 17<span>th</span>, 2013</time>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/posts/2012/08/02/rstudio-non-utf8-warning-message/">RStudio non-UTF8 Warning Message</a></h1>
-    
-    
-      <p class="meta">
-        
 
-
-
-
-
-
-
-
+<span class="categories">
   
+    <a class='category' href='/posts/categories/website/'>Website</a>
+  
+</span>
 
 
-<time datetime="2012-08-02T20:06:00+02:00" pubdate data-updated="true">Aug 2<span>nd</span>, 2012</time>
-        
-         | <a href="/posts/2012/08/02/rstudio-non-utf8-warning-message/#disqus_thread">Comments</a>
-        
-      </p>
+    </p>
     
-  </header>
-
-
-  <div class="entry-content"><p>Rstudio 是一个不错的R语言IDE, 因为集成<a href="http://yihui.name/knitr">knitr</a>, 使得这样一个编程IDE可以用Markdown来生成漂亮的PDF文本，甚至可以用LaTEX的语法加入公式，这样小篇幅的科技短文都可以用Markdown来写了。</p>
-
-<p>我饶有兴致地安装了RStudio，结果一运行居然报了一个Warning，看来最近我的Warning不少。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>During startup - Warning messages: 
-</span><span class='line'>1: Setting LC_CTYPE failed, using "C" 
-</span><span class='line'>2: Setting LC_COLLATE failed, using "C" 
-</span><span class='line'>3: Setting LC_TIME failed, using "C" 
-</span><span class='line'>4: Setting LC_MESSAGES failed, using "C" 
-</span><span class='line'>WARNING: You're using a non-UTF8 locale, therefore only ASCII 
-</span><span class='line'>characters will work. 
-</span><span class='line'>Please read R for Mac OS X FAQ (see Help) section 9 and adjust your 
-</span><span class='line'>system preferences accordingly. </span></code></pre></td></tr></table></div></figure>
-
-
-<p>解决的方法也就一句话，放在R控制台运行一下就好了：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>system("defaults write org.R-project.R force.LANG en_US.UTF-8")</span></code></pre></td></tr></table></div></figure>
-
+      <div class="sharing">
+  
+  
+  
 </div>
-  
-  
 
-
-    </article>
-  
-  
-    <article>
+    
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/posts/2012/08/01/pdf-version-found-1-dot-5-but-allowed-1-dot-4/">PDF Version Found 1.5 but Allowed 1.4</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-08-01T09:47:00+02:00" pubdate data-updated="true">Aug 1<span>st</span>, 2012</time>
-        
-         | <a href="/posts/2012/08/01/pdf-version-found-1-dot-5-but-allowed-1-dot-4/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>用Latex的时候，如果嵌入的PDF图片版本是1.5，而Latex只支持1.4的时候，就会出现很多Warning：</p>
-
-<p><code>
- pdflatex (file ./graphics/abcde.pdf): PDF inclusion: found PDF version &lt;1.5&gt;, but at most version &lt;1.4&gt; allowed...
-</code></p>
-
-<p>Warning只是不好看，PDF还是会正确生成的，我不愿像传说中的程序员那样不关心Warning，但也无力把PDF图片改成1.4的版本，只好用sed大法了：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span><span class="nb">cd </span>graphics
-</span><span class='line'><span class="nv">$ </span><span class="k">for </span>i in *.pdf; <span class="k">do </span>sed -i -e  <span class="s2">&quot;s/%PDF-1.5/%PDF-1.4/&quot;</span> <span class="nv">$i</span>; <span class="k">done</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>附上那个老掉牙的程序员笑话吧:</p>
-
-<blockquote><p>有一个小伙子在一个办公大楼的门口抽着烟，一个妇女路过他身边，并对他说，“你知道不知道这个东西会危害你的健康？我是说，你有没有注意到香烟盒上的那个警告（Warning）？” 小伙子说，“没事儿，我是一个程序员”。 那妇女说，“这又怎样？” 程序员说，“我们从来不关心Warning，只心关心Error。”</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
+        <a class="basic-alignment left" href="/posts/2012/10/18/mac-os-x-10-dot-8-2-problems-after-update/" title="Previous Post: Mac OS X 10.8.2 Problems after update">&laquo; Mac OS X 10.8.2 Problems after update</a>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/posts/2012/07/21/fatal-error-stdio-dot-h-file-not-found/">Fatal Error: stdio.h File Not Found</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-07-21T20:31:00+02:00" pubdate data-updated="true">Jul 21<span>st</span>, 2012</time>
-        
-         | <a href="/posts/2012/07/21/fatal-error-stdio-dot-h-file-not-found/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>OS X 10.7.3 安装XCode 4.3.1 之后，如果你也安装了命令行：
-Preferences > Downloads > Components and click install on Command Line Tools</p>
-
-<p>那再编译什么东西的时候，就有可能收到报错信息，比如我就是在bundle install的时候得到如下信息：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>Installing rb-fsevent <span class="o">(</span>0.4.3.1<span class="o">)</span> with native extensions
-</span><span class='line'>Gem::Installer::ExtensionBuildError: ERROR: Failed to build gem native extension.
-</span><span class='line'>
-</span><span class='line'>        /usr/local/rvm/rubies/ruby-1.9.3-p194/bin/ruby extconf.rb
-</span><span class='line'>creating Makefile
-</span><span class='line'><span class="nv">CFLAGS</span><span class="o">=</span><span class="s1">&#39;-isysroot /Developer/SDKs/MacOSX10.7.sdk -mmacosx-version-min=10.7 -mdynamic-no-pic -std=gnu99 -Os -pipe -Wmissing-prototypes -Wreturn-type -Wmissing-braces -Wparentheses -Wswitch -Wunused-function -Wunused-label -Wunused-parameter -Wunused-variable -Wunused-value -Wuninitialized -Wunknown-pragmas -Wshadow -Wfour-char-constants -Wsign-compare -Wnewline-eof -Wconversion -Wshorten-64-to-32 -Wglobal-constructors -pedantic&#39;</span> /usr/bin/clang -isysroot /Developer/SDKs/MacOSX10.7.sdk -mmacosx-version-min<span class="o">=</span>10.7 -mdynamic-no-pic -std<span class="o">=</span>gnu99 -dead_strip -framework CoreServices -o <span class="s1">&#39;/usr/local/rvm/gems/ruby-1.9.3-p194/gems/rb-fsevent-0.4.3.1/bin/fsevent_watch&#39;</span> fsevent/fsevent_watch.c
-</span><span class='line'>fsevent/fsevent_watch.c:1:10: fatal error: <span class="s1">&#39;stdio.h&#39;</span> file not found
-</span><span class='line'><span class="c">#include &lt;stdio.h&gt;</span>
-</span><span class='line'>         ^
-</span><span class='line'>1 error generated.
-</span><span class='line'>extconf.rb:59:in <span class="sb">`</span>&lt;main&gt;<span class="s1">&#39;: Compilation of fsevent_watch failed (see README) (RuntimeError)</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="s1">Gem files will remain installed in /usr/local/rvm/gems/ruby-1.9.3-p194/gems/rb-fsevent-0.4.3.1 for inspection.</span>
-</span><span class='line'><span class="s1">Results logged to /usr/local/rvm/gems/ruby-1.9.3-p194/gems/rb-fsevent-0.4.3.1/ext/gem_make.out</span>
-</span><span class='line'><span class="s1">An error occured while installing rb-fsevent (0.4.3.1), and Bundler cannot continue.</span>
-</span><span class='line'><span class="s1">Make sure that `gem install rb-fsevent -v &#39;</span>0.4.3.1<span class="err">&#39;</span><span class="sb">`</span> succeeds before bundling.
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>如果用心看一下，报的是<code>stdio.h file not found</code>.</p>
-
-<p>其实问题出在这个command line tools上，可以用下面这个命令修正：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/posts/2012/06/06/mongodb-scaffolding-devise-omniauth-cancan-2/">MongoDB Scaffolding Devise Omniauth CanCan (2)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-06-06T22:26:00+02:00" pubdate data-updated="true">Jun 6<span>th</span>, 2012</time>
-        
-         | <a href="/posts/2012/06/06/mongodb-scaffolding-devise-omniauth-cancan-2/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a id="TOP0606"></a>
-1. <a href="#Devise">Devise</a><br/>
-2. <a href="#Omniauth">Omniauth</a><br/>
-3. <a href="#CanCan">CanCan</a></p>
-
-<h2><a id="Devise"></a><a href="#TOP">Devise</a></h2>
-
-<p>现在安装Devise, 和使用其它数据库一样, 首先在Gemfile加入devise, 然后安装Devise:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vi Gemfile
-</span><span class='line'>...
-</span><span class='line'>gem <span class="s1">&#39;devise&#39;</span>,<span class="s1">&#39;2.1.0&#39;</span>
-</span><span class='line'>...
-</span><span class='line'><span class="nv">$ </span>bundle install
-</span><span class='line'>      create  config/initializers/devise.rb
-</span><span class='line'>      create  config/locales/devise.en.yml
-</span><span class='line'><span class="o">===============================================================================</span>
-</span><span class='line'>
-</span><span class='line'>Some setup you must <span class="k">do </span>manually <span class="k">if </span>you haven<span class="s1">&#39;t yet:</span>
-</span><span class='line'>
-</span><span class='line'><span class="s1">  1. Ensure you have defined default url options in your environments files. Here</span>
-</span><span class='line'><span class="s1">     is an example of default_url_options appropriate for a development environment</span>
-</span><span class='line'><span class="s1">     in config/environments/development.rb:</span>
-</span><span class='line'>
-</span><span class='line'><span class="s1">       config.action_mailer.default_url_options = { :host =&gt; &#39;</span>localhost:3000<span class="err">&#39;</span> <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>     In production, :host should be <span class="nb">set </span>to the actual host of your application.
-</span><span class='line'>
-</span><span class='line'>  2. Ensure you have defined root_url to *something* in your config/routes.rb.
-</span><span class='line'>     For example:
-</span><span class='line'>
-</span><span class='line'>       root :to <span class="o">=</span>&gt; <span class="s2">&quot;home#index&quot;</span>
-</span><span class='line'>
-</span><span class='line'>  3. Ensure you have flash messages in app/views/layouts/application.html.erb.
-</span><span class='line'>     For example:
-</span><span class='line'>
-</span><span class='line'>       &lt;p <span class="nv">class</span><span class="o">=</span><span class="s2">&quot;notice&quot;</span>&gt;&lt;%<span class="o">=</span> notice %&gt;&lt;/p&gt;
-</span><span class='line'>       &lt;p <span class="nv">class</span><span class="o">=</span><span class="s2">&quot;alert&quot;</span>&gt;&lt;%<span class="o">=</span> alert %&gt;&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>  4. If you are deploying Rails 3.1 on Heroku, you may want to <span class="nb">set</span>:
-</span><span class='line'>
-</span><span class='line'>       config.assets.initialize_on_precompile <span class="o">=</span> <span class="nb">false</span>
-</span><span class='line'>
-</span><span class='line'><span class="nb">     </span>On config/application.rb forcing your application to not access the DB
-</span><span class='line'>     or load models when precompiling your assets.
-</span><span class='line'>
-</span><span class='line'><span class="o">===============================================================================</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/posts/2012/06/06/mongodb-scaffolding-devise-omniauth-cancan-2/">More &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
+        <a class="basic-alignment right" href="/posts/2013/10/06/use-ffmpeg-to-burn-subtitles-into-the-video/" title="Next Post: Use FFmpeg to burn subtitles into the video">Use FFmpeg to burn subtitles into the video &raquo;</a>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/posts/2012/05/19/mongodb-scaffolding-devise-omniauth-cancan-1/">MongoDB Scaffolding Devise Omniauth CanCan (1)</a></h1>
-    
-    
-      <p class="meta">
-        
+    </p>
+  </footer>
+</article>
 
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-05-19T22:42:00+02:00" pubdate data-updated="true">May 19<span>th</span>, 2012</time>
-        
-         | <a href="/posts/2012/05/19/mongodb-scaffolding-devise-omniauth-cancan-1/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a id="TOP"></a>
-Ruby on Rails 的学习曲线还算是有一点陡的, 作为一个初学者, 建议先看一下Ruby的语法书, 再看一下Rails的<a href="http://guides.rubyonrails.org">入门教材和示例</a>, 但真正做项目的时候, 可能就要和各种各样Gems打交道了, 因为自己走了很多弯路, 所以想把一些笔记分享出来, 希望对新生有点帮助.</p>
-
-<p>我准备用一个Blog的示例把Scaffolding MongoDB Devise Omniauth CanCan串起来.</p>
-
-<ol>
-<li><a href="#MongoDB">MongoDB</a><br/>
-1.1 <a href="#Help">Help</a><br/>
-1.2. <a href="#CRUD">CRUD</a><br/>
-1.3. <a href="#Security">Security</a><br/>
-1.4. <a href="#Port">Port</a></li>
-<li><a href="#Prepare">准备工作</a></li>
-<li><a href="#Git">Git</a></li>
-<li><a href="#Scaffold">Scaffold</a><br/>
-4.1. <a href="#AddField">添加字段</a><br/>
-4.2. <a href="#Validations">验证输入</a><br/>
-4.3. <a href="#Associations">表关联</a><br/>
-4.4. <a href="#ReferenceTypeAssociations">引用关联</a></li>
-</ol>
-
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/posts/2012/05/19/mongodb-scaffolding-devise-omniauth-cancan-1/">More &rarr;</a>
-    </footer>
-  
 
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/posts/page/2/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
 <aside class="sidebar">
   
     <section>
@@ -1151,7 +489,7 @@ Ruby on Rails 的学习曲线还算是有一点陡的, 作为一个初学者, �
       </li>
     
       <li class="post">
-        <a href="/posts/2013/02/17/ruby-block-proc-and-lambda/">Ruby &#8211; block Proc and lambda</a>
+        <a href="/posts/2013/02/17/ruby-block-proc-and-lambda/">Ruby -- block Proc and lambda</a>
       </li>
     
       <li class="post">
@@ -1212,6 +550,7 @@ Ruby on Rails 的学习曲线还算是有一点陡的, 作为一个初学者, �
   
 </aside>
 
+
     </div>
   </div>
   <footer role="contentinfo"><p>
@@ -1227,7 +566,10 @@ Ruby on Rails 的学习曲线还算是有一点陡的, 作为一个初学者, �
       var disqus_shortname = 'neten';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ZPVIP.github.io/posts/2013/02/17/ruby-block-proc-and-lambda/';
+        var disqus_url = 'http://ZPVIP.github.io/posts/2013/02/17/ruby-block-proc-and-lambda/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

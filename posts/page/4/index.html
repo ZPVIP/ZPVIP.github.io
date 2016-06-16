@@ -1,0 +1,839 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>简洁的想法</title>
+  <meta name="author" content="Peter">
+
+  
+  <meta name="description" content="最近标题都是keywords风格，呵呵。
+Draftsight的Ubuntu版本是个32位的， 在Ubuntu64下下载后双击DraftSight.deb被告知不支持。
+该装的都装了： 1
+sudo apt-get install libdirectfb-extra libxcb-render- &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ZPVIP.github.io/posts/page/4">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="简洁的想法" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">简洁的想法</a></h1>
+  
+    <h2>仁爱、喜乐、和平、忍耐、恩慈、良善、信实、温柔、节制</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ZPVIP.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">日志</a></li>
+  <li><a href="/blog/archives">归档</a></li>
+  <li><a href="/posts/categories/website/">网站工程</a></li>
+  <li><a href="/posts/categories/collections/">网文收集</a></li>
+  <li><a href="/posts/categories/digitallife/">数字生活</a></li>
+  <li><a href="/posts/categories/memories/">路已成歌</a></li>
+  <li><a href="/posts/categories/beautifulsongs/">美曲美境</a></li>
+  <li><a href="/posts/categories/travel/">忆影斑斓</a></li>
+  <li><a href="http://bbs.neten.de">论坛</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/306/">Draftsight Ubuntu 64</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-12T00:00:00+02:00" pubdate data-updated="true">Jun 12<span>th</span>, 2011</time>
+        
+         | <a href="/posts/306/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>最近标题都是keywords风格，呵呵。</p>
+<p><a href="http://www.3ds.com/products/draftsight/download-draftsight/">Draftsight</a>的Ubuntu版本是个32位的， 在Ubuntu64下下载后双击DraftSight.deb被告知不支持。</p>
+<p>该装的都装了：<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo apt-get install libdirectfb-extra libxcb-render-util0
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>加 i 的方法也试过了：<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo dpkg -i --force-architecture DraftSight.deb
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>错误如下：<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>user@ubuntu-AMD64:~/Downloads<span class="nv">$ </span>sudo dpkg -i --force-architecture DraftSight.deb
+</span><span class='line'>dpkg: warning: overriding problem because --force enabled:
+</span><span class='line'>package architecture <span class="o">(</span>i386<span class="o">)</span> does not match system <span class="o">(</span>amd64<span class="o">)</span>
+</span><span class='line'>dpkg: regarding DraftSight.deb containing dassault-systemes-draftsight:i386, pre-dependency problem:
+</span><span class='line'>dassault-systemes-draftsight:i386 pre-depends on libexpat1 <span class="o">(</span>&amp;gt;<span class="o">=</span> 2.0.1-4<span class="o">)</span>
+</span><span class='line'>dpkg: error processing DraftSight.deb <span class="o">(</span>--install<span class="o">)</span>:
+</span><span class='line'>pre-dependency problem - not installing dassault-systemes-draftsight:i386
+</span><span class='line'>Errors were encountered <span class="k">while </span>processing:
+</span><span class='line'>DraftSight.deb
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>这个libexpat1也是最新的了。</p>
+<p>Google后发现了新方法， 简单有效：</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/posts/306/">More &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/302/">dinat.bst</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-12T00:00:00+02:00" pubdate data-updated="true">Jun 12<span>th</span>, 2011</time>
+        
+         | <a href="/posts/302/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>用Mendeley管理文献的确很方便， 首先网站注册后， <a title="Mendeley" href="http://www.mendeley.com/" target="_blank">下载</a>软件，Linux下只要解压， 运行./bin/mendeleydesktop就可以了。</p>
+<p>添加文献很简单：<br />
+1, Tools <del>&gt; Options, BibTeX标签下， 选中Create one BibTeX file for my whole library,  在Path栏选中论文的路径， 点OK后就会在论文目录下生成 library.bib文件了。<br />
+2, 单击一个文献， 菜单Edit</del>&gt;Copy LaTeX Citation， 这样就把文献代码添加到剪切板了。<br />
+3, 在LaTeX中粘贴剪切板中的代码到合适的位置， 如果你用的是TexMakerX， 那先F1一次， F11一次， 再F1两次， 文献列表就更新了。</p>
+<p>因为我的LaTeX模板中使用下面的代码添加的文献列表页面， 开始还不成功，后来Google了一下dinat， 才发现缺少了一个文件dinat.bst<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='latex'><span class='line'><span class="k">\bibliographystyle</span><span class="nb">{</span>dinat<span class="nb">}</span>
+</span><span class='line'><span class="k">\bibliography</span><span class="nb">{</span>library<span class="nb">}</span>
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>下载地址如下，copy到LaTeX论文目录就可以了：<br />
+<a href="ftp://ftp.dante.de/ctan%3A/biblio/bibtex/contrib/german/dinat/dinat.bst" target="_blank"> ftp://ftp.dante.de/ctan%3A/biblio/bibtex/contrib/german/dinat/dinat.bst</a></p>
+<p>由于./bin/mendeleydesktop只是一个bash, 我们可以在同级文件夹下建立一个.desktop文件，记得把这个文件在属性中标记为 Execute<br />
+Icon, Exec 那两行可不能抄我的<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">[</span>Desktop Entry<span class="o">]</span>
+</span><span class='line'><span class="nv">Categories</span><span class="o">=</span>Office;
+</span><span class='line'><span class="nv">Encoding</span><span class="o">=</span>UTF-8
+</span><span class='line'><span class="nv">GenericName</span><span class="o">=</span>Mendeley
+</span><span class='line'><span class="nv">Comment</span><span class="o">=</span>Mendeley
+</span><span class='line'><span class="nv">Icon</span><span class="o">=</span>/home/neten/programs/exe/Mendeley/share/icons/hicolor/48x48/apps/mendeleydesktop.png
+</span><span class='line'><span class="nv">Exec</span><span class="o">=</span>/home/neten/programs/exe/Mendeley/bin/mendeleydesktop
+</span><span class='line'><span class="nv">MimeType</span><span class="o">=</span>text/x-tex;
+</span><span class='line'><span class="nv">Name</span><span class="o">=</span>Mendeley
+</span><span class='line'><span class="nv">StartupNotify</span><span class="o">=</span><span class="nb">false</span>
+</span><span class='line'><span class="nv">Terminal</span><span class="o">=</span><span class="nb">false</span>
+</span><span class='line'><span class="nv">Type</span><span class="o">=</span>Application
+</span></code></pre></td></tr></table></div></figure></div></notextile></p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/295/">Joomla爱折腾: DATE_FORMAT_LCx</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-07T00:00:00+02:00" pubdate data-updated="true">Jun 7<span>th</span>, 2011</time>
+        
+         | <a href="/posts/295/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>不能说谁对谁错, 每个人都想拥有自己的标准, 所以Linux下的退出软件的快捷键有可能是Ctrl + Q, 也有可能是Shift+Ctrl+Q, 因为我们都是&quot;自由&quot;的.</p>
+<p>Joomla更是自由的, php已经定义了一套日期的表示方法:<br />
+<a href="http://de3.php.net/manual/de/function.date.php" target="_blank">http://de3.php.net/manual/de/function.date.php</a></p>
+<p>但Joomla要用更&quot;好&quot;的, 也就是Linux下的方法:<br />
+<a href="http://docs.joomla.org/How_do_you_change_the_date_format%3F" target="_blank">http://docs.joomla.org/How_do_you_change_the_date_format%3F</a><br />
+<a href="http://linux.about.com/od/commands/l/blcmdl1_date.htm" target="_blank">http://linux.about.com/od/commands/l/blcmdl1_date.htm</a></p>
+<p>所以就有了以下对php程序员来说略显古怪的表达:<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>./language/en-GB/en-GB.ini
+</span></code></pre></td></tr></table></div></figure></div></notextile><br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="x">DATE_FORMAT_LC=%A, %d %B %Y</span>
+</span><span class='line'><span class="x">DATE_FORMAT_LC1=%A, %d %B %Y</span>
+</span><span class='line'><span class="x">DATE_FORMAT_LC2=%A, %d %B %Y %H:%M</span>
+</span><span class='line'><span class="x">DATE_FORMAT_LC3=%d %B %Y</span>
+</span><span class='line'><span class="x">DATE_FORMAT_LC4=%d.%m.%y</span>
+</span><span class='line'><span class="x">DATE_FORMAT_JS1=y-m-d</span>
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>我想改的只有一个%e而已:<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="x">DATE_FORMAT_LC3=%e %B %Y</span>
+</span></code></pre></td></tr></table></div></figure></div></notextile></p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/284/">Simufact: 全自动模拟任务托管</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-31T00:00:00+02:00" pubdate data-updated="true">May 31<span>st</span>, 2011</time>
+        
+         | <a href="/posts/284/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>前不久我发了这篇博文：<a href="/posts/262/">Simufact: 自动生成批处理需要的.xml和.bat文件</a>, 基本上可以满足批量提交模拟的任务。 最近因为有多个人在不同时候想提交多任务，那原来的代码就有些不够用了。</p>
+
+<p>经过一些改动，我把代码升级了，取名 Simufact Helper, 用法很简单，直接把下面的代码保存为bat文件，比如说 batchv2.bat， 放到存放模拟文件的文件夹下， 双击就可以执行了。如果别人想把任务加进来，只需直接把那些.sfp文件和对应目录全Copy过来就好了。</p>
+
+<p>以下是代码：</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/posts/284/">More &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/278/">Bo-Blog 转 Wordpress 记录</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-22T00:00:00+02:00" pubdate data-updated="true">May 22<span>nd</span>, 2011</time>
+        
+         | <a href="/posts/278/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>网上教程很多, 就不多说了, 也就因为很多, 所以找个好用的转换程序不是很容易,</p>
+<p>我放个转换程序让大家下载吧, 要注意的问题看转换包内的说明吧:</p>
+<p><a href="/attachment/2011/2011-05-22/Bo-blog_to_WordPress.v2.0_build.20100310.rar" target="_blank">点我下载</a></p>
+<p>转换后会把原来的BBCode的内容转换成Html, 这点我不是很喜欢, 我还是钟情BBCode, 这个问题以后再说吧.</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/268/">GNU R Order 排序</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-17T00:00:00+02:00" pubdate data-updated="true">May 17<span>th</span>, 2011</time>
+        
+         | <a href="/posts/268/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>以下是个成绩单，如果我想以阅读(science)排序，</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>notes[1:10 ,]
+</span><span class='line'>id female race ses schtyp prog read write math science socst
+</span><span class='line'>1   70      0    4   1      1    1   57    52   41      47    57
+</span><span class='line'>2  121      1    4   2      1    3   68    59   53      NA    61
+</span><span class='line'>3   86      0    4   3      1    1   44    33   54      NA    31
+</span><span class='line'>4  141      0    4   3      1    3   63    44   47      NA    56
+</span><span class='line'>5  172      0    4   2      1    2   47    52   57      NA    61
+</span><span class='line'>6  113      0    4   2      1    2   44    52   51      63    61
+</span><span class='line'>7   50      0    3   2      1    1   50    59   42      53    61
+</span><span class='line'>8   11      0    1   2      1    2   34    46   45      39    36
+</span><span class='line'>9   84      0    4   2      1    1   63    57   54      58    51
+</span><span class='line'>10  48      0    3   2      1    2   57    55   52      50    51
+</span></code></pre></td></tr></table></div></figure></div></notextile><br />
+可以这么做：<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>notes[order(notes$science, na.last=FALSE) , ]
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>倒数第二列，也就是science列，如果是NA的话，参数na.last就有用了。<br />
+na.last=TRUE：　NA数据放最后<br />
+na.last=FALSE：　NA数据放最前<br />
+na.last=NA：　NA数据直接拿掉</p>
+<p>更多请看：<br />
+http://www.ats.ucla.edu/stat/r/faq/sort.htm</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/266/">GNU R Shell Scripts</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-17T00:00:00+02:00" pubdate data-updated="true">May 17<span>th</span>, 2011</time>
+        
+         | <a href="/posts/266/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>为了能发挥bash的力量，R脚本最好能戴上参数，这样就能批处理很多数据了。<br />
+试验一：<br />
+=====<br />
+以下文件存为 test.r：<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">args</span> <span class="o">=</span> commandArgs<span class="o">()</span>
+</span><span class='line'>print<span class="o">(</span>args<span class="o">)</span>
+</span><span class='line'>q<span class="o">()</span>
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>运行：<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>R --slave --args test1 <span class="nv">test2</span><span class="o">=</span>no &lt; test.r
+</span></code></pre></td></tr></table></div></figure></div></notextile><br />
+输出：<br />
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/posts/266/">More &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/265/">做网站人员的整个心理历程</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-17T00:00:00+02:00" pubdate data-updated="true">May 17<span>th</span>, 2011</time>
+        
+         | <a href="/posts/265/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>关于站长的欺骗伎俩已经写的太多。一直以来很想写一篇做网站人员整个心理历程的文章，只有了解做网站人员最真实的内心感受才能更好的解救劝说做网站受害人。<br/> <br/>　　近年来随着网路的疯狂的蔓延，中国除西藏以外，各省市遍布做网站人的足迹。是什么让这些人痴迷于做网站，不能简单的理解成“骗”，在做网站组织大量涌现了“三高”人群，甚至连大学教授，博士都参与其中，可想而知做网站的魔力是多么的强大。<br/> <br/>　　目前的做网站组织吸引人的地方主要为两点，<br/> <br/>　　一：在家工作，想来就来想走就走，从不限制人身自由。<br/> <br/>　　二：软暴力上瘾控制，由于做网站导致的轻微受虐心态。<br/> <br/>　　第一种是现在最普遍操作模式，占中国做网站组织的95%，第二种只占5%。显然吸引我的是第一种。我与做网站打了八年的交道，没有人比我更了解做网站的人。做网站的人最真实的心理感受是怎样的呢？<br/> </div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/posts/265/">More &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/264/">Chrome Css Font-size</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-15T00:00:00+02:00" pubdate data-updated="true">May 15<span>th</span>, 2011</time>
+        
+         | <a href="/posts/264/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Chrome自作多情, 中文版加入&quot;人性化设置&quot;: 如果字体小于12px, 则一律按12px显示, 怕我们看不清楚.<br />
+这个功能可害苦了我, 调了n久的CSS, 明明在FF下很漂亮, C下怎么调整都像泰山一样一点也不改变.</p>
+<p>解决方法很简单, 加一句hack:<br />
+<span class="caps">CSS</span>:<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nc">.mystyle</span><span class="p">{</span><span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="k">text</span><span class="o">-</span><span class="k">size</span><span class="o">-</span><span class="n">adjust</span><span class="o">:</span><span class="k">none</span><span class="p">;</span> <span class="k">font-size</span><span class="o">:</span><span class="m">10px</span><span class="p">;}</span>
+</span></code></pre></td></tr></table></div></figure></div></notextile></p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/262/">Simufact: 自动生成批处理需要的.xml和.bat文件</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-11T00:00:00+02:00" pubdate data-updated="true">May 11<span>th</span>, 2011</time>
+        
+         | <a href="/posts/262/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>2011-05-31 更新:<br/>
+最新版批处理文件请移步: <a href="/posts/284/">Simufact: 全自动模拟任务托管</a></p>
+
+<p>2011-05-11 老博文:<br/>
+第一步， 把所有的任务放在一个文件夹下，</p>
+
+<p><img src="/attachment/2011/2011-05-11/sfp_batch_1.png"></p>
+
+<p>第二步， 把以下代码在此目录下存为batch.bat，不过要注意的是：
+代码中的这一行, 请按自己的情况修改。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bat'><span class='line'><span class="k">echo</span> <span class="k">set</span> <span class="nv">FormingPath</span><span class="o">=</span><span class="s2">&quot;C:\Program Files\simufact\forming\10.0\sfForming\bin\sfForming.exe&quot;</span> <span class="p">&gt;</span> <span class="n">Simufact</span>.bat
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>以下是全部代码：</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+</pre></td><td class='code'><pre><code class='bat'><span class='line'><span class="p">@</span><span class="k">echo</span> <span class="k">off</span>
+</span><span class='line'><span class="k">setlocal</span> ENABLEDELAYEDEXPANSION
+</span><span class='line'>
+</span><span class='line'><span class="k">FOR</span> <span class="nv">%%i</span> in (*.sfp) <span class="k">DO</span> (
+</span><span class='line'><span class="k">set</span> <span class="nv">name</span><span class="o">=</span><span class="nv">%%i</span>
+</span><span class='line'><span class="k">set</span> <span class="nv">shortname</span><span class="o">=</span>!name:~<span class="m">0</span><span class="p">,</span><span class="m">-4</span>!
+</span><span class='line'><span class="k">echo</span> Creating !shortname!.xml ...
+</span><span class='line'><span class="k">echo</span> ^&gt; !shortname!.xml
+</span><span class='line'><span class="k">echo</span>   ^.\!name!^&gt;&gt; !shortname!.xml
+</span><span class='line'><span class="k">echo</span>   ^forming^&gt;&gt; !shortname!.xml
+</span><span class='line'><span class="k">echo</span>   ^.\!name:~<span class="m">0</span><span class="p">,</span><span class="m">-4</span>!\PROJECT\!name:~<span class="m">0</span><span class="p">,</span><span class="m">-4</span>!\batch.log^&gt;&gt; !shortname!.xml
+</span><span class='line'><span class="k">echo</span>   ^true^&gt;&gt; !shortname!.xml
+</span><span class='line'><span class="k">echo</span>   ^false^&gt;&gt; !shortname!.xml
+</span><span class='line'><span class="k">echo</span>   ^false^&gt;&gt; !shortname!.xml
+</span><span class='line'><span class="k">echo</span> ^&gt;&gt; !shortname!.xml
+</span><span class='line'><span class="k">echo</span> Done^^!^^!^^!
+</span><span class='line'><span class="k">echo</span>.
+</span><span class='line'>)
+</span><span class='line'>
+</span><span class='line'><span class="k">echo</span> Creating  Simufact.bat ...
+</span><span class='line'><span class="k">echo</span> @<span class="k">echo</span> <span class="k">off</span><span class="p">&gt;</span> <span class="n">Simufact</span>.bat
+</span><span class='line'><span class="k">echo</span> <span class="k">set</span> <span class="nv">FormingPath</span><span class="o">=</span><span class="s2">&quot;C:\Program Files\simufact\forming\10.0\sfForming\bin\sfForming.exe&quot;</span>&gt;<span class="p">&gt;</span> <span class="n">Simufact</span>.bat
+</span><span class='line'><span class="k">echo</span> <span class="k">set</span> <span class="nv">SourceDir</span><span class="o">=</span><span class="nv">%cd%</span>&gt;<span class="p">&gt;</span> <span class="n">Simufact</span>.bat
+</span><span class='line'><span class="k">echo</span>.&gt;<span class="p">&gt;</span> <span class="n">Simufact</span>.bat
+</span><span class='line'><span class="k">FOR</span> <span class="nv">%%i</span> in (*.xml) <span class="k">DO</span> (
+</span><span class='line'><span class="k">set</span> <span class="nv">name</span><span class="o">=</span><span class="nv">%%i</span>
+</span><span class='line'><span class="k">echo</span> <span class="k">echo</span> !name! ...&gt;<span class="p">&gt;</span> <span class="n">Simufact</span>.bat
+</span><span class='line'><span class="k">echo</span> <span class="nv">%%FormingPath%</span>% -batch <span class="nv">%%SourceDir%</span>%\!name! &gt;<span class="p">&gt;</span> <span class="n">Simufact</span>.bat
+</span><span class='line'><span class="k">echo</span> <span class="k">echo</span> Done^^^!^^^!^^^!&gt;<span class="p">&gt;</span> <span class="n">Simufact</span>.bat
+</span><span class='line'><span class="k">echo</span> <span class="k">echo</span>.&gt;<span class="p">&gt;</span> <span class="n">Simufact</span>.bat
+</span><span class='line'>)
+</span><span class='line'><span class="k">echo</span> <span class="k">pause</span>&gt;<span class="p">&gt;</span> <span class="n">Simufact</span>.bat
+</span><span class='line'><span class="k">echo</span> Done^^!^^!^^!
+</span><span class='line'><span class="k">echo</span>.
+</span><span class='line'><span class="k">pause</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>第三步， 双击batch.bat, 这时就会生成相应的xml和bat文件，下班的时候双击一下Simufact.bat就可以执行批处理任务了，第二天等着拿结果吧。
+<img src="/attachment/2011/2011-05-11/sfp_batch_2.png"></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/posts/page/5/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/posts/page/3/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/2014/01/27/install-mysql-using-homebrew/">在 Mac 下用 Homebrew 安装 MySQL</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2013/10/06/use-ffmpeg-to-burn-subtitles-into-the-video/">Use FFmpeg to burn subtitles into the video</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2013/02/17/ruby-block-proc-and-lambda/">Ruby &#8211; block Proc and lambda</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/10/18/mac-os-x-10-dot-8-2-problems-after-update/">Mac OS X 10.8.2 Problems after update</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/02/mac-octopress-ioerror-invalid-python-installation/">Mac Octopress IOError invalid Python installation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/02/rstudio-non-utf8-warning-message/">RStudio non-UTF8 warning message</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/01/pdf-version-found-1-dot-5-but-allowed-1-dot-4/">PDF version found 1.5 but allowed 1.4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/07/21/fatal-error-stdio-dot-h-file-not-found/">fatal error: stdio.h file not found</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/06/06/mongodb-scaffolding-devise-omniauth-cancan-2/">MongoDB Scaffolding Devise Omniauth CanCan (2)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/05/19/mongodb-scaffolding-devise-omniauth-cancan-1/">MongoDB Scaffolding Devise Omniauth CanCan (1)</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>最近评论</h1>
+  <script type="text/javascript" src="http://neten.disqus.com/combination_widget.js?num_items=5&hide_mods=0&color=grey&default_tab=recent&excerpt_length=200"></script>
+</section>
+<section>
+  <h1>常用资料</h1>
+    <ul id="recent_posts">
+      <li class="post">
+        <a href="/posts/93">来几个Linux命令</a>
+      </li>
+      <li class="post">
+        <a href="/posts/344">Mysql 改变数据库目录</a>
+      </li>
+      <li class="post">
+        <a href="/posts/254">Latex & TexMakerX</a>
+      </li>
+      <li class="post">
+        <a href="/posts/241">在Ubuntu上通过SSH安装Virtualbox</a>
+      </li>
+      <li class="post">
+        <a href="/posts/73">汉德词典 for MDict & Babylon</a>
+      </li>
+  </ul>
+</section>
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2005 - 2016 - Peter - | 
+  <span><a href="/posts/94">Impressum</a></span>
+  <span class="credit" style="float:right">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'neten';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="/javascripts/jimdoclockzip.js"></script>
+</body>
+</html>

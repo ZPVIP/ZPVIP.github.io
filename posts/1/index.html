@@ -1,0 +1,1116 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>自己编写的一个PHP单文件或多文件上传类 - 简洁的想法</title>
+  <meta name="author" content="Peter">
+
+  
+  <meta name="description" content="看到网上有很多大虾写了PHP上传类，我综合了一下，写了一个自己喜欢的，提供出来给大家分享。附带了调用代码。
+提醒：Form部分要注意，第一记得添加
+1
+enctype=&quot;multipart/form-data&quot; 另外input的name=在上传多文件时要定义为数组，即：
+1 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ZPVIP.github.io/posts/1">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="简洁的想法" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">简洁的想法</a></h1>
+  
+    <h2>仁爱、喜乐、和平、忍耐、恩慈、良善、信实、温柔、节制</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ZPVIP.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">日志</a></li>
+  <li><a href="/blog/archives">归档</a></li>
+  <li><a href="/posts/categories/website/">网站工程</a></li>
+  <li><a href="/posts/categories/collections/">网文收集</a></li>
+  <li><a href="/posts/categories/digitallife/">数字生活</a></li>
+  <li><a href="/posts/categories/memories/">路已成歌</a></li>
+  <li><a href="/posts/categories/beautifulsongs/">美曲美境</a></li>
+  <li><a href="/posts/categories/travel/">忆影斑斓</a></li>
+  <li><a href="http://bbs.neten.de">论坛</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">自己编写的一个PHP单文件或多文件上传类</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-11-22T00:00:00+01:00" pubdate data-updated="true">Nov 22<span>nd</span>, 2005</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>看到网上有很多大虾写了PHP上传类，我综合了一下，写了一个自己喜欢的，提供出来给大家分享。附带了调用代码。</p>
+<p>提醒：Form部分要注意，第一记得添加<br />
+<div class='bogus-wrapper'><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>enctype=&quot;multipart/form-data&quot;
+</span></code></pre></td></tr></table></div></figure></div></p>
+<p>另外input的name=在上传多文件时要定义为数组，即：<br />
+<div class='bogus-wrapper'><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>uploadinput[]
+</span></code></pre></td></tr></table></div></figure></div></p>
+<p>如果只上传一个文件可以写为<br />
+<div class='bogus-wrapper'><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>name=&quot;uploadinput&quot;;
+</span></code></pre></td></tr></table></div></figure></div></p>
+<p>Html 部分:<br />
+<div class='bogus-wrapper'><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;form</span> <span class="na">enctype=</span><span class="s">&quot;multipart/form-data&quot;</span> <span class="na">action=</span><span class="s">&quot;upload_datei.php&quot;</span> <span class="na">method=</span><span class="s">&quot;POST&quot;</span><span class="nt">&gt;&lt;br</span> <span class="nt">/&gt;</span>
+</span><span class='line'>Send this file: <span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+</span><span class='line'><span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">&quot;uploadinput[]&quot;</span> <span class="na">type=</span><span class="s">&quot;file&quot;</span><span class="nt">&gt;&lt;br</span> <span class="nt">/&gt;</span>
+</span><span class='line'><span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">&quot;uploadinput[]&quot;</span> <span class="na">type=</span><span class="s">&quot;file&quot;</span><span class="nt">&gt;&lt;br</span> <span class="nt">/&gt;</span>
+</span><span class='line'><span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">&quot;uploadinput[]&quot;</span> <span class="na">type=</span><span class="s">&quot;file&quot;</span><span class="nt">&gt;&lt;br</span> <span class="nt">/&gt;</span>
+</span><span class='line'><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">value=</span><span class="s">&quot;Send File&quot;</span><span class="nt">&gt;&lt;br</span> <span class="nt">/&gt;</span>
+</span><span class='line'><span class="nt">&lt;/form&gt;</span>
+</span></code></pre></td></tr></table></div></figure></div></p>
+<p>例子：<br />
+<div class='bogus-wrapper'><figure class='code'><figcaption><span>例子  (up.php.txt)</span> <a href='/attachment/code/clsUpload/up.php.txt'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="c1">//如果收到表单传来的参数，则进行上传处理，否则显示表单</span>
+</span><span class='line'><span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_FILES</span><span class="p">[</span><span class="s1">&#39;uploadinput&#39;</span><span class="p">])){</span>
+</span><span class='line'>	<span class="c1">//建目录函数，其中参数$directoryName最后没有&quot;/&quot;，</span>
+</span><span class='line'>	<span class="c1">//要是有的话，以&#39;/&#39;打散为数组的时候，最后将会出现一个空值</span>
+</span><span class='line'>	<span class="k">function</span> <span class="nf">makeDirectory</span><span class="p">(</span><span class="nv">$directoryName</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>		<span class="nv">$directoryName</span> <span class="o">=</span> <span class="nb">str_replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span><span class="s2">&quot;/&quot;</span><span class="p">,</span><span class="nv">$directoryName</span><span class="p">);</span>
+</span><span class='line'>		<span class="nv">$dirNames</span> <span class="o">=</span> <span class="nb">explode</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="nv">$directoryName</span><span class="p">);</span>
+</span><span class='line'>		<span class="nv">$total</span> <span class="o">=</span> <span class="nb">count</span><span class="p">(</span><span class="nv">$dirNames</span><span class="p">)</span> <span class="p">;</span>
+</span><span class='line'>		<span class="nv">$temp</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span><span class='line'>		<span class="k">for</span><span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span><span class="o">&lt;</span><span class="nv">$total</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>			<span class="nv">$temp</span> <span class="o">.=</span> <span class="nv">$dirNames</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="o">.</span><span class="s1">&#39;/&#39;</span><span class="p">;</span>
+</span><span class='line'>			<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">is_dir</span><span class="p">(</span><span class="nv">$temp</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>				<span class="nv">$oldmask</span> <span class="o">=</span> <span class="nb">umask</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span><span class='line'>				<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">mkdir</span><span class="p">(</span><span class="nv">$temp</span><span class="p">,</span> <span class="mo">0777</span><span class="p">))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">&quot;不能建立目录 </span><span class="si">$temp</span><span class="s2">&quot;</span><span class="p">);</span>
+</span><span class='line'>				<span class="nb">umask</span><span class="p">(</span><span class="nv">$oldmask</span><span class="p">);</span>
+</span><span class='line'>			<span class="p">}</span>
+</span><span class='line'>		<span class="p">}</span>
+</span><span class='line'>		<span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="k">if</span><span class="p">(</span><span class="nv">$_FILES</span><span class="p">[</span><span class="s1">&#39;uploadinput&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">&lt;&gt;</span> <span class="s2">&quot;&quot;</span><span class="p">){</span>
+</span><span class='line'>		<span class="c1">//包含上传文件类</span>
+</span><span class='line'>		<span class="k">require_once</span> <span class="p">(</span><span class="s1">&#39;class_upload.php&#39;</span><span class="p">);</span>
+</span><span class='line'>		<span class="c1">//设置文件上传目录</span>
+</span><span class='line'>		<span class="nv">$savePath</span> <span class="o">=</span> <span class="s2">&quot;upload&quot;</span><span class="p">;</span>
+</span><span class='line'>		<span class="c1">//创建目录</span>
+</span><span class='line'>		<span class="nx">makeDirectory</span><span class="p">(</span><span class="nv">$savePath</span><span class="p">);</span>
+</span><span class='line'>		<span class="c1">//允许的文件类型</span>
+</span><span class='line'>		<span class="nv">$fileFormat</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;gif&#39;</span><span class="p">,</span><span class="s1">&#39;jpg&#39;</span><span class="p">,</span><span class="s1">&#39;jpge&#39;</span><span class="p">,</span><span class="s1">&#39;png&#39;</span><span class="p">);</span>
+</span><span class='line'>		<span class="c1">//文件大小限制，单位: Byte，1KB = 1000 Byte</span>
+</span><span class='line'>		<span class="c1">//0 表示无限制，但受php.ini中upload_max_filesize设置影响</span>
+</span><span class='line'>		<span class="nv">$maxSize</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>		<span class="c1">//覆盖原有文件吗？ 0 不允许  1 允许 </span>
+</span><span class='line'>		<span class="nv">$overwrite</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>		<span class="c1">//初始化上传类</span>
+</span><span class='line'>		<span class="nv">$f</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">clsUpload</span><span class="p">(</span> <span class="nv">$savePath</span><span class="p">,</span> <span class="nv">$fileFormat</span><span class="p">,</span> <span class="nv">$maxSize</span><span class="p">,</span> <span class="nv">$overwrite</span><span class="p">);</span>
+</span><span class='line'>		<span class="c1">//如果想生成缩略图，则调用成员函数 $f-&gt;setThumb();</span>
+</span><span class='line'>		<span class="c1">//参数列表: setThumb($thumb, $thumbWidth = 0,$thumbHeight = 0)</span>
+</span><span class='line'>		<span class="c1">//$thumb=1 表示要生成缩略图，不调用时，其值为 0</span>
+</span><span class='line'>		<span class="c1">//$thumbWidth  缩略图宽，单位是像素(px)，留空则使用默认值 130</span>
+</span><span class='line'>		<span class="c1">//$thumbHeight 缩略图高，单位是像素(px)，留空则使用默认值 130</span>
+</span><span class='line'>		<span class="nv">$f</span><span class="o">-&gt;</span><span class="na">setThumb</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span><span class='line'>		
+</span><span class='line'>		<span class="c1">//参数中的uploadinput是表单中上传文件输入框input的名字</span>
+</span><span class='line'>		<span class="c1">//后面的0表示不更改文件名，若为1，则由系统生成随机文件名</span>
+</span><span class='line'>		<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$f</span><span class="o">-&gt;</span><span class="na">run</span><span class="p">(</span><span class="s1">&#39;uploadinput&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">)){</span>
+</span><span class='line'>			<span class="c1">//通过$f-&gt;errmsg()只能得到最后一个出错的信息，</span>
+</span><span class='line'>			<span class="c1">//详细的信息在$f-&gt;getInfo()中可以得到。</span>
+</span><span class='line'>			<span class="k">echo</span> <span class="nv">$f</span><span class="o">-&gt;</span><span class="na">errmsg</span><span class="p">()</span><span class="o">.</span><span class="s2">&quot;&lt;br&gt;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span>
+</span><span class='line'>		<span class="p">}</span>
+</span><span class='line'>		<span class="c1">//上传结果保存在数组returnArray中。</span>
+</span><span class='line'>		<span class="k">echo</span> <span class="s2">&quot;&lt;pre&gt;&quot;</span><span class="p">;</span>
+</span><span class='line'>		<span class="nb">print_r</span><span class="p">(</span><span class="nv">$f</span><span class="o">-&gt;</span><span class="na">getInfo</span><span class="p">());</span>
+</span><span class='line'>		<span class="k">echo</span> <span class="s2">&quot;&lt;/pre&gt;&quot;</span><span class="p">;</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'><span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span><span class='line'><span class="cp">?&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">&lt;form enctype=&quot;multipart/form-data&quot; action=&quot;&quot; method=&quot;POST&quot;&gt;</span>
+</span><span class='line'><span class="x">Send this file: &lt;br /&gt;</span>
+</span><span class='line'><span class="x">&lt;input name=&quot;uploadinput[]&quot; type=&quot;file&quot;&gt;&lt;br /&gt;</span>
+</span><span class='line'><span class="x">&lt;input name=&quot;uploadinput[]&quot; type=&quot;file&quot;&gt;&lt;br /&gt;</span>
+</span><span class='line'><span class="x">&lt;input name=&quot;uploadinput[]&quot; type=&quot;file&quot;&gt;&lt;br /&gt;</span>
+</span><span class='line'><span class="x">&lt;input type=&quot;submit&quot; value=&quot;Send File&quot;&gt;&lt;br /&gt;</span>
+</span><span class='line'><span class="x">&lt;/form&gt; </span>
+</span><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="c1">//我们上传一个已经存在了的图片文件，</span>
+</span><span class='line'><span class="c1">//一个正常的图片文件，和一个不允许上传的文件，</span>
+</span><span class='line'><span class="c1">//输出结果如下</span>
+</span><span class='line'><span class="cm">/*</span>
+</span><span class='line'><span class="cm">The uploaded file is Unallowable!</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">Array</span>
+</span><span class='line'><span class="cm">(</span>
+</span><span class='line'><span class="cm">    [0] =&gt; Array</span>
+</span><span class='line'><span class="cm">        (</span>
+</span><span class='line'><span class="cm">            [name] =&gt; boy.jpg</span>
+</span><span class='line'><span class="cm">            [saveName] =&gt; boy.jpg</span>
+</span><span class='line'><span class="cm">            [size] =&gt; 137</span>
+</span><span class='line'><span class="cm">            [type] =&gt; image/pjpeg</span>
+</span><span class='line'><span class="cm">            [error] =&gt; File exist already!</span>
+</span><span class='line'><span class="cm">        )</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">    [1] =&gt; Array</span>
+</span><span class='line'><span class="cm">        (</span>
+</span><span class='line'><span class="cm">            [name] =&gt; girl.JPG</span>
+</span><span class='line'><span class="cm">            [saveName] =&gt; girl.JPG</span>
+</span><span class='line'><span class="cm">            [size] =&gt; 31</span>
+</span><span class='line'><span class="cm">            [type] =&gt; image/pjpeg</span>
+</span><span class='line'><span class="cm">            [originalHeight] =&gt; 450</span>
+</span><span class='line'><span class="cm">            [originalWidth] =&gt; 600</span>
+</span><span class='line'><span class="cm">        )</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">    [2] =&gt; Array</span>
+</span><span class='line'><span class="cm">        (</span>
+</span><span class='line'><span class="cm">            [name] =&gt; test.wma</span>
+</span><span class='line'><span class="cm">            [saveName] =&gt; test.wma</span>
+</span><span class='line'><span class="cm">            [size] =&gt; 971</span>
+</span><span class='line'><span class="cm">            [type] =&gt; audio/x-ms-wma</span>
+</span><span class='line'><span class="cm">            [error] =&gt; The uploaded file is Unallowable!</span>
+</span><span class='line'><span class="cm">        )</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">)</span>
+</span><span class='line'><span class="cm">*/</span>
+</span><span class='line'><span class="cp">?&gt;</span><span class="x"></span>
+</span></code></pre></td></tr></table></div></figure></div></p>
+<p>类文件：<br />
+<div class='bogus-wrapper'><figure class='code'><figcaption><span>例子  (class_upload.php.txt)</span> <a href='/attachment/code/clsUpload/class_upload.php.txt'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+<span class='line-number'>142</span>
+<span class='line-number'>143</span>
+<span class='line-number'>144</span>
+<span class='line-number'>145</span>
+<span class='line-number'>146</span>
+<span class='line-number'>147</span>
+<span class='line-number'>148</span>
+<span class='line-number'>149</span>
+<span class='line-number'>150</span>
+<span class='line-number'>151</span>
+<span class='line-number'>152</span>
+<span class='line-number'>153</span>
+<span class='line-number'>154</span>
+<span class='line-number'>155</span>
+<span class='line-number'>156</span>
+<span class='line-number'>157</span>
+<span class='line-number'>158</span>
+<span class='line-number'>159</span>
+<span class='line-number'>160</span>
+<span class='line-number'>161</span>
+<span class='line-number'>162</span>
+<span class='line-number'>163</span>
+<span class='line-number'>164</span>
+<span class='line-number'>165</span>
+<span class='line-number'>166</span>
+<span class='line-number'>167</span>
+<span class='line-number'>168</span>
+<span class='line-number'>169</span>
+<span class='line-number'>170</span>
+<span class='line-number'>171</span>
+<span class='line-number'>172</span>
+<span class='line-number'>173</span>
+<span class='line-number'>174</span>
+<span class='line-number'>175</span>
+<span class='line-number'>176</span>
+<span class='line-number'>177</span>
+<span class='line-number'>178</span>
+<span class='line-number'>179</span>
+<span class='line-number'>180</span>
+<span class='line-number'>181</span>
+<span class='line-number'>182</span>
+<span class='line-number'>183</span>
+<span class='line-number'>184</span>
+<span class='line-number'>185</span>
+<span class='line-number'>186</span>
+<span class='line-number'>187</span>
+<span class='line-number'>188</span>
+<span class='line-number'>189</span>
+<span class='line-number'>190</span>
+<span class='line-number'>191</span>
+<span class='line-number'>192</span>
+<span class='line-number'>193</span>
+<span class='line-number'>194</span>
+<span class='line-number'>195</span>
+<span class='line-number'>196</span>
+<span class='line-number'>197</span>
+<span class='line-number'>198</span>
+<span class='line-number'>199</span>
+<span class='line-number'>200</span>
+<span class='line-number'>201</span>
+<span class='line-number'>202</span>
+<span class='line-number'>203</span>
+<span class='line-number'>204</span>
+<span class='line-number'>205</span>
+<span class='line-number'>206</span>
+<span class='line-number'>207</span>
+<span class='line-number'>208</span>
+<span class='line-number'>209</span>
+<span class='line-number'>210</span>
+<span class='line-number'>211</span>
+<span class='line-number'>212</span>
+<span class='line-number'>213</span>
+<span class='line-number'>214</span>
+<span class='line-number'>215</span>
+<span class='line-number'>216</span>
+<span class='line-number'>217</span>
+<span class='line-number'>218</span>
+<span class='line-number'>219</span>
+<span class='line-number'>220</span>
+<span class='line-number'>221</span>
+<span class='line-number'>222</span>
+<span class='line-number'>223</span>
+<span class='line-number'>224</span>
+<span class='line-number'>225</span>
+<span class='line-number'>226</span>
+<span class='line-number'>227</span>
+<span class='line-number'>228</span>
+<span class='line-number'>229</span>
+<span class='line-number'>230</span>
+<span class='line-number'>231</span>
+<span class='line-number'>232</span>
+<span class='line-number'>233</span>
+<span class='line-number'>234</span>
+<span class='line-number'>235</span>
+<span class='line-number'>236</span>
+<span class='line-number'>237</span>
+<span class='line-number'>238</span>
+<span class='line-number'>239</span>
+<span class='line-number'>240</span>
+<span class='line-number'>241</span>
+<span class='line-number'>242</span>
+<span class='line-number'>243</span>
+<span class='line-number'>244</span>
+<span class='line-number'>245</span>
+<span class='line-number'>246</span>
+<span class='line-number'>247</span>
+<span class='line-number'>248</span>
+<span class='line-number'>249</span>
+<span class='line-number'>250</span>
+<span class='line-number'>251</span>
+<span class='line-number'>252</span>
+<span class='line-number'>253</span>
+<span class='line-number'>254</span>
+<span class='line-number'>255</span>
+<span class='line-number'>256</span>
+<span class='line-number'>257</span>
+<span class='line-number'>258</span>
+<span class='line-number'>259</span>
+<span class='line-number'>260</span>
+<span class='line-number'>261</span>
+<span class='line-number'>262</span>
+<span class='line-number'>263</span>
+<span class='line-number'>264</span>
+<span class='line-number'>265</span>
+<span class='line-number'>266</span>
+<span class='line-number'>267</span>
+<span class='line-number'>268</span>
+<span class='line-number'>269</span>
+<span class='line-number'>270</span>
+<span class='line-number'>271</span>
+<span class='line-number'>272</span>
+<span class='line-number'>273</span>
+<span class='line-number'>274</span>
+<span class='line-number'>275</span>
+<span class='line-number'>276</span>
+<span class='line-number'>277</span>
+<span class='line-number'>278</span>
+<span class='line-number'>279</span>
+<span class='line-number'>280</span>
+<span class='line-number'>281</span>
+<span class='line-number'>282</span>
+<span class='line-number'>283</span>
+<span class='line-number'>284</span>
+<span class='line-number'>285</span>
+<span class='line-number'>286</span>
+<span class='line-number'>287</span>
+<span class='line-number'>288</span>
+<span class='line-number'>289</span>
+<span class='line-number'>290</span>
+<span class='line-number'>291</span>
+<span class='line-number'>292</span>
+<span class='line-number'>293</span>
+<span class='line-number'>294</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span> <span class="cm">/*</span>
+</span><span class='line'><span class="cm">		○︿</span>
+</span><span class='line'><span class="cm">		︶\</span>
+</span><span class='line'><span class="cm">		 √ ﹀ . 。o O . ~~</span>
+</span><span class='line'><span class="cm">=====================================================</span>
+</span><span class='line'><span class="cm">=	TITLE       : CLASS clsUpload</span>
+</span><span class='line'><span class="cm">=	FILE        : class_upload.php</span>
+</span><span class='line'><span class="cm">=	DESCRIPTION : To provide upload utility,</span>
+</span><span class='line'><span class="cm">=	AUTHOR      : Peng Zhang zpregister()gmail.com</span>
+</span><span class='line'><span class="cm">=	                http://blog.neten.de</span>
+</span><span class='line'><span class="cm">=	BASED ON    : whxbb whxbb()21cn.com</span>
+</span><span class='line'><span class="cm">=	WRITED      : 2005 NOV 20</span>
+</span><span class='line'><span class="cm">=	MODIFIED    : 2006 MAR 01</span>
+</span><span class='line'><span class="cm">=	LICENCE     : GPL</span>
+</span><span class='line'><span class="cm">=	REVISION    : V1.0.2</span>
+</span><span class='line'><span class="cm">=====================================================</span>
+</span><span class='line'><span class="cm">*/</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">clsUpload</span><span class="p">{</span>
+</span><span class='line'>	<span class="k">var</span> <span class="nv">$saveName</span><span class="p">;</span><span class="c1">// 保存名</span>
+</span><span class='line'>	<span class="k">var</span> <span class="nv">$savePath</span><span class="p">;</span><span class="c1">// 保存路径</span>
+</span><span class='line'>	<span class="k">var</span> <span class="nv">$fileFormat</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;gif&#39;</span><span class="p">,</span><span class="s1">&#39;jpg&#39;</span><span class="p">,</span><span class="s1">&#39;doc&#39;</span><span class="p">,</span><span class="s1">&#39;application/octet-stream&#39;</span><span class="p">);</span><span class="c1">// 文件格式&amp;MIME限定</span>
+</span><span class='line'>	<span class="k">var</span> <span class="nv">$overwrite</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="c1">// 覆盖模式</span>
+</span><span class='line'>	<span class="k">var</span> <span class="nv">$maxSize</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="c1">// 文件最大字节</span>
+</span><span class='line'>	<span class="k">var</span> <span class="nv">$ext</span><span class="p">;</span><span class="c1">// 文件扩展名</span>
+</span><span class='line'>	<span class="k">var</span> <span class="nv">$thumb</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="c1">// 是否生成缩略图</span>
+</span><span class='line'>	<span class="k">var</span> <span class="nv">$thumbWidth</span> <span class="o">=</span> <span class="mi">130</span><span class="p">;</span><span class="c1">// 缩略图宽</span>
+</span><span class='line'>	<span class="k">var</span> <span class="nv">$thumbHeight</span> <span class="o">=</span> <span class="mi">130</span><span class="p">;</span><span class="c1">// 缩略图高</span>
+</span><span class='line'>	<span class="k">var</span> <span class="nv">$thumbPrefix</span> <span class="o">=</span> <span class="s2">&quot;_thumb_&quot;</span><span class="p">;</span><span class="c1">// 缩略图前缀</span>
+</span><span class='line'>	<span class="k">var</span> <span class="nv">$errno</span><span class="p">;</span><span class="c1">// 错误代号</span>
+</span><span class='line'>	<span class="k">var</span> <span class="nv">$returnArray</span><span class="o">=</span> <span class="k">array</span><span class="p">();</span><span class="c1">// 所有文件的返回信息</span>
+</span><span class='line'>	<span class="k">var</span> <span class="nv">$returninfo</span><span class="o">=</span> <span class="k">array</span><span class="p">();</span><span class="c1">// 每个文件返回信息</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 构造函数</span>
+</span><span class='line'><span class="c1">// @param $savePath 文件保存路径</span>
+</span><span class='line'><span class="c1">// @param $fileFormat 文件格式限制数组</span>
+</span><span class='line'><span class="c1">// @param $maxSize 文件最大尺寸</span>
+</span><span class='line'><span class="c1">// @param $overwriet 是否覆盖 1 允许覆盖 0 禁止覆盖</span>
+</span><span class='line'>	<span class="k">function</span> <span class="nf">clsUpload</span><span class="p">(</span><span class="nv">$savePath</span><span class="p">,</span> <span class="nv">$fileFormat</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="nv">$maxSize</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">$overwrite</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setSavepath</span><span class="p">(</span><span class="nv">$savePath</span><span class="p">);</span>
+</span><span class='line'>		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setFileformat</span><span class="p">(</span><span class="nv">$fileFormat</span><span class="p">);</span>
+</span><span class='line'>		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setMaxsize</span><span class="p">(</span><span class="nv">$maxSize</span><span class="p">);</span>
+</span><span class='line'>		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setOverwrite</span><span class="p">(</span><span class="nv">$overwrite</span><span class="p">);</span>
+</span><span class='line'>		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setThumb</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">thumb</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">thumbWidth</span><span class="p">,</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">thumbHeight</span><span class="p">);</span>
+</span><span class='line'>		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">errno</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 上传</span>
+</span><span class='line'><span class="c1">// @param $fileInput 网页Form(表单)中input的名称</span>
+</span><span class='line'><span class="c1">// @param $changeName 是否更改文件名</span>
+</span><span class='line'>	<span class="k">function</span> <span class="nf">run</span><span class="p">(</span><span class="nv">$fileInput</span><span class="p">,</span><span class="nv">$changeName</span> <span class="o">=</span> <span class="mi">1</span><span class="p">){</span>
+</span><span class='line'>		<span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_FILES</span><span class="p">[</span><span class="nv">$fileInput</span><span class="p">])){</span>
+</span><span class='line'>			<span class="nv">$fileArr</span> <span class="o">=</span> <span class="nv">$_FILES</span><span class="p">[</span><span class="nv">$fileInput</span><span class="p">];</span>
+</span><span class='line'>			<span class="k">if</span><span class="p">(</span><span class="nb">is_array</span><span class="p">(</span><span class="nv">$fileArr</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])){</span><span class="c1">//上传同文件域名称多个文件</span>
+</span><span class='line'>				<span class="k">for</span><span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nb">count</span><span class="p">(</span><span class="nv">$fileArr</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]);</span> <span class="nv">$i</span><span class="o">++</span><span class="p">){</span>
+</span><span class='line'>					<span class="nv">$ar</span><span class="p">[</span><span class="s1">&#39;tmp_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$fileArr</span><span class="p">[</span><span class="s1">&#39;tmp_name&#39;</span><span class="p">][</span><span class="nv">$i</span><span class="p">];</span>
+</span><span class='line'>					<span class="nv">$ar</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$fileArr</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">][</span><span class="nv">$i</span><span class="p">];</span>
+</span><span class='line'>					<span class="nv">$ar</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$fileArr</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">][</span><span class="nv">$i</span><span class="p">];</span>
+</span><span class='line'>					<span class="nv">$ar</span><span class="p">[</span><span class="s1">&#39;size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$fileArr</span><span class="p">[</span><span class="s1">&#39;size&#39;</span><span class="p">][</span><span class="nv">$i</span><span class="p">];</span>
+</span><span class='line'>					<span class="nv">$ar</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$fileArr</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">][</span><span class="nv">$i</span><span class="p">];</span>
+</span><span class='line'>					<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getExt</span><span class="p">(</span><span class="nv">$ar</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]);</span><span class="c1">//取得扩展名，赋给$this-&gt;ext，下次循环会更新</span>
+</span><span class='line'>					<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setSavename</span><span class="p">(</span><span class="nv">$changeName</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">?</span> <span class="s1">&#39;&#39;</span> <span class="o">:</span> <span class="nv">$ar</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]);</span><span class="c1">//设置保存文件名</span>
+</span><span class='line'>					<span class="k">if</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">copyfile</span><span class="p">(</span><span class="nv">$ar</span><span class="p">)){</span>
+</span><span class='line'>						<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">returnArray</span><span class="p">[]</span> <span class="o">=</span>  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">returninfo</span><span class="p">;</span>
+</span><span class='line'>					<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span><span class='line'>						<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">returninfo</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">errmsg</span><span class="p">();</span>
+</span><span class='line'>						<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">returnArray</span><span class="p">[]</span> <span class="o">=</span>  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">returninfo</span><span class="p">;</span>
+</span><span class='line'>					<span class="p">}</span>
+</span><span class='line'>				<span class="p">}</span>
+</span><span class='line'>				<span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">errno</span> <span class="o">?</span>  <span class="k">false</span> <span class="o">:</span>  <span class="k">true</span><span class="p">;</span>
+</span><span class='line'>			<span class="p">}</span><span class="k">else</span><span class="p">{</span><span class="c1">//上传单个文件</span>
+</span><span class='line'>				<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getExt</span><span class="p">(</span><span class="nv">$fileArr</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]);</span><span class="c1">//取得扩展名</span>
+</span><span class='line'>				<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setSavename</span><span class="p">(</span><span class="nv">$changeName</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">?</span> <span class="s1">&#39;&#39;</span> <span class="o">:</span> <span class="nv">$fileArr</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]);</span><span class="c1">//设置保存文件名</span>
+</span><span class='line'>				<span class="k">if</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">copyfile</span><span class="p">(</span><span class="nv">$fileArr</span><span class="p">)){</span>
+</span><span class='line'>					<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">returnArray</span><span class="p">[]</span> <span class="o">=</span>  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">returninfo</span><span class="p">;</span>
+</span><span class='line'>				<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span><span class='line'>					<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">returninfo</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">errmsg</span><span class="p">();</span>
+</span><span class='line'>					<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">returnArray</span><span class="p">[]</span> <span class="o">=</span>  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">returninfo</span><span class="p">;</span>
+</span><span class='line'>				<span class="p">}</span>
+</span><span class='line'>				<span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">errno</span> <span class="o">?</span>  <span class="k">false</span> <span class="o">:</span>  <span class="k">true</span><span class="p">;</span>
+</span><span class='line'>			<span class="p">}</span>
+</span><span class='line'>			<span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'>		<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span><span class='line'>			<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">errno</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+</span><span class='line'>			<span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'>		<span class="p">}</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 单个文件上传</span>
+</span><span class='line'><span class="c1">// @param $fileArray 文件信息数组</span>
+</span><span class='line'>	<span class="k">function</span> <span class="nf">copyfile</span><span class="p">(</span><span class="nv">$fileArray</span><span class="p">){</span>
+</span><span class='line'>		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">returninfo</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+</span><span class='line'>		<span class="c1">// 返回信息</span>
+</span><span class='line'>		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">returninfo</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$fileArray</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">];</span>
+</span><span class='line'>		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">returninfo</span><span class="p">[</span><span class="s1">&#39;saveName&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">saveName</span><span class="p">;</span>
+</span><span class='line'>		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">returninfo</span><span class="p">[</span><span class="s1">&#39;size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">number_format</span><span class="p">(</span> <span class="p">(</span><span class="nv">$fileArray</span><span class="p">[</span><span class="s1">&#39;size&#39;</span><span class="p">])</span><span class="o">/</span><span class="mi">1024</span> <span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">);</span><span class="c1">//以KB为单位</span>
+</span><span class='line'>		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">returninfo</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$fileArray</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">];</span>
+</span><span class='line'>		<span class="c1">// 检查文件格式</span>
+</span><span class='line'>		<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">validateFormat</span><span class="p">()){</span>
+</span><span class='line'>			<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">errno</span> <span class="o">=</span> <span class="mi">11</span><span class="p">;</span>
+</span><span class='line'>			<span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'>		<span class="p">}</span>
+</span><span class='line'>		<span class="c1">// 检查目录是否可写</span>
+</span><span class='line'>		<span class="k">if</span><span class="p">(</span><span class="o">!@</span><span class="nb">is_writable</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">savePath</span><span class="p">)){</span>
+</span><span class='line'>			<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">errno</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
+</span><span class='line'>			<span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'>		<span class="p">}</span>
+</span><span class='line'>		<span class="c1">// 如果不允许覆盖，检查文件是否已经存在</span>
+</span><span class='line'>		<span class="k">if</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">overwrite</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="o">@</span><span class="nb">file_exists</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">savePath</span><span class="o">.</span><span class="nv">$fileArray</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])){</span>
+</span><span class='line'>			<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">errno</span> <span class="o">=</span> <span class="mi">13</span><span class="p">;</span>
+</span><span class='line'>			<span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'>		<span class="p">}</span>
+</span><span class='line'>		<span class="c1">// 如果有大小限制，检查文件是否超过限制</span>
+</span><span class='line'>		<span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">maxSize</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">){</span>
+</span><span class='line'>			<span class="k">if</span> <span class="p">(</span><span class="nv">$fileArray</span><span class="p">[</span><span class="s2">&quot;size&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">maxSize</span><span class="p">){</span>
+</span><span class='line'>				<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">errno</span> <span class="o">=</span> <span class="mi">14</span><span class="p">;</span>
+</span><span class='line'>				<span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'>			<span class="p">}</span>
+</span><span class='line'>		<span class="p">}</span>
+</span><span class='line'>		<span class="c1">// 文件上传</span>
+</span><span class='line'>		<span class="k">if</span><span class="p">(</span><span class="o">!@</span><span class="nb">copy</span><span class="p">(</span><span class="nv">$fileArray</span><span class="p">[</span><span class="s2">&quot;tmp_name&quot;</span><span class="p">],</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">savePath</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">saveName</span><span class="p">)){</span>
+</span><span class='line'>			<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">errno</span> <span class="o">=</span> <span class="nv">$fileArray</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">];</span>
+</span><span class='line'>			<span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'>		<span class="p">}</span><span class="k">elseif</span><span class="p">(</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">thumb</span> <span class="p">){</span><span class="c1">// 创建缩略图</span>
+</span><span class='line'>			<span class="nv">$CreateFunction</span> <span class="o">=</span> <span class="s2">&quot;imagecreatefrom&quot;</span><span class="o">.</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ext</span> <span class="o">==</span> <span class="s1">&#39;jpg&#39;</span> <span class="o">?</span> <span class="s1">&#39;jpeg&#39;</span> <span class="o">:</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ext</span><span class="p">);</span>
+</span><span class='line'>			<span class="nv">$SaveFunction</span> <span class="o">=</span> <span class="s2">&quot;image&quot;</span><span class="o">.</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ext</span> <span class="o">==</span> <span class="s1">&#39;jpg&#39;</span> <span class="o">?</span> <span class="s1">&#39;jpeg&#39;</span> <span class="o">:</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ext</span><span class="p">);</span>
+</span><span class='line'>			<span class="k">if</span> <span class="p">(</span><span class="nb">strtolower</span><span class="p">(</span><span class="nv">$CreateFunction</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;imagecreatefromgif&quot;</span>
+</span><span class='line'>				<span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nb">function_exists</span><span class="p">(</span><span class="s2">&quot;imagecreatefromgif&quot;</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>				<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">errno</span> <span class="o">=</span> <span class="mi">16</span><span class="p">;</span>
+</span><span class='line'>				<span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'>			<span class="p">}</span> <span class="k">elseif</span> <span class="p">(</span><span class="nb">strtolower</span><span class="p">(</span><span class="nv">$CreateFunction</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;imagecreatefromjpeg&quot;</span>
+</span><span class='line'>				<span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nb">function_exists</span><span class="p">(</span><span class="s2">&quot;imagecreatefromjpeg&quot;</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>				<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">errno</span> <span class="o">=</span> <span class="mi">17</span><span class="p">;</span>
+</span><span class='line'>				<span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'>			<span class="p">}</span> <span class="k">elseif</span> <span class="p">(</span><span class="o">!</span><span class="nb">function_exists</span><span class="p">(</span><span class="nv">$CreateFunction</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>				<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">errno</span> <span class="o">=</span> <span class="mi">18</span><span class="p">;</span>
+</span><span class='line'>				<span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'>			<span class="p">}</span>
+</span><span class='line'>				
+</span><span class='line'>			<span class="nv">$Original</span> <span class="o">=</span> <span class="o">@</span><span class="nv">$CreateFunction</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">savePath</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">saveName</span><span class="p">);</span>
+</span><span class='line'>			<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$Original</span><span class="p">)</span> <span class="p">{</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">errno</span> <span class="o">=</span> <span class="mi">19</span><span class="p">;</span> <span class="k">return</span> <span class="k">false</span><span class="p">;}</span>
+</span><span class='line'>			<span class="nv">$originalHeight</span> <span class="o">=</span> <span class="nx">ImageSY</span><span class="p">(</span><span class="nv">$Original</span><span class="p">);</span>
+</span><span class='line'>			<span class="nv">$originalWidth</span> <span class="o">=</span> <span class="nx">ImageSX</span><span class="p">(</span><span class="nv">$Original</span><span class="p">);</span>
+</span><span class='line'>			<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">returninfo</span><span class="p">[</span><span class="s1">&#39;originalHeight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$originalHeight</span><span class="p">;</span>
+</span><span class='line'>			<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">returninfo</span><span class="p">[</span><span class="s1">&#39;originalWidth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$originalWidth</span><span class="p">;</span>
+</span><span class='line'>			<span class="k">if</span> <span class="p">((</span><span class="nv">$originalHeight</span> <span class="o">&lt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">thumbHeight</span>
+</span><span class='line'>				<span class="o">&amp;&amp;</span> <span class="nv">$originalWidth</span> <span class="o">&lt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">thumbWidth</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>				<span class="c1">// 如果比期望的缩略图小，那只Copy</span>
+</span><span class='line'>				<span class="nb">copy</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">savePath</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">saveName</span><span class="p">,</span>
+</span><span class='line'>					<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">savePath</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">thumbPrefix</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">saveName</span><span class="p">);</span>
+</span><span class='line'>			<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>				<span class="k">if</span><span class="p">(</span> <span class="nv">$originalWidth</span> <span class="o">&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">thumbWidth</span> <span class="p">){</span><span class="c1">// 宽 &gt; 设定宽度</span>
+</span><span class='line'>					<span class="nv">$thumbWidth</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">thumbWidth</span> <span class="p">;</span>
+</span><span class='line'>					<span class="nv">$thumbHeight</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">thumbWidth</span> <span class="o">*</span> <span class="p">(</span> <span class="nv">$originalHeight</span> <span class="o">/</span> <span class="nv">$originalWidth</span> <span class="p">);</span>
+</span><span class='line'>					<span class="k">if</span><span class="p">(</span><span class="nv">$thumbHeight</span> <span class="o">&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">thumbHeight</span><span class="p">){</span><span class="c1">// 高 &gt; 设定高度</span>
+</span><span class='line'>						<span class="nv">$thumbWidth</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">thumbHeight</span> <span class="o">*</span> <span class="p">(</span> <span class="nv">$thumbWidth</span> <span class="o">/</span> <span class="nv">$thumbHeight</span> <span class="p">);</span>
+</span><span class='line'>						<span class="nv">$thumbHeight</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">thumbHeight</span> <span class="p">;</span>
+</span><span class='line'>					<span class="p">}</span>
+</span><span class='line'>				<span class="p">}</span><span class="k">elseif</span><span class="p">(</span> <span class="nv">$originalHeight</span> <span class="o">&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">thumbHeight</span> <span class="p">){</span><span class="c1">// 高 &gt; 设定高度</span>
+</span><span class='line'>					<span class="nv">$thumbHeight</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">thumbHeight</span> <span class="p">;</span>
+</span><span class='line'>					<span class="nv">$thumbWidth</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">thumbHeight</span> <span class="o">*</span> <span class="p">(</span> <span class="nv">$originalWidth</span> <span class="o">/</span> <span class="nv">$originalHeight</span> <span class="p">);</span>
+</span><span class='line'>					<span class="k">if</span><span class="p">(</span><span class="nv">$thumbWidth</span> <span class="o">&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">thumbWidth</span><span class="p">){</span><span class="c1">// 宽 &gt; 设定宽度</span>
+</span><span class='line'>						<span class="nv">$thumbHeight</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">thumbWidth</span> <span class="o">*</span> <span class="p">(</span> <span class="nv">$thumbHeight</span> <span class="o">/</span> <span class="nv">$thumbWidth</span> <span class="p">);</span>
+</span><span class='line'>						<span class="nv">$thumbWidth</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">thumbWidth</span> <span class="p">;</span>
+</span><span class='line'>					<span class="p">}</span>
+</span><span class='line'>				<span class="p">}</span>
+</span><span class='line'>				<span class="k">if</span> <span class="p">(</span><span class="nv">$thumbWidth</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="nv">$thumbWidth</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>				<span class="k">if</span> <span class="p">(</span><span class="nv">$thumbHeight</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="nv">$thumbHeight</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>				<span class="nv">$createdThumb</span> <span class="o">=</span> <span class="nb">imagecreatetruecolor</span><span class="p">(</span><span class="nv">$thumbWidth</span><span class="p">,</span> <span class="nv">$thumbHeight</span><span class="p">);</span>
+</span><span class='line'>				<span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nv">$createdThumb</span> <span class="p">)</span> <span class="p">{</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">errno</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span> <span class="k">return</span> <span class="k">false</span><span class="p">;}</span>
+</span><span class='line'>				<span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nb">imagecopyresampled</span><span class="p">(</span><span class="nv">$createdThumb</span><span class="p">,</span> <span class="nv">$Original</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+</span><span class='line'>					<span class="nv">$thumbWidth</span><span class="p">,</span> <span class="nv">$thumbHeight</span><span class="p">,</span> <span class="nv">$originalWidth</span><span class="p">,</span> <span class="nv">$originalHeight</span><span class="p">)</span> <span class="p">)</span>
+</span><span class='line'>					<span class="p">{</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">errno</span> <span class="o">=</span> <span class="mi">21</span><span class="p">;</span> <span class="k">return</span> <span class="k">false</span><span class="p">;}</span>
+</span><span class='line'>				<span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nv">$SaveFunction</span><span class="p">(</span><span class="nv">$createdThumb</span><span class="p">,</span>
+</span><span class='line'>					<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">savePath</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">thumbPrefix</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">saveName</span><span class="p">)</span> <span class="p">)</span>
+</span><span class='line'>					<span class="p">{</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">errno</span> <span class="o">=</span> <span class="mi">22</span><span class="p">;</span> <span class="k">return</span> <span class="k">false</span><span class="p">;}</span>
+</span><span class='line'>			<span class="p">}</span>
+</span><span class='line'>		<span class="p">}</span>
+</span><span class='line'>		<span class="c1">// 删除临时文件</span>
+</span><span class='line'>		<span class="k">if</span><span class="p">(</span><span class="o">!@</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">del</span><span class="p">(</span><span class="nv">$fileArray</span><span class="p">[</span><span class="s2">&quot;tmp_name&quot;</span><span class="p">])){</span>
+</span><span class='line'>			<span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'>		<span class="p">}</span>
+</span><span class='line'>		<span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 文件格式检查,MIME检测</span>
+</span><span class='line'>	<span class="k">function</span> <span class="nf">validateFormat</span><span class="p">(){</span>
+</span><span class='line'>		<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nb">is_array</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">fileFormat</span><span class="p">)</span>
+</span><span class='line'>			<span class="o">||</span> <span class="nb">in_array</span><span class="p">(</span><span class="nb">strtolower</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ext</span><span class="p">),</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">fileFormat</span><span class="p">)</span>
+</span><span class='line'>			<span class="o">||</span> <span class="nb">in_array</span><span class="p">(</span><span class="nb">strtolower</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">returninfo</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]),</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">fileFormat</span><span class="p">)</span> <span class="p">)</span>
+</span><span class='line'>			<span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span><span class='line'>		<span class="k">else</span>
+</span><span class='line'>			<span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'><span class="c1">// 获取文件扩展名</span>
+</span><span class='line'><span class="c1">// @param $fileName 上传文件的原文件名</span>
+</span><span class='line'>	<span class="k">function</span> <span class="nf">getExt</span><span class="p">(</span><span class="nv">$fileName</span><span class="p">){</span>
+</span><span class='line'>		<span class="nv">$ext</span> <span class="o">=</span> <span class="nb">explode</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="nv">$fileName</span><span class="p">);</span>
+</span><span class='line'>		<span class="nv">$ext</span> <span class="o">=</span> <span class="nv">$ext</span><span class="p">[</span><span class="nb">count</span><span class="p">(</span><span class="nv">$ext</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+</span><span class='line'>		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ext</span> <span class="o">=</span> <span class="nb">strtolower</span><span class="p">(</span><span class="nv">$ext</span><span class="p">);</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 设置上传文件的最大字节限制</span>
+</span><span class='line'><span class="c1">// @param $maxSize 文件大小(bytes) 0:表示无限制</span>
+</span><span class='line'>	<span class="k">function</span> <span class="nf">setMaxsize</span><span class="p">(</span><span class="nv">$maxSize</span><span class="p">){</span>
+</span><span class='line'>		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">maxSize</span> <span class="o">=</span> <span class="nv">$maxSize</span><span class="p">;</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'><span class="c1">// 设置文件格式限定</span>
+</span><span class='line'><span class="c1">// @param $fileFormat 文件格式数组</span>
+</span><span class='line'>	<span class="k">function</span> <span class="nf">setFileformat</span><span class="p">(</span><span class="nv">$fileFormat</span><span class="p">){</span>
+</span><span class='line'>		<span class="k">if</span><span class="p">(</span><span class="nb">is_array</span><span class="p">(</span><span class="nv">$fileFormat</span><span class="p">)){</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">fileFormat</span> <span class="o">=</span> <span class="nv">$fileFormat</span> <span class="p">;}</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 设置覆盖模式</span>
+</span><span class='line'><span class="c1">// @param overwrite 覆盖模式 1:允许覆盖 0:禁止覆盖</span>
+</span><span class='line'>	<span class="k">function</span> <span class="nf">setOverwrite</span><span class="p">(</span><span class="nv">$overwrite</span><span class="p">){</span>
+</span><span class='line'>		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">overwrite</span> <span class="o">=</span> <span class="nv">$overwrite</span><span class="p">;</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 设置保存路径</span>
+</span><span class='line'><span class="c1">// @param $savePath 文件保存路径：以 &quot;/&quot; 结尾，若没有 &quot;/&quot;，则补上</span>
+</span><span class='line'>	<span class="k">function</span> <span class="nf">setSavepath</span><span class="p">(</span><span class="nv">$savePath</span><span class="p">){</span>
+</span><span class='line'>		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">savePath</span> <span class="o">=</span> <span class="nb">substr</span><span class="p">(</span> <span class="nb">str_replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="nv">$savePath</span><span class="p">)</span> <span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;/&quot;</span>
+</span><span class='line'>		<span class="o">?</span> <span class="nv">$savePath</span> <span class="o">:</span> <span class="nv">$savePath</span><span class="o">.</span><span class="s2">&quot;/&quot;</span><span class="p">;</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 设置缩略图</span>
+</span><span class='line'><span class="c1">// @param $thumb = 1 产生缩略图 $thumbWidth,$thumbHeight 是缩略图的宽和高</span>
+</span><span class='line'>	<span class="k">function</span> <span class="nf">setThumb</span><span class="p">(</span><span class="nv">$thumb</span><span class="p">,</span> <span class="nv">$thumbWidth</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="nv">$thumbHeight</span> <span class="o">=</span> <span class="mi">0</span><span class="p">){</span>
+</span><span class='line'>		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">thumb</span> <span class="o">=</span> <span class="nv">$thumb</span><span class="p">;</span>
+</span><span class='line'>		<span class="k">if</span><span class="p">(</span><span class="nv">$thumbWidth</span><span class="p">)</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">thumbWidth</span> <span class="o">=</span> <span class="nv">$thumbWidth</span><span class="p">;</span>
+</span><span class='line'>		<span class="k">if</span><span class="p">(</span><span class="nv">$thumbHeight</span><span class="p">)</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">thumbHeight</span> <span class="o">=</span> <span class="nv">$thumbHeight</span><span class="p">;</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 设置文件保存名</span>
+</span><span class='line'><span class="c1">// @param $saveName 保存名，如果为空，则系统自动生成一个随机的文件名</span>
+</span><span class='line'>	<span class="k">function</span> <span class="nf">setSavename</span><span class="p">(</span><span class="nv">$saveName</span><span class="p">){</span>
+</span><span class='line'>		<span class="k">if</span> <span class="p">(</span><span class="nv">$saveName</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">){</span>  <span class="c1">// 如果未设置文件名，则生成一个随机文件名</span>
+</span><span class='line'>			<span class="nv">$name</span> <span class="o">=</span> <span class="nb">date</span><span class="p">(</span><span class="s1">&#39;YmdHis&#39;</span><span class="p">)</span><span class="o">.</span><span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="nb">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">999</span><span class="p">)</span><span class="o">.</span><span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ext</span><span class="p">;</span>
+</span><span class='line'>		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>			<span class="nv">$name</span> <span class="o">=</span> <span class="nv">$saveName</span><span class="p">;</span>
+</span><span class='line'>		<span class="p">}</span>
+</span><span class='line'>		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">saveName</span> <span class="o">=</span> <span class="nv">$name</span><span class="p">;</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 删除文件</span>
+</span><span class='line'><span class="c1">// @param $fileName 所要删除的文件名</span>
+</span><span class='line'>	<span class="k">function</span> <span class="nf">del</span><span class="p">(</span><span class="nv">$fileName</span><span class="p">){</span>
+</span><span class='line'>		<span class="k">if</span><span class="p">(</span><span class="o">!@</span><span class="nb">unlink</span><span class="p">(</span><span class="nv">$fileName</span><span class="p">)){</span>
+</span><span class='line'>			<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">errno</span> <span class="o">=</span> <span class="mi">15</span><span class="p">;</span>
+</span><span class='line'>			<span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'>		<span class="p">}</span>
+</span><span class='line'>		<span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 返回上传文件的信息</span>
+</span><span class='line'>	<span class="k">function</span> <span class="nf">getInfo</span><span class="p">(){</span>
+</span><span class='line'>		<span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">returnArray</span><span class="p">;</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 得到错误信息</span>
+</span><span class='line'>	<span class="k">function</span> <span class="nf">errmsg</span><span class="p">(){</span>
+</span><span class='line'>		<span class="nv">$uploadClassError</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>			<span class="mi">0</span>	<span class="o">=&gt;</span><span class="s1">&#39;There is no error, the file uploaded with success. &#39;</span><span class="p">,</span>
+</span><span class='line'>			<span class="mi">1</span>	<span class="o">=&gt;</span><span class="s1">&#39;The uploaded file exceeds the upload_max_filesize directive in php.ini.&#39;</span><span class="p">,</span>
+</span><span class='line'>			<span class="mi">2</span>	<span class="o">=&gt;</span><span class="s1">&#39;The uploaded file exceeds the MAX_FILE_SIZE that was specified in the HTML form.&#39;</span><span class="p">,</span>
+</span><span class='line'>			<span class="mi">3</span>	<span class="o">=&gt;</span><span class="s1">&#39;The uploaded file was only partially uploaded. &#39;</span><span class="p">,</span>
+</span><span class='line'>			<span class="mi">4</span>	<span class="o">=&gt;</span><span class="s1">&#39;No file was uploaded. &#39;</span><span class="p">,</span>
+</span><span class='line'>			<span class="mi">6</span>	<span class="o">=&gt;</span><span class="s1">&#39;Missing a temporary folder. Introduced in PHP 4.3.10 and PHP 5.0.3. &#39;</span><span class="p">,</span>
+</span><span class='line'>			<span class="mi">7</span>	<span class="o">=&gt;</span><span class="s1">&#39;Failed to write file to disk. Introduced in PHP 5.1.0. &#39;</span><span class="p">,</span>
+</span><span class='line'>			<span class="mi">10</span>	<span class="o">=&gt;</span><span class="s1">&#39;Input name is not unavailable!&#39;</span><span class="p">,</span>
+</span><span class='line'>			<span class="mi">11</span>	<span class="o">=&gt;</span><span class="s1">&#39;The uploaded file is Unallowable!&#39;</span><span class="p">,</span>
+</span><span class='line'>			<span class="mi">12</span>	<span class="o">=&gt;</span><span class="s1">&#39;Directory unwritable!&#39;</span><span class="p">,</span>
+</span><span class='line'>			<span class="mi">13</span>	<span class="o">=&gt;</span><span class="s1">&#39;File exist already!&#39;</span><span class="p">,</span>
+</span><span class='line'>			<span class="mi">14</span>	<span class="o">=&gt;</span><span class="s1">&#39;File is too big!&#39;</span><span class="p">,</span>
+</span><span class='line'>			<span class="mi">15</span>	<span class="o">=&gt;</span><span class="s1">&#39;Delete file unsuccessfully!&#39;</span><span class="p">,</span>
+</span><span class='line'>			<span class="mi">16</span>	<span class="o">=&gt;</span><span class="s1">&#39;Your version of PHP does not appear to have GIF thumbnailing support.&#39;</span><span class="p">,</span>
+</span><span class='line'>			<span class="mi">17</span>	<span class="o">=&gt;</span><span class="s1">&#39;Your version of PHP does not appear to have JPEG thumbnailing support.&#39;</span><span class="p">,</span>
+</span><span class='line'>			<span class="mi">18</span>	<span class="o">=&gt;</span><span class="s1">&#39;Your version of PHP does not appear to have pictures thumbnailing support.&#39;</span><span class="p">,</span>
+</span><span class='line'>			<span class="mi">19</span>	<span class="o">=&gt;</span><span class="s1">&#39;An error occurred while attempting to copy the source image . </span>
+</span><span class='line'><span class="s1">					Your version of php (&#39;</span><span class="o">.</span><span class="nb">phpversion</span><span class="p">()</span><span class="o">.</span><span class="s1">&#39;) may not have this image type support.&#39;</span><span class="p">,</span>
+</span><span class='line'>			<span class="mi">20</span>	<span class="o">=&gt;</span><span class="s1">&#39;An error occurred while attempting to create a new image.&#39;</span><span class="p">,</span>
+</span><span class='line'>			<span class="mi">21</span>	<span class="o">=&gt;</span><span class="s1">&#39;An error occurred while copying the source image to the thumbnail image.&#39;</span><span class="p">,</span>
+</span><span class='line'>			<span class="mi">22</span>	<span class="o">=&gt;</span><span class="s1">&#39;An error occurred while saving the thumbnail image to the filesystem. </span>
+</span><span class='line'><span class="s1">					Are you sure that PHP has been configured with both read and write access on this folder?&#39;</span><span class="p">,</span>
+</span><span class='line'>			<span class="p">);</span>
+</span><span class='line'>		<span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">errno</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>			<span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'>		<span class="k">else</span>
+</span><span class='line'>			<span class="k">return</span> <span class="nv">$uploadClassError</span><span class="p">[</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">errno</span><span class="p">];</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="cp">?&gt;</span><span class="x"></span>
+</span></code></pre></td></tr></table></div></figure></div></p></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Peter</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-11-22T00:00:00+01:00" pubdate data-updated="true">Nov 22<span>nd</span>, 2005</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/posts/categories/website/'>Website</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/posts/2/" title="Previous Post: 火星文字">&laquo; 火星文字</a>
+      
+      
+        <a class="basic-alignment right" href="/posts/47/" title="Next Post: firefox中不能用 cursor:hand">firefox中不能用 cursor:hand &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/2014/01/27/install-mysql-using-homebrew/">在 Mac 下用 Homebrew 安装 MySQL</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2013/10/06/use-ffmpeg-to-burn-subtitles-into-the-video/">Use FFmpeg to burn subtitles into the video</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2013/02/17/ruby-block-proc-and-lambda/">Ruby -- block Proc and lambda</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/10/18/mac-os-x-10-dot-8-2-problems-after-update/">Mac OS X 10.8.2 Problems after update</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/02/mac-octopress-ioerror-invalid-python-installation/">Mac Octopress IOError invalid Python installation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/02/rstudio-non-utf8-warning-message/">RStudio non-UTF8 warning message</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/01/pdf-version-found-1-dot-5-but-allowed-1-dot-4/">PDF version found 1.5 but allowed 1.4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/07/21/fatal-error-stdio-dot-h-file-not-found/">fatal error: stdio.h file not found</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/06/06/mongodb-scaffolding-devise-omniauth-cancan-2/">MongoDB Scaffolding Devise Omniauth CanCan (2)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/05/19/mongodb-scaffolding-devise-omniauth-cancan-1/">MongoDB Scaffolding Devise Omniauth CanCan (1)</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>最近评论</h1>
+  <script type="text/javascript" src="http://neten.disqus.com/combination_widget.js?num_items=5&hide_mods=0&color=grey&default_tab=recent&excerpt_length=200"></script>
+</section>
+<section>
+  <h1>常用资料</h1>
+    <ul id="recent_posts">
+      <li class="post">
+        <a href="/posts/93">来几个Linux命令</a>
+      </li>
+      <li class="post">
+        <a href="/posts/344">Mysql 改变数据库目录</a>
+      </li>
+      <li class="post">
+        <a href="/posts/254">Latex & TexMakerX</a>
+      </li>
+      <li class="post">
+        <a href="/posts/241">在Ubuntu上通过SSH安装Virtualbox</a>
+      </li>
+      <li class="post">
+        <a href="/posts/73">汉德词典 for MDict & Babylon</a>
+      </li>
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2005 - 2016 - Peter - | 
+  <span><a href="/posts/94">Impressum</a></span>
+  <span class="credit" style="float:right">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'neten';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ZPVIP.github.io/posts/1/';
+        var disqus_url = 'http://ZPVIP.github.io/posts/1/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="/javascripts/jimdoclockzip.js"></script>
+</body>
+</html>

@@ -1,0 +1,614 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>简洁的想法</title>
+  <meta name="author" content="Peter">
+
+  
+  <meta name="description" content="1, 首先备份 .git/config打开 config , 只保留如下部分&#91;core&#93; repositoryformatversion = 0 filemode = true bare = false logallrefupdates = true2, 回到. &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ZPVIP.github.io/posts/page/7">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="简洁的想法" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">简洁的想法</a></h1>
+  
+    <h2>仁爱、喜乐、和平、忍耐、恩慈、良善、信实、温柔、节制</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ZPVIP.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">日志</a></li>
+  <li><a href="/blog/archives">归档</a></li>
+  <li><a href="/posts/categories/website/">网站工程</a></li>
+  <li><a href="/posts/categories/collections/">网文收集</a></li>
+  <li><a href="/posts/categories/digitallife/">数字生活</a></li>
+  <li><a href="/posts/categories/memories/">路已成歌</a></li>
+  <li><a href="/posts/categories/beautifulsongs/">美曲美境</a></li>
+  <li><a href="/posts/categories/travel/">忆影斑斓</a></li>
+  <li><a href="http://bbs.neten.de">论坛</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/240/">如何利用本地工作副本建立远程GIT库</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-02T00:00:00+01:00" pubdate data-updated="true">Mar 2<span>nd</span>, 2011</time>
+        
+         | <a href="/posts/240/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>1, 首先备份 .git/config<br/>打开 config , 只保留如下部分<coolcode>&#91;core&#93;<br />  repositoryformatversion = 0<br />  filemode = true<br />  bare = false<br />  logallrefupdates = true</coolcode><br/><br/>2, 回到.git同级目录执行<br/><coolcode>git remote add origin  ssh://user@123.321.123.321:88888/home/user/git/neten.git</coolcode><br/><br/>3, 再次打开.git/config<br/>发现会变成这个样子了:<br/><coolcode>&#91;core&#93;<br />  repositoryformatversion = 0<br />  filemode = true<br />  bare = false<br />  logallrefupdates = true<br /><br />&#91;remote &#8220;origin&#8221;&#93;<br />  url = ssh://user@123.321.123.321:88888/home/user/git/neten.git<br />  fetch = +refs/heads/<strong>:refs/remotes/origin/</strong></coolcode><br/>我们需要添加一个单元, 最后是这样子:<coolcode>&#91;core&#93;<br />  repositoryformatversion = 0<br />  filemode = true<br />  bare = false<br />  logallrefupdates = true<br /><br />&#91;remote &#8220;origin&#8221;&#93;<br />  url = ssh://user@123.321.123.321:88888/home/user/git/neten.git<br />  fetch = +refs/heads/<strong>:refs/remotes/origin/</strong><br />&#91;branch &#8220;master&#8221;&#93;<br />  remote = origin<br />  merge = refs/heads/master</coolcode><br/>&nbsp;&nbsp;<br/>4, 登录服务器123.321.123.321, 建立远程git库<br/><coolcode>$ cd /home/user/git<br />$ mkdir neten.git<br />$ cd neten.git<br />$ git init &#8212;bare</coolcode><br/><br/>5, 回到本地执行<br/><coolcode>$ git push origin master</coolcode></p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/239/">php5.3.2 抓虫</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-27T00:00:00+01:00" pubdate data-updated="true">Feb 27<span>th</span>, 2011</time>
+        
+         | <a href="/posts/239/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ubuntu apt-get来的php默认版本现在是php5.3.2<br/>居然对我的代码白屏,<br/><br/><coolcode>sudo vi /var/log/apache2/error.log</coolcode><br/><coolcode><br /><span class="caps">PHP</span> Deprecated:  Comments starting with &#039;#&#039; are deprecated in /etc/php5/apache2/conf.d/idn.ini on line 1 in Unknown on line 0<br /><span class="caps">PHP</span> Deprecated:  Comments starting with &#039;#&#039; are deprecated in /etc/php5/apache2/conf.d/imagick.ini on line 1 in Unknown on line 0<br /><span class="caps">PHP</span> Deprecated:  Comments starting with &#039;#&#039; are deprecated in /etc/php5/apache2/conf.d/imap.ini on line 1 in Unknown on line 0<br /><span class="caps">PHP</span> Deprecated:  Comments starting with &#039;#&#039; are deprecated in /etc/php5/apache2/conf.d/mcrypt.ini on line 1 in Unknown on line 0<br /><span class="caps">PHP</span> Deprecated:  Comments starting with &#039;#&#039; are deprecated in /etc/php5/apache2/conf.d/ming.ini on line 1 in Unknown on line 0</coolcode><br/><br/>OK, 错误很明显, 配置文件用错了注释开始符, 把 &#39;#&#39; 改成 &#39;;&#39; 就OK了.</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/238/">Ubuntu下改变mysql数据库路径</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-27T00:00:00+01:00" pubdate data-updated="true">Feb 27<span>th</span>, 2011</time>
+        
+         | <a href="/posts/238/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>1, 停止MYSQL服务<br/><coolcode>/etc/init.d/mysql stop</coolcode><br/><br/>2, 把数据库文件移动到你指定的位置<br/><coolcode>mv /var/lib/mysql/ /home/neten/DB/</coolcode><br/><br/>3, 设置好目录权限, 假设测试数据库为test<br/><coolcode>cd /home/neten/DB/<br />chown mysql:mysql ./mysql -R<br />chmod 700 /home/neten/DB/mysql/test/<br />chmod 660 /home/neten/DB/mysql/test/*</coolcode><br/><br/>4, 修改配置文件<br/><coolcode>sudo vi /etc/my.cnf</coolcode><br/>查找 /var/lib/mysql, 替换成 /home/neten/DB/mysql<br/><br/>5, <span style="color: #FF0000;">修改mysqld可以对哪些路径进行操作</span><br/><coolcode>sudo vi /etc/apparmor.d/usr.sbin.mysqld</coolcode><br/>查找 /var/lib/mysql, 替换成 /home/neten/DB/mysql<br/><coolcode>/etc/init.d/apparmor restart</coolcode><br/><br/>6, 启动MYSQL服务<br/><coolcode>/etc/init.d/mysql start</coolcode><br/><br/></p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/237/">把域名从Google Apps转到Godaddy</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-11-01T00:00:00+01:00" pubdate data-updated="true">Nov 1<span>st</span>, 2010</time>
+        
+         | <a href="/posts/237/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>以前在Google Apps注册了域名, 现在想转到Goddy<br/>http://www.google.com/support/a/bin/topic.py?topic=14579<br/><br/>1, 首先登录Google Apps, 进而登录Godaddy的面板<br/>2, 点击域名, Unlock之<br/>3, 在 Authorization code 右边点击 Send by email<br/>4, 在Godaddy注册要转移的域名, 注意是Transfer Domain<br/>5, 在所有域名的管理面板点击Pending Transfers, 选中域名, 在右上角点击Authorization<br/>6, 接收Email, 现在已经得到了<br/>Transaction ID: 123456789<br/>Security Code: NABC12345<br/>Authorization code 是第三步得到的<br/>7, 唯一的障碍就是Cancel Private Registration<br/>http://help.securepaynet.net/article/1625?prog_id=412956<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;1) Log in to your account at www.DomainsByProxy.com. <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;登录信息应该和Google Apps里用来登录Godaddy的帐户, 如果不行, 就点击Forgot your login information<br/>&nbsp;&nbsp;&nbsp;&nbsp;2) 在每行域名列表的最后面点击Cancel private registration<br/>8, 回到Godaddy自己的帐号下, 在所有域名的管理面板点击Pending Transfers, 选中域名, 在右上角再次点击Authorization, 输入相应信息, 搞定.<br/><br/>如果是enom的域名, 上面的1,2,3步可省略, 直接给下面的Email发邮件就好了<br/>GoogleClients@enom.com<br/>记得把Google Apps提供的用于登录的域名和密码写在email里面就可以了.</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/236/">人心不古</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-09-15T00:00:00+02:00" pubdate data-updated="true">Sep 15<span>th</span>, 2010</time>
+        
+         | <a href="/posts/236/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>现在越来越多的人在ebay上拍卖产品包装(Originalverpackung, 简写OVP), 这是刚结束的一单: 151欧买个手机盒子<br/>产品描述里面写的是这个盒子提供足够的空间给: 一个HTC手机, 一个充电器等等, 字很小, 一不小心就看漏了.<br/><br/><span style="color: #0000FF;"><span class="caps">HTC</span> HD2 <span class="caps">OVP</span></span><br/>http://cgi.ebay.de/320590598351?&amp;hash=item4aa4b050cf<br/><br/>Bietet <span style="color: #FF0000;">genug Platz</span> für:<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o 1 x <span class="caps">HTC</span> HD2 Smartphone<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o 1 x <span class="caps">HTC</span> HD2 Ladegerät<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o 1 x <span class="caps">HTC</span> HD2 Headset<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o 1 x AV &#8211; Kabel<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o 1 x <span class="caps">HTC</span> <span class="caps">USB</span> Kabel<br/><br/>有人可能看不惯了, 给这个卖盒子的出了个天价:一千万欧元<br/><br/><span style="color: #0000FF;">Apple iPhone 4 Schwarz 32GB Schwarz Originalverpackung</span><br/>http://cgi.ebay.de/190439704689?hash=item2c57174871<br/>Bietet <span style="color: #FF0000;">platz</span> für:<br/>1 x Apple Iphone 4 32GB schwarz<br/>1 x Apple Iphone Ladegerät<br/>1 x Apple Iphone Headset<br/>1 x Apple Iphone <span class="caps">USB</span>-Kabel<br/><br/>“人心比万物都诡诈，坏到极处，谁能识透呢？我耶和华是鉴察人心，试验人肺腑的，要照各人所行的和他作事的结果报应他。” (耶17:9-10)。</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/320/">1T 备份硬盘的分区实录, Df -h出现整数分区</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-07-14T00:00:00+02:00" pubdate data-updated="true">Jul 14<span>th</span>, 2010</time>
+        
+         | <a href="/posts/320/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>一个1T的sata2硬盘, 用来做备份使用,所以分区上随意一点,<br />
+1T的硬盘, 首先分成一个主分区, <br />
+df -h 显示</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>Filesystem            Size  Used Avail Use% Mounted on
+</span><span class='line'>/dev/sdb1             925G  200M  878G   1% /bak/b0
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>fdisk /dev/sdb<br />
+按p显示<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>Device Boot      Start         End      Blocks   Id  System
+</span><span class='line'>/dev/sdb1               1      121601   976760001   83  Linux
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>我想分成三个300G的扩展分区, 多出来的留给主分区.<br />
+我是这样计算的: 121601个柱面, 925G, 这样一个300G是39438个柱面<br />
+倒推着来,<br />
+最后一个分区是<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>121601 - 39438 = 82163
+</span><span class='line'>82162 - 39438 = 42724
+</span><span class='line'>42723 - 39438 = 3285
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>然后在fdisk的时候,直接输入结束柱面就好了,依次是 3285, 42724, 82163, 121601<br />
+格式化, mount之后是这个情况:<br />
+df -h<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>Filesystem            Size  Used Avail Use% Mounted on
+</span><span class='line'>......
+</span><span class='line'>/dev/sdb1              25G  173M   24G   1% /bak/b0
+</span><span class='line'>/dev/sdb5             300G  195M  285G   1% /bak/b1
+</span><span class='line'>/dev/sdb6             300G  195M  285G   1% /bak/b2
+</span><span class='line'>/dev/sdb7             300G  195M  285G   1% /bak/b3
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>整数G看着还是舒服了一点, 特意记一下,希望对有 整G 有癖好的人一点提示.</p>
+<p>同时发到了Ubuntu论坛: http://forum.ubuntu.org.cn/viewtopic.php?f=77&amp;t=283801</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/235/">Ubuntu 10.04 64位 Mic 麦克风问题解决方案</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-06-29T00:00:00+02:00" pubdate data-updated="true">Jun 29<span>th</span>, 2010</time>
+        
+         | <a href="/posts/235/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>主板：Asus P7P55D<br/>声卡：VIA VT1828S<br/>参考：<a href="https://bugs.launchpad.net/ubuntu/+bug/474359" target="_blank">HD audio with <span class="caps">VIA</span> VT1828S chipset on Asus P7P55D input (mic) is not working</a><br/>解决：<coolcode>sudo apt-get install linux-backports-modules-alsa-lucid-generic</coolcode><br/>记得重启电脑。</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/234/">失而复得</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-06-09T00:00:00+02:00" pubdate data-updated="true">Jun 9<span>th</span>, 2010</time>
+        
+         | <a href="/posts/234/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>老婆不久前不小心把iTouch丢在公交上了，上周六银行取钱的时候，又把一个刚从邮局取回的包裹丢在自动取款机旁边了，包裹里面是一个新买的数码相机。<br/><br/>不过感谢主，都找回来了。iTouch是在公交站的Fundbuero，相机就更简单了，那个好心人直接把包裹从邮局寄给我们了。<br/><br/>失而复得的过程，让我们的心情坐了一个过山车，一件本来就属于自己的东西就变得更加珍贵了，当然，还给了我两次关心老婆的机会，还好，都把握住了，呵呵！</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/233/">婚礼</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-10-03T00:00:00+02:00" pubdate data-updated="true">Oct 3<span>rd</span>, 2009</time>
+        
+         | <a href="/posts/233/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><br/>新郎：我<br/>新娘：我女朋友<br/>嘉宾：你们<br/>时间：2009年11月7日<br/>地点：亚琛 Freie evangelische Gemeinde<br/><br/></p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/231/">POKA-YOKE [ZT]</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-07-27T00:00:00+02:00" pubdate data-updated="true">Jul 27<span>th</span>, 2009</time>
+        
+         | <a href="/posts/231/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>日本丰田汽车公司的一位名叫Shigeo Shingo的工程师，利用一种被称作Poka-yoke(Pronounced <span class="caps">POH</span>-kah <span class="caps">YOH</span>-kay)的设备创立了一套质量管理方法（Poka-kah 的日文意思是防范差错）。<br/><br/>所谓Poka-yoke，它可以是任何一种机械装置，它能够防止人为错误的发生或者是让人一眼就能够找到出现错误的位置。也就是说，Poka-yoke装置的用途包括两个方面，一个是杜绝产生特定产品缺陷的原因，另一个是通过廉价的手段对生产产品进行逐一的检查，以确定其是否合格。这种检查的操作员在执行组装的过程中完成的，它们对操作员应该是透明的。也就是说，只要Poka-yoke的条件不满足，则操作就不能继续下去。<br/><br/><span class="caps">POKA</span>-YOKE防呆法/愚巧法/防错法,更多是一种理念,而不是工具.因为它让你从预防的角度去想尽可能让笨蛋都不会犯错. 这很难啊!尽力去做就好了.<br/><br/>以前冲模工序老有人冲伤,原因是脚踏式的,手脚不协调而致.后来有人发明了手动按钮, 冲伤就减少了,因为手比脚灵活多了.但是还是有人冲伤,原因是一手按按钮,一手拿冲好的产品还是会有危险,所以就发明了双制动按钮.很多人都知道这是个典型的POKAYOKE例子,但是并非到此结束了.<br/><br/>今年前我们公司的冲模工序就发生工伤,虽然是双制动按钮,但是工人为了加快速度,就用肘或膝盖顶住一个按钮,腾出手来取放产品.<br/>原来的防呆就不防呆了.怎么办呢?<br/><br/>后来工程师们就取了一个当时是认为防呆的办法.把原来的双制动按钮改成内陷式的.你说好吗?</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/posts/231/">More &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/posts/page/8/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/posts/page/6/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/2014/01/27/install-mysql-using-homebrew/">在 Mac 下用 Homebrew 安装 MySQL</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2013/10/06/use-ffmpeg-to-burn-subtitles-into-the-video/">Use FFmpeg to burn subtitles into the video</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2013/02/17/ruby-block-proc-and-lambda/">Ruby &#8211; block Proc and lambda</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/10/18/mac-os-x-10-dot-8-2-problems-after-update/">Mac OS X 10.8.2 Problems after update</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/02/mac-octopress-ioerror-invalid-python-installation/">Mac Octopress IOError invalid Python installation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/02/rstudio-non-utf8-warning-message/">RStudio non-UTF8 warning message</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/01/pdf-version-found-1-dot-5-but-allowed-1-dot-4/">PDF version found 1.5 but allowed 1.4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/07/21/fatal-error-stdio-dot-h-file-not-found/">fatal error: stdio.h file not found</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/06/06/mongodb-scaffolding-devise-omniauth-cancan-2/">MongoDB Scaffolding Devise Omniauth CanCan (2)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/05/19/mongodb-scaffolding-devise-omniauth-cancan-1/">MongoDB Scaffolding Devise Omniauth CanCan (1)</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>最近评论</h1>
+  <script type="text/javascript" src="http://neten.disqus.com/combination_widget.js?num_items=5&hide_mods=0&color=grey&default_tab=recent&excerpt_length=200"></script>
+</section>
+<section>
+  <h1>常用资料</h1>
+    <ul id="recent_posts">
+      <li class="post">
+        <a href="/posts/93">来几个Linux命令</a>
+      </li>
+      <li class="post">
+        <a href="/posts/344">Mysql 改变数据库目录</a>
+      </li>
+      <li class="post">
+        <a href="/posts/254">Latex & TexMakerX</a>
+      </li>
+      <li class="post">
+        <a href="/posts/241">在Ubuntu上通过SSH安装Virtualbox</a>
+      </li>
+      <li class="post">
+        <a href="/posts/73">汉德词典 for MDict & Babylon</a>
+      </li>
+  </ul>
+</section>
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2005 - 2016 - Peter - | 
+  <span><a href="/posts/94">Impressum</a></span>
+  <span class="credit" style="float:right">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'neten';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="/javascripts/jimdoclockzip.js"></script>
+</body>
+</html>

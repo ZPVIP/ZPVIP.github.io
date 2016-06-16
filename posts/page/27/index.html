@@ -1,0 +1,610 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>简洁的想法</title>
+  <meta name="author" content="Peter">
+
+  
+  <meta name="description" content="黑鹰基地www.3800cc.com精通批处理第三辑批处理中的符号今天要讲的符号主要有以下几个1.  @2.  &gt;3.  &gt;&gt;4.  &amp;line;5.  ^6.  &amp;7.  &amp;&amp;8.  &quot;&quot;9.  ,10. ;废话少说，开讲了一 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ZPVIP.github.io/posts/page/27">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="简洁的想法" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">简洁的想法</a></h1>
+  
+    <h2>仁爱、喜乐、和平、忍耐、恩慈、良善、信实、温柔、节制</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ZPVIP.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">日志</a></li>
+  <li><a href="/blog/archives">归档</a></li>
+  <li><a href="/posts/categories/website/">网站工程</a></li>
+  <li><a href="/posts/categories/collections/">网文收集</a></li>
+  <li><a href="/posts/categories/digitallife/">数字生活</a></li>
+  <li><a href="/posts/categories/memories/">路已成歌</a></li>
+  <li><a href="/posts/categories/beautifulsongs/">美曲美境</a></li>
+  <li><a href="/posts/categories/travel/">忆影斑斓</a></li>
+  <li><a href="http://bbs.neten.de">论坛</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/26/">精通批处理</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-04-26T00:00:00+02:00" pubdate data-updated="true">Apr 26<span>th</span>, 2005</time>
+        
+         | <a href="/posts/26/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><br />黑鹰基地<a href="http://www.3800cc.com/">www.3800cc.com</a><br /><br />精通批处理第三辑</p><p>批处理中的符号</p><p><br />今天要讲的符号主要有以下几个</p><p>1.  @<br />2.  &gt;<br />3.  &gt;&gt;<br />4.  &amp;line;<br />5.  ^<br />6.  &amp;<br />7.  &amp;&amp;<br />8.  &quot;&quot;<br />9.  ,<br />10. ;</p><p><br />废话少说，开讲了</p><p>一、 @</p><p>这个字符在批处理中的意思是关闭当前行的回显。我们从前几课知道<br /><span class="caps">ECHO</span> OFF可以关闭掉整个批处理命令的回显，但不能关掉ECHO OFF这个命令，现在我们在ECHO OFF这个命令前加个@，就可以达到所有命令均不回显的要求</p><p>1.bat<br />echo off<br />dir d:</p><p>2.bat<br />@echo off<br />dir d:</p><p>二、 &gt;</p><p>这个字符的意思是传递并且覆盖，他所起的作用是将运行的回显结果传递到后面的范围（后边可以是文件，也可以是默认的系统控制台）</p><p>比如：</p><p>文件1.txt 的文件内容是：</p><p>1+1</p><p>使用命令：dir *.txt &gt;1.txt</p><p>这时候1.txt 内容如下</p><p> 驱动器 C 中的卷没有标签。<br /> 卷的序列号是 3827-1BDD</p><p> C: 的目录</p><p>2004-05-25  00:57        17,755,907 Log.txt<br />2004-05-26  15:21                 3 1.txt<br />2004-05-26  15:21                 0 2.txt<br />               3 个文件     17,755,910 字节<br />               0 个目录    339,111,936 可用字节</p><p><br />三、&gt;&gt;</p><p>这个符号的作用和&gt;有点类似，但他们的区别是&gt;&gt;是传递并在文件的末尾追加，而&gt;是覆盖</p><p>用法同上</p><p>同样拿1.txt做例子</p><p>内容是1+1</p><p>使用命令：dir *.txt &gt;&gt;1.txt</p><p>咱们来看看显示的结果如何</p><p><br />四、&amp;line;</p><p>这是一个管道传输命令，意思是将上一命令执行的结果传到下一个命令去处理</p><p>例如：</p><p>dir c:&amp;line;find &quot;txt&quot;</p><p>以上命令是：查找C：所有，并发现TXT字符串。<br />FIND的功能请用 <span class="caps">FIND</span> /? 自行查看</p><p>在不使format的自动格式化参数时，我是这样来自动格式化A盘的</p><p>echo y&amp;line;format a: /s /q /v:system</p><p>用过format的都知道，再格盘时要输入y来确认是否格盘，这个命令前加上echo y并用&amp;line;字符来将echo y的结果传给format命令</p><p>从而达到自动输入y的目的</p><p>（这条命令有危害性，测试时请慎重）</p><p><br />五、^</p><p>^是对特殊符号&quot;&lt;&quot;,&quot;&gt;&quot;,&quot;&amp;&quot;的前导字符，在命令中他将以上3个符号的特殊功能去掉，仅仅只把他们当成符号而不使用他们的特殊意义。</p><p>比如</p><p>echo test ^&gt;1.txt</p><p>结果则是</p><p><br />他没有追加在1.txt里，呵呵。只是显示了出来</p><p><br />六、 &amp;</p><p>这个符号允许在一行中使用2个以上不同的命令，当第一个命令执行失败了，也不影响后边的命令执行。</p><p>比如：</p><p>dir z: &amp; dir y: &amp; dir c:</p><p>以上命令会连续显示z,y,c盘的内容，不理会该盘是否存在</p><p><br />七、 &amp;&amp;</p><p>这个命令和上边的类似，但区别是，第一个命令失败时，后边的命令也不会执行</p><p><br />dir z: &amp;&amp; dir y: &amp;&amp; dir c:</p><p><br />八、&quot;&quot;</p><p>双引号允许在字符串中包含空格，进入一个特殊目录可以用如下方法</p><p>cd &quot;program files&quot;<br />cd progra~1<br />cd pro*</p><p>以上三种方法都可以进入program files这个目录</p><p><br />九、,</p><p>逗号相当于空格，在某些情况下“,”可以用来当做空格使</p><p>比如</p><p>dir,c:</p><p>十、；</p><p>分号，当命令相同时，可以将不同目标用；来隔离，但执行效果不变，如执行过程中发生错误，则只返回错误报告，但程序还是会执行。</p><p>比如：</p><p>dir c:;d:e:;f:</p><p>以上命令相当于</p><p>dir c:<br />dir d:<br />dir e:<br />dir f:</p><p><br />当然还有一些特殊符号，但使用范围很小，我就没在这说，呵呵</p><p>唉，好累啊，又打了将近200行字。。。。</p><p>大家也得体谅体谅我们这些人啊。</p><p>结束</p><p>by 暝暝<br /></p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/27/">Onmouseover 改变颜色</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-04-13T00:00:00+02:00" pubdate data-updated="true">Apr 13<span>th</span>, 2005</time>
+        
+         | <a href="/posts/27/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">width=&quot;95%&quot; border=&quot;1&quot; align=&quot;center&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;<br/>&lt;tr align=&quot;center&quot; onmouseover=&quot;this.bgColor=&#039;#3366cc&#039;;&quot; onmouseout=&quot;this.bgColor=&#039;&#039;;&quot;&gt;<br/> &nbsp; &nbsp;&lt;td colspan=&quot;8&quot;&gt;&amp;nbsp;&lt;/td&gt;<br/>&lt;/tr&gt;<br/>&lt;tr align=&quot;center&quot; onmouseover=&quot;this.bgColor=&#039;#3366cc&#039;;&quot; onmouseout=&quot;this.bgColor=&#039;&#039;;&quot;&gt;<br/> &nbsp; &nbsp;&lt;td colspan=&quot;8&quot;&gt;&amp;nbsp;&lt;/td&gt;<br/>&lt;/tr&gt;<br/>&lt;tr align=&quot;center&quot; onmouseover=&quot;this.bgColor=&#039;#3366cc&#039;;&quot; onmouseout=&quot;this.bgColor=&#039;&#039;;&quot;&gt;<br/> &nbsp; &nbsp;&lt;td colspan=&quot;8&quot;&gt;&amp;nbsp;&lt;/td&gt;<br/>&lt;/tr&gt;<br/>&lt;tr align=&quot;center&quot; onmouseover=&quot;this.bgColor=&#039;#3366cc&#039;;&quot; onmouseout=&quot;this.bgColor=&#039;&#039;;&quot;&gt;<br/> &nbsp; &nbsp;&lt;td colspan=&quot;8&quot;&gt;&amp;nbsp;&lt;/td&gt;<br/>&lt;/tr&gt;<br/>&lt;tr align=&quot;center&quot; onmouseover=&quot;this.bgColor=&#039;#3366cc&#039;;&quot; onmouseout=&quot;this.bgColor=&#039;&#039;;&quot;&gt;<br/> &nbsp; &nbsp;&lt;td colspan=&quot;8&quot;&gt;&amp;nbsp;&lt;/td&gt;<br/>&lt;/tr&gt;<br/>&lt;/table&gt;[/codes]</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/31/">Reload 的问题及其解决</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-04-10T00:00:00+02:00" pubdate data-updated="true">Apr 10<span>th</span>, 2005</time>
+        
+         | <a href="/posts/31/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>reload 的问题及其解决<br/>我以前在写 <span class="caps">PHP</span> 程序时，经常碰到页面刷新时，数据库多处理一次的情况。<br/>我们来看 addcust.php：<br/><br/>[codes=php]&lt;?php<br/>$query = &quot;<span class="caps">INSERT</span> <span class="caps">INTO</span> customer<br/><span class="caps">SET</span> surname = $surname,<br/>firstname = $firstname&quot;;<br/>$connection = mysql_connect(&quot;localhost&quot;, &quot;fred&quot;, &quot;shhh&quot;);<br/>mysql_select_db(&quot;winestore&quot;, $connection);<br/>$result = mysql_query($query, $connection);<br/>?&gt;[/codes]<br/>[codes=html]<br/>&lt;html&gt;<br/>&lt;head&gt;<br/>&lt;title&gt;Customer insert&lt;/title&gt;<br/>&lt;/head&gt;<br/>&lt;body&gt;<br/>I&#039;ve inserted the customer for you.<br/>&lt;/body&gt;<br/>&lt;/html&gt;<br/>[/codes]<br/>假设我们用下面的连接使用这个程序：<br/><br/>http://www.freelamp.com/addcust.php?surname=Smith&amp;firstname=Fred<br/><br/>如果这个请求只提交一次，OK ，不会有问题，但是如果多次刷新，你就会有多条记录插入。<br/>这个问题可以通过 header() 函数解决：下面是新版本的 addcust.php：<br/><br/>[codes=php]&lt;?php<br/>$query = &quot;<span class="caps">INSERT</span> <span class="caps">INTO</span> customer<br/><span class="caps">SET</span> surname = $surname,<br/>firstname = $firstname&quot;;<br/>$connection = mysql_connect(&quot;localhost&quot;, &quot;fred&quot;, &quot;shhh&quot;);<br/>mysql_select_db(&quot;winestore&quot;, $connection);<br/>$result = mysql_query($query, $connection);<br/>header(&quot;Location: cust_receipt.php&quot;);<br/>?&gt;[/codes]<br/>这个脚本把浏览器重定向到一个新的页面：cust_receipt.php：<br/><br/>[codes=html]<br/>&lt;html&gt;<br/>&lt;head&gt;<br/>&lt;title&gt;Customer insert&lt;/title&gt;<br/>&lt;/head&gt;<br/>&lt;body&gt;<br/>I&#039;ve inserted the customer for you.<br/>&lt;/body&gt;<br/>&lt;/html&gt;<br/>[/codes]<br/>这样，原来的页面继续刷新也没有副作用了。<br/><br/>来源：http://www.freelamp.com/1018587223/index_html <br/></p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/30/">如何提高你的工作效率?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-04-10T00:00:00+02:00" pubdate data-updated="true">Apr 10<span>th</span>, 2005</time>
+        
+         | <a href="/posts/30/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>你是不是每天都很忙，却老是忙而无功？是不是感觉付出很多，得到的却只是老板的责骂？是不是没有一刻空闲，到总结时却说不出所完成的成果？ &nbsp; <br/><br/>如果你已身心疲惫，但是一无所获，那么，你可能不是工作不努力，而是没有掌握提高工作效率的正确方法，在无意中浪费了你的生命。<br/><br/>下面的建议不是万能的“灵丹妙药”，但可以给你提高自己的工作效率提供一些有益的参考：<br/><br/><span style="color: #0000FF;">1、把所有工作划分成&quot;事务型&quot;和&quot;思考型&quot;两类，分别对待：</span></div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/posts/30/">More &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/29/">我可以将12345678.9输出成12,345,678.90吗?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-04-10T00:00:00+02:00" pubdate data-updated="true">Apr 10<span>th</span>, 2005</time>
+        
+         | <a href="/posts/29/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>当然可以,PHP中有个函数number_format,函数原型:<br/><coolcode>string number_format<br />             (<br />              float number,<br />              int decimals,<br />              string dec_point,<br />              string thousands_sep<br />             )</coolcode> &nbsp;<br/>举个例子:<br/>[codes=php]&lt;?php<br/>$num = 12345678.9;<br/>echo number_format($num).&#039;&lt;br&gt;&#039;; //会4舍5入<br/>echo number_format($num,2).&#039;&lt;br&gt;&#039;;<br/>echo number_format($num,2,&#039;:&#039;).&#039;&lt;br&gt;&#039;; //这种写法是错误的<br/>echo number_format($num,2,&#039;:&#039;,&#039;-&#039;).&#039;&lt;br&gt;&#039;;<br/>?&gt;[/codes]<br/> &nbsp;输出结果为:<br/>12,345,679<br/>12,345,678,90<br/>Warning: Wrong parameter count for number_format()in /data/homepage/test/number_format.php on line 5<br/>12-345-678:90<br/><br/><br/>来源：http://www.phpe.net/faq/53.shtml<br/></p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/28/">Require_once,include_once,require, Include的区别</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-04-10T00:00:00+02:00" pubdate data-updated="true">Apr 10<span>th</span>, 2005</time>
+        
+         | <a href="/posts/28/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>由于PHP具有快速、可靠、跨平台应用、源代码开放等特点，使得PHP成为最受欢迎的服务器端Script语言之一。我根据自己在工作中体会到的，向大家介绍PHP使用的心得，希望对大家有所帮助。</p>
+
+<p>利用PHP的Include files维护你的网站
+不管你所开发的网站的规模是大是小，你都应该要认识到重复使用程序代码的重要性，不论你重复使用的是 PHP 程序或者是 HTML 原始码。举个例子来说，网站页尾的版权宣告至少每年都得修改一次，如果你的网站有许多个页面，该怎么办呢？动手一个一个修改这些页面肯定是一件头痛的事情。通过 PHP 我们可以用几个不同的方式来重复使用程序代码。要使用哪些函数端视你要重复使用的是怎样的内容而定。</p>
+
+<p>这些主要的函数包括：<br/>
+include() 与 include_once()<br/>
+require() 与 require_once()</p>
+
+<p>1.include() 函数会将指定的档案读入并且执行里面的程序, 例如：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="x">include(&#39;/home/me/myfile&#39;); </span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/posts/28/">More &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/32/">CSS 网页定位</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-04-01T00:00:00+02:00" pubdate data-updated="true">Apr 1<span>st</span>, 2005</time>
+        
+         | <a href="/posts/32/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><font style="BACKGROUND-COLOR: #ffffff">某网站CSS分析。</font><font style="BACKGROUND-COLOR: #ffffff">地址：</font><a href="http://67.18.164.50/~catalyst/index.php"><font style="BACKGROUND-COLOR: #ffffff">http://67.18.164.50/~catalyst/index.php</font></a></p><p><font style="BACKGROUND-COLOR: #ffff00">第一个标签图片y方向重复，第一张位于中上，这是背景。</font></p><p><font color="#ff6000"><strong><span class="caps">BODY</span></strong></font> {<br /> PADDING-<span class="caps">LEFT</span>:  0px; <br /> PADDING-<span class="caps">RIGHT</span>:  0px; <br /> PADDING-<span class="caps">TOP</span>:  0px; <br /> PADDING-<span class="caps">BOTTOM</span>: 0px; </p><p> BORDER-<span class="caps">LEFT</span>-<span class="caps">WIDTH</span>:  0px; <br /> BORDER-<span class="caps">RIGHT</span>-<span class="caps">WIDTH</span>:  0px<br /> BORDER-<span class="caps">TOP</span>-<span class="caps">WIDTH</span>:  0px; <br /> BORDER-<span class="caps">BOTTOM</span>-<span class="caps">WIDTH</span>:  0px; </p><p> MARGIN: 0px; <br /> BACKGROUND: url(<a href="http://67.18.164.50/~catalyst/templates/big_pixel/images/bg_02.gif">http://67.18.164.50/~catalyst/templates/big_pixel/images/bg_02.gif</a>) #777 repeat-y center top</p><p>}</p><p><font style="BACKGROUND-COLOR: #ffff00">第二个标签，这是整个网页的布局。宽600px， 另外，四个边框（BORDER）各留10px的白边。</font></p><p><font color="#ff6000"><strong><span class="caps">DIV</span>#wrapper</strong></font> {<br /> BORDER-<span class="caps">LEFT</span>:  #fff 10px solid; <br /> BORDER-<span class="caps">RIGHT</span>:  #fff 10px solid;<br /> BORDER-<span class="caps">TOP</span>:  #fff 10px solid; <br /> BORDER-<span class="caps">BOTTOM</span>:  #fff 10px solid; </p><p> PADDING-<span class="caps">LEFT</span>:  0px;   <br /> PADDING-<span class="caps">RIGHT</span>: 0px; <br /> PADDING-<span class="caps">TOP</span>:  0px; <br /> PADDING-<span class="caps">BOTTOM</span>: 0px; <br /> MARGIN:  auto; <br /> <br /> WIDTH: 600px; <br /> COLOR: #666; </p><p> TEXT-<span class="caps">ALIGN</span>: left; <br /> BACKGROUND: url(<a href="http://67.18.164.50/~catalyst/templates/big_pixel/images/wrapper_bg.gif">http://67.18.164.50/~catalyst/templates/big_pixel/images/wrapper_bg.gif</a>) #fff repeat-y center top<br />}</p><p><font style="BACKGROUND-COLOR: #ffff00">第三个标签，网页头，图片已经在边框里了，现在指定内补丁（PADDING）。宽度一样。</font></p><p><font color="#ff6000"><strong><span class="caps">DIV</span>#header</strong></font> {<br /> <br /><span class="caps">PADDING</span>-<span class="caps">LEFT</span>: 0px; <br /><span class="caps">PADDING</span>-<span class="caps">RIGHT</span>: 0px; <br /><span class="caps">PADDING</span>-<span class="caps">TOP</span>: 0px; <br /><span class="caps">PADDING</span>-<span class="caps">BOTTOM</span>: 0px; </p><p><span class="caps">WIDTH</span>: 600px; <br /><span class="caps">HEIGHT</span>: 100px; </p><p><span class="caps">MARGIN</span>: 0px; <br /><span class="caps">BACKGROUND</span>: none transparent scroll repeat 0% 0%</p><p>}</p><p><font style="BACKGROUND-COLOR: #ffff00">第四个标签，网页头下面的Section Menu，</font></p><ul><li><font style="BACKGROUND-COLOR: #ffffff" color="#ff6000"> “.hide” 表示H2不显示。&lt;<span class="caps">DIV</span> class=hide&gt;&lt;H2&gt;Section Menu&lt;/H2&gt;&lt;/<span class="caps">DIV</span>&gt;</font></li><li><font style="BACKGROUND-COLOR: #ffffff" color="#ff6000">“PADDING-<span class="caps">LEFT</span>: 180px; ”表示菜单从左边的180px起。</font></li><li><font style="BACKGROUND-COLOR: #ffff00"><font style="BACKGROUND-COLOR: #ffffff" color="#ff6000"><span class="caps">MARGIN</span>:如果提供全部四个参数值，将按上－右－下－左的顺序作用于四边。如果只提供一个，将用于全部的四边。如果提供两个，第一个用于上－下，第二个用于左－右。如果提供三个，第一个用于上，第二个用于左－右，第三个用于下。<br /></font><br /></font><p><font color="#ff6000"><strong>.hide</strong></font> {<br /> DISPLAY: none<br />}</p><p><span class="caps">DIV</span>#sectionnav {<br /> <br /><span class="caps">PADDING</span>-<span class="caps">LEFT</span>: 180px; <br /><span class="caps">PADDING</span>-<span class="caps">RIGHT</span>: 0px; <br /><span class="caps">PADDING</span>-<span class="caps">TOP</span>: 0px; <br /><span class="caps">PADDING</span>-<span class="caps">BOTTOM</span>: 0px; </p><p><span class="caps">MARGIN</span>: 0px 0px 10px; </p><p><span class="caps">WIDTH</span>: 420px; <br /><span class="caps">HEIGHT</span>: 66px; <br /><span class="caps">BACKGROUND</span>: url(<a href="http://67.18.164.50/~catalyst/templates/big_pixel/images/sectionnav_bg.gif">http://67.18.164.50/~catalyst/templates/big_pixel/images/sectionnav_bg.gif</a>) no-repeat <br />}</p><p><font style="BACKGROUND-COLOR: #ffff00">第五个标签，最上边的导航栏WIDTH: 420px; <span class="caps">HEIGHT</span>: 55px</font></p><p><font style="BACKGROUND-COLOR: #ffffff" color="#ff6000"><strong>UL#alphanav</strong></font> {<br /> LIST-<span class="caps">STYLE</span>-<span class="caps">TYPE</span>: none; <br /> PADDING-<span class="caps">LEFT</span>: 0px; <br /> PADDING-<span class="caps">RIGHT</span>: 0px; <br /> PADDING-<span class="caps">TOP</span>: 0px; <br /> PADDING-<span class="caps">BOTTOM</span>: 0px; </p><p> BORDER-<span class="caps">TOP</span>: #fff 1px solid; <br /> BORDER-<span class="caps">BOTTOM</span>: #fff 1px solid; </p><p> MARGIN: 0px; <br /> BACKGROUND: #000; <br /> WIDTH: 420px; <br /> HEIGHT: 55px; </p><p> FONT-<span class="caps">SIZE</span>: 9px; <br /> COLOR: #fff; <br /> FONT-<span class="caps">FAMILY</span>: &quot;Trebuchet MS&quot;, arial, verdana, sans-serif<br />}</p><p><strong><font color="#ff6000">UL#alphanav LI</font></strong> {<br /> PADDING-<span class="caps">LEFT</span>: 0px; <br /> PADDING-<span class="caps">RIGHT</span>: 0px; <br /> PADDING-<span class="caps">TOP</span>: 0px; <br /> PADDING-<span class="caps">BOTTOM</span>: 0px; </p><p> DISPLAY: block; <br /> FLOAT: left; </p><p> WIDTH: 79px; <br /> HEIGHT: 54px<br />}</p><p><br /><font color="#ff6000"><strong><span class="caps">UNKNOWN</span></strong></font> {<br /> PADDING-<span class="caps">LEFT</span>: 0px;<br /> PADDING-<span class="caps">RIGHT</span>: 5px; <br /> PADDING-<span class="caps">TOP</span>: 0px; <br /> PADDING-<span class="caps">BOTTOM</span>: 0px</p><p>}<br /><font color="#ff6000"><strong>UL#alphanav A</strong></font> {<br /> PADDING-<span class="caps">LEFT</span>: 12px; <br /> PADDING-<span class="caps">RIGHT</span>: 4px; <br /> PADDING-<span class="caps">TOP</span>: 2px; <br /> PADDING-<span class="caps">BOTTOM</span>: 2px; </p><p> DISPLAY: block; <br /> BACKGROUND: #000; <br /> BORDER-<span class="caps">LEFT</span>: #fff 1px solid; </p><p> WIDTH: 67px; <br /> HEIGHT: 51px; </p><p> TEXT-<span class="caps">ALIGN</span>: left;<br /> COLOR: #bbb;  <br /> FONT-<span class="caps">WEIGHT</span>: normal; <br /> TEXT-<span class="caps">DECORATION</span>: none<br />}<br /><strong><font color="#ff6000">UL#alphanav A:visited</font></strong> {<br /> PADDING-<span class="caps">LEFT</span>: 12px; <br /> PADDING-<span class="caps">RIGHT</span>: 4px; <br /> PADDING-<span class="caps">TOP</span>: 2px; <br /> PADDING-<span class="caps">BOTTOM</span>: 2px; </p><p> DISPLAY: block; <br /> BACKGROUND: #000; <br /> BORDER-<span class="caps">LEFT</span>: #fff 1px solid; <br /> <br /> WIDTH: 67px; <br /> HEIGHT: 51px; </p><p> COLOR: #bbb; <br /> TEXT-<span class="caps">ALIGN</span>: right; <br /> FONT-<span class="caps">WEIGHT</span>: normal; <br /> TEXT-<span class="caps">DECORATION</span>: none<br />}<br /><strong><font color="#ff6000">UL#alphanav A:hover</font></strong> {<br /> BACKGROUND: #444; <span class="caps">COLOR</span>: #fff<br />}<br /><font color="#ff6000"><strong>UL#alphanav A.active</strong></font> {<br /> BACKGROUND: #666; <span class="caps">COLOR</span>: #fff<br />}</p><p><font style="BACKGROUND-COLOR: #ffff00">第六个标签，左边竖着的导航栏。<strong><font color="#ff6000">UL </font></strong><span class="caps">WIDTH</span>: 165px;<strong><font color="#ff6000"> LI</font></strong> <span class="caps">WIDTH</span>: 180px;  LI 一般比UL短才对。这里因为有其它元素定位，所以看不出长短效果。<br /></font></p><p><font color="#ff6000"><strong>UL.betanav</strong></font> {<br /><span class="caps">PADDING</span>-<span class="caps">LEFT</span>: 0px; <br /><span class="caps">PADDING</span>-<span class="caps">RIGHT</span>: 0px; <br /><span class="caps">PADDING</span>-<span class="caps">TOP</span>: 0px;<br /><span class="caps">PADDING</span>-<span class="caps">BOTTOM</span>: 0px; </p><p><span class="caps">BORDER</span>-<span class="caps">LEFT</span>: red 0px solid; <br /><span class="caps">BORDER</span>-<span class="caps">RIGHT</span>: red 0px solid; <br /><span class="caps">BORDER</span>-<span class="caps">TOP</span>: #ccc 1px dashed; <br /><span class="caps">BORDER</span>-<span class="caps">BOTTOM</span>: red 0px solid; </p><p><span class="caps">MARGIN</span>: 0px; </p><p><span class="caps">WIDTH</span>: 165px; <br /><span class="caps">COLOR</span>: #000; <br /><span class="caps">FONT</span>-<span class="caps">SIZE</span>: 9px; <br /><span class="caps">FONT</span>-<span class="caps">FAMILY</span>: &quot;Trebuchet MS&quot;, arial, verdana, sans-serif; <br /><span class="caps">LIST</span>-<span class="caps">STYLE</span>-<span class="caps">TYPE</span>: none<br />}<br /><font color="#ff6000"><strong><span class="caps">UNKNOWN</span></strong></font> {<br /> WIDTH: 180px<br />}<br /><font color="#ff6000"><strong>UL.betanav LI</strong></font> {<br /><span class="caps">PADDING</span>-<span class="caps">LEFT</span>: 0px; <br /><span class="caps">PADDING</span>-<span class="caps">RIGHT</span>: 0px; <br /><span class="caps">PADDING</span>-<span class="caps">TOP</span>: 0px;<br /><span class="caps">PADDING</span>-<span class="caps">BOTTOM</span>: 0px; <br /><span class="caps">WIDTH</span>: 180px;  <br /><span class="caps">BORDER</span>-<span class="caps">BOTTOM</span>: #ccc 1px dashed<br />}</p><p><font style="BACKGROUND-COLOR: #ffff00">第七个标签，左边导航栏正对着的右边部分。用相对定位（POSITION: relative; ）</font></p><p><font color="#ff6000"><strong><span class="caps">DIV</span>#rightcolumn</strong></font> {<br /> LEFT: 0px; <br /> MARGIN: 0px 0px 0px 185px; <br /> POSITION: relative; <br /> TOP: 1px; <br /> WIDTH: 400px; <br /> HEIGHT: auto; <br /> TEXT-<span class="caps">ALIGN</span>: justify<br />}<br /><font color="#ff6000"><strong><span class="caps">UNKNOWN</span></strong></font> {<br /> MARGIN: 0px 0px 0px 190px; <span class="caps">WIDTH</span>: 410px<br />}<br /><font color="#ff6000"><strong><span class="caps">DIV</span>#rightcolumn <font color="#ff0000">P</font></strong></font> {<br /> FONT-<span class="caps">SIZE</span>: 11px; <br /> COLOR: #666; <br /> FONT-<span class="caps">FAMILY</span>: &quot;Trebuchet MS&quot;, arial, verdana, sans-serif; <br /> TEXT-<span class="caps">ALIGN</span>: justify<br />}</p><p><font style="BACKGROUND-COLOR: #ffff00">第八个标签，网页尾，用一张图片作背景。</font></p><p><strong><font color="#ff6000"><span class="caps">DIV</span>#footer</font></strong> {<br /> CLEAR: both; <br /> PADDING-<span class="caps">LEFT</span>: 0px;<br /> PADDING-<span class="caps">RIGHT</span>: 0px; <br /> PADDING-<span class="caps">TOP</span>: 10px; <br /> PADDING-<span class="caps">BOTTOM</span>: 10px; </p><p> WIDTH: 600px;<br /> HEIGHT: 23px; </p><p> MARGIN: 10px auto 0px; <br /> BACKGROUND: url(<a href="http://67.18.164.50/~catalyst/templates/big_pixel/images/footer.gif">http://67.18.164.50/~catalyst/templates/big_pixel/images/footer.gif</a>) no-repeat<br />}<br /><font color="#ff6000"><strong><span class="caps">DIV</span>#footer P#copyright</strong></font> {<br /> PADDING-<span class="caps">LEFT</span>: 0px;<br /> PADDING-<span class="caps">RIGHT</span>: 0px; <br /> PADDING-<span class="caps">TOP</span>: 0px; <br /> PADDING-<span class="caps">BOTTOM</span>: 0px; </p><p> MARGIN: 3px 0px 0px; <br /> BACKGROUND: none transparent scroll repeat 0% 0%; </p><p> FONT-<span class="caps">SIZE</span>: 9px; </p><p> COLOR: #333; </p><p> TEXT-<span class="caps">ALIGN</span>: center; <br /> FONT-<span class="caps">FAMILY</span>: &quot;Trebuchet MS&quot;, arial, verdana, sans-serif<br />}<br /><font color="#ff6000"><strong><span class="caps">DIV</span>#footer A:hover</strong></font> {<br /> COLOR: #000<br />}</p><p></li></ul></p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/52/">大话西游</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-02-16T00:00:00+01:00" pubdate data-updated="true">Feb 16<span>th</span>, 2005</time>
+        
+         | <a href="/posts/52/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>曾经有一分真挚的爱情放在我面前，我没有珍惜，等我失去的时候我才后悔莫及，人世间最痛苦的事莫过于此。如果上天能够给我一个再来一次的机会，我会对那个女孩子说三个字：我爱你。如果非要在这份爱上加上一个期限，我希望是 —— 一万年！</p>
+
+<p>I once let the truest love slip away form before my eyes. Only to find myself regretting when it was too late. No pain in the world comes near to this. If only God would give me another chance, I would say to the girl: I Love You! If there had to be a limit of time, I pray it&#039;s 10000 years.</p>
+
+<p>Es gab eine wahre Liebe vor mir, ich habe mich darum nicht gekümmert, nachdem ich die verloren habe, bin ich so reuig, die schmerzhafteste Sache in der Welt muss das sein. Wenn Gott mir wieder eine Chance geben könnte, würde ich zu dem Mädchen drei Wörter sagen: ich liebe dich. Wenn es eine Frist vor der Liebe sein müsste, ich hoffe, es wäre&#8230;&#8230;Zehntausent Jahre!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2005/02/01/liu-yan-ben/">留言本</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-02-01T12:00:00+01:00" pubdate data-updated="true">Feb 1<span>st</span>, 2005</time>
+        
+         | <a href="/posts/2005/02/01/liu-yan-ben/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>第一篇日志就当留言本吧.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/94/">Impressum</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-02-01T00:00:00+01:00" pubdate data-updated="true">Feb 1<span>st</span>, 2005</time>
+        
+         | <a href="/posts/94/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Die neten.de Homepage ist mein privates Homepage. Sie wird von mir seit 2005 als Hobby betrieben. Inhalt des Homepages sind Informationen meines Lebens in Deutschland.</p>
+
+<p>Mit dieser Homepage werden keinerlei kommerziellen Ziele verfolgt. Diese Webseite ist kein Online-Shop. Die Homepage ist Partner von Affiliate.</p>
+
+<p>Anbieter dieses Internet-Angebots im Sinne von §6 TDG sowie verantwortlich i.S.d. §10 MDStV ist:
+Peng Zhang
+Talbotstr. 6
+52068 Aachen
+Germany</p>
+
+<p><a href="http://www.disclaimer.de/disclaimer.htm?farbe=FFFFFF/000000/000000/000000"><img src="http://www.disclaimer.de/images/d_gold.gif" width="84" height="20"></a></p>
+
+<p>Email: <img src="/attachment/Other/7D8DE9621F22CA6A4DF867DA4F136769_Gmailcom.gif"><br/>
+Tel: +49 241 4122 8875<br/>
+Domain: www.neten.de www.PengZhang.com</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/posts/page/26/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/2014/01/27/install-mysql-using-homebrew/">在 Mac 下用 Homebrew 安装 MySQL</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2013/10/06/use-ffmpeg-to-burn-subtitles-into-the-video/">Use FFmpeg to burn subtitles into the video</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2013/02/17/ruby-block-proc-and-lambda/">Ruby &#8211; block Proc and lambda</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/10/18/mac-os-x-10-dot-8-2-problems-after-update/">Mac OS X 10.8.2 Problems after update</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/02/mac-octopress-ioerror-invalid-python-installation/">Mac Octopress IOError invalid Python installation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/02/rstudio-non-utf8-warning-message/">RStudio non-UTF8 warning message</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/01/pdf-version-found-1-dot-5-but-allowed-1-dot-4/">PDF version found 1.5 but allowed 1.4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/07/21/fatal-error-stdio-dot-h-file-not-found/">fatal error: stdio.h file not found</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/06/06/mongodb-scaffolding-devise-omniauth-cancan-2/">MongoDB Scaffolding Devise Omniauth CanCan (2)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/05/19/mongodb-scaffolding-devise-omniauth-cancan-1/">MongoDB Scaffolding Devise Omniauth CanCan (1)</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>最近评论</h1>
+  <script type="text/javascript" src="http://neten.disqus.com/combination_widget.js?num_items=5&hide_mods=0&color=grey&default_tab=recent&excerpt_length=200"></script>
+</section>
+<section>
+  <h1>常用资料</h1>
+    <ul id="recent_posts">
+      <li class="post">
+        <a href="/posts/93">来几个Linux命令</a>
+      </li>
+      <li class="post">
+        <a href="/posts/344">Mysql 改变数据库目录</a>
+      </li>
+      <li class="post">
+        <a href="/posts/254">Latex & TexMakerX</a>
+      </li>
+      <li class="post">
+        <a href="/posts/241">在Ubuntu上通过SSH安装Virtualbox</a>
+      </li>
+      <li class="post">
+        <a href="/posts/73">汉德词典 for MDict & Babylon</a>
+      </li>
+  </ul>
+</section>
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2005 - 2016 - Peter - | 
+  <span><a href="/posts/94">Impressum</a></span>
+  <span class="credit" style="float:right">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'neten';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="/javascripts/jimdoclockzip.js"></script>
+</body>
+</html>

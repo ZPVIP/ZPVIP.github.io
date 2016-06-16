@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>PHP 中的 addslashes 函数 - 简洁的想法</title>
+  <meta name="author" content="Peter">
+
+  
+  <meta name="description" content="addslashes - 字符串加入斜线。语法: string addslashes(string str);内容说明本函数使需要让数据库处理的字符串中引号的部份加上斜线，以供数据库查询 (query) 能顺利运作。这些会被改的字符包括单引号 (&#039;)、双引号 (&quot;)、反斜线 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ZPVIP.github.io/posts/11">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="简洁的想法" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">简洁的想法</a></h1>
+  
+    <h2>仁爱、喜乐、和平、忍耐、恩慈、良善、信实、温柔、节制</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ZPVIP.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">日志</a></li>
+  <li><a href="/blog/archives">归档</a></li>
+  <li><a href="/posts/categories/website/">网站工程</a></li>
+  <li><a href="/posts/categories/collections/">网文收集</a></li>
+  <li><a href="/posts/categories/digitallife/">数字生活</a></li>
+  <li><a href="/posts/categories/memories/">路已成歌</a></li>
+  <li><a href="/posts/categories/beautifulsongs/">美曲美境</a></li>
+  <li><a href="/posts/categories/travel/">忆影斑斓</a></li>
+  <li><a href="http://bbs.neten.de">论坛</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">PHP 中的 Addslashes 函数</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-07-17T00:00:00+02:00" pubdate data-updated="true">Jul 17<span>th</span>, 2005</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>addslashes <del>- 字符串加入斜线。<br/><br/><br/>语法: string addslashes(string str);<br/><br/><br/>内容说明<br/><br/><br/>本函数使需要让数据库处理的字符串中引号的部份加上斜线，以供数据库查询 (query) 能顺利运作。这些会被改的字符包括单引号 (&#039;)、双引号 (&quot;)、反斜线 backslash (&#92;) 以及空字符 <span class="caps">NUL</span> (the null byte)。 <br/>================<br/>以上资料是官方的客套话，其实和没说一样。害得我还得亲自做实验。<br/><br/><br/>1，表单提交中addslashes的表现。<br/>首先要看get_magic_quotes_gpc()的值，一般为 1 。这时候从 &lt;<span class="caps">TEXTAREA</span>&gt; 提交的内容会自动加上斜线。<br/>比如输 &#039; 变成 &#92;&#039;, &quot; 变成 &#92;&quot; , &#92; 变成 &#92;&#92;<br/>例子：<br/><br/><br/>&lt;html&gt;&lt;head&gt;&lt;title&gt;test&lt;/title&gt;&lt;/head&gt;<br/>&lt;body&gt;<br/>&lt;<span class="caps">FORM</span> action=&quot;&quot; method=post&gt;<br/>&lt;<span class="caps">TEXTAREA</span>&nbsp;&nbsp;name=message rows=&quot;18&quot; cols=&quot;55&quot; &gt;default text&lt;/<span class="caps">TEXTAREA</span>&gt;<br/>&lt;<span class="caps">INPUT</span> type=submit value=Submit name=submit&gt;&lt;/<span class="caps">FORM</span>&gt;<br/>&lt;?php <br/>echo get_magic_quotes_gpc(). <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot; A &quot;.$<em><span class="caps">POST</span>[&#039;message&#039;].<br/><br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot; B &quot;.stripslashes($<em><span class="caps">POST</span>[&#039;message&#039;]);<br/>?&gt;<br/>&lt;/body&gt;&lt;/html&gt;<br/><br/><br/>输入：include(&#039;/home/me/myfile&#039;); <br/>输出：1 A include(&#92;&#039;/home/me/myfile&#92;&#039;); B include(&#039;/home/me/myfile&#039;);<br/>总结：get_magic_quotes</em>gpc()等于1的情况下，如果不输入数据库，那你得到的结果是加了斜线的。<br/><br/><br/><br/> ================<br/><br/><br/>2，提交输入数据库时addslashes的表现。<br/><br/><br/>例子：<br/><br/><br/>&lt;html&gt;&lt;head&gt;&lt;title&gt;test&lt;/title&gt;&lt;/head&gt;<br/>&lt;body&gt;<br/>&lt;<span class="caps">FORM</span> action=&quot;&quot; method=post&gt;<br/>&lt;<span class="caps">TEXTAREA</span>&nbsp;&nbsp;name=message rows=&quot;18&quot; cols=&quot;55&quot; &gt;default text&lt;/<span class="caps">TEXTAREA</span>&gt;<br/>&lt;<span class="caps">INPUT</span> type=submit value=Submit name=submit&gt;&lt;/<span class="caps">FORM</span>&gt;<br/>&lt;?php<br/>require</em>once(&#039;includes/common.php&#039;);<br/>$db</del>&gt;query(&quot;<span class="caps">INSERT</span> <span class="caps">INTO</span> `testtable` ( id , content ) <span class="caps">VALUES</span> (&#039;1&#039; , &#039;&quot;.$<em><span class="caps">POST</span>[&#039;message&#039;].&quot;&#039;)&quot;);<br/>$query=$db-&gt;query(&quot;select * from `testtable` where `id`= 1;&quot;);<br/>$Result=$db-&gt;fetch_array($query);<br/>echo get_magic_quotes_gpc(). <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot; A &quot;.$<em><span class="caps">POST</span>[&#039;message&#039;].<br/><br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot; B &quot;.$Result[&#039;content&#039;];<br/>?&gt;<br/>&lt;/body&gt;&lt;/html&gt;<br/><br/><br/><br/>输入：include(&#039;/home/me/myfile&#039;); <br/>输出：1 A include(&#92;&#039;/home/me/myfile&#92;&#039;); B include(&#039;/home/me/myfile&#039;);<br/>总结：get_magic_quotes_gpc()等于1的情况下，如果输入数据库后，再从数据库直接读取的时候，你不做任何修改就可以得到输入的字符串。<br/><br/> <br/><br/>==============<br/><br/><br/><br/>3, get_magic_quotes_gpc()<br/>get_magic_quotes_gpc()在服务器是的设置是不能runtime修改的，也就是说，你必须在你的网页代码中预先考虑好不同的情况，不然，当你提交数据的时候，你还不知道服务器给你加了斜线没有。以下两个网上流行的函数可能是大家需要的，个人喜欢第二个： <br/><br/>function my_addslashes( $message ){<br/>&nbsp;&nbsp;&nbsp;&nbsp;if(get_magic_quotes_gpc() 1 ){<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return $message;<br/>&nbsp;&nbsp;&nbsp;&nbsp;}else{<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(is_array($message)==true){<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while(list($key,$value)=each($message)){<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$message[$key]=my_addslashes($value);<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return $message;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}else{<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return addslashes($message);<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>&nbsp;&nbsp;&nbsp;&nbsp;}<br/>}<br/><br/><br/><br/><br/><br/><br/><br/>function my_addslashes($data){<br/> if(!get_magic_quotes_gpc()){<br/>&nbsp;&nbsp; return is_array($data)?array_map(&#039;AddSlashes&#039;,$data):addslashes($data);<br/> } else {<br/>&nbsp;&nbsp;Return $data;<br/> }<br/>}<br/><br/><br/>简单的解释就是，如果get_magic</em>quotes</em>gpc()等于 1 (服务器默认设置为 1 )，那我们的字符串是可以直接入库的，不修改。不然，我们才用addslashes函数。<br/><br/>================<br/><br/><br/><br/>大家没有看错，我写了半天，就是告诉大家，addslashes() 一般是不起作用的。倒是在不连数据库的情况下，要用到stripslashes()函数，也就是把那讨厌的斜线去掉。</p></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Peter</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-07-17T00:00:00+02:00" pubdate data-updated="true">Jul 17<span>th</span>, 2005</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/posts/categories/website/'>Website</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/posts/12/" title="Previous Post: 《再别康桥》 英文版">&laquo; 《再别康桥》 英文版</a>
+      
+      
+        <a class="basic-alignment right" href="/posts/10/" title="Next Post: 有一种感觉 ">有一种感觉  &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/2014/01/27/install-mysql-using-homebrew/">在 Mac 下用 Homebrew 安装 MySQL</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2013/10/06/use-ffmpeg-to-burn-subtitles-into-the-video/">Use FFmpeg to burn subtitles into the video</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2013/02/17/ruby-block-proc-and-lambda/">Ruby -- block Proc and lambda</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/10/18/mac-os-x-10-dot-8-2-problems-after-update/">Mac OS X 10.8.2 Problems after update</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/02/mac-octopress-ioerror-invalid-python-installation/">Mac Octopress IOError invalid Python installation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/02/rstudio-non-utf8-warning-message/">RStudio non-UTF8 warning message</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/01/pdf-version-found-1-dot-5-but-allowed-1-dot-4/">PDF version found 1.5 but allowed 1.4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/07/21/fatal-error-stdio-dot-h-file-not-found/">fatal error: stdio.h file not found</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/06/06/mongodb-scaffolding-devise-omniauth-cancan-2/">MongoDB Scaffolding Devise Omniauth CanCan (2)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/05/19/mongodb-scaffolding-devise-omniauth-cancan-1/">MongoDB Scaffolding Devise Omniauth CanCan (1)</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>最近评论</h1>
+  <script type="text/javascript" src="http://neten.disqus.com/combination_widget.js?num_items=5&hide_mods=0&color=grey&default_tab=recent&excerpt_length=200"></script>
+</section>
+<section>
+  <h1>常用资料</h1>
+    <ul id="recent_posts">
+      <li class="post">
+        <a href="/posts/93">来几个Linux命令</a>
+      </li>
+      <li class="post">
+        <a href="/posts/344">Mysql 改变数据库目录</a>
+      </li>
+      <li class="post">
+        <a href="/posts/254">Latex & TexMakerX</a>
+      </li>
+      <li class="post">
+        <a href="/posts/241">在Ubuntu上通过SSH安装Virtualbox</a>
+      </li>
+      <li class="post">
+        <a href="/posts/73">汉德词典 for MDict & Babylon</a>
+      </li>
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2005 - 2016 - Peter - | 
+  <span><a href="/posts/94">Impressum</a></span>
+  <span class="credit" style="float:right">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'neten';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ZPVIP.github.io/posts/11/';
+        var disqus_url = 'http://ZPVIP.github.io/posts/11/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="/javascripts/jimdoclockzip.js"></script>
+</body>
+</html>

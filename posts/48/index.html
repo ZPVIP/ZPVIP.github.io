@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>学习vi -- 小抄的方法 - 简洁的想法</title>
+  <meta name="author" content="Peter">
+
+  
+  <meta name="description" content="转自Gentoo文档繁体版本：http://www.gentoo.org/doc/zh_tw/vi-guide.xml1. 刚开始简介这份文件将会教您如何去使用vi，一个功能强大的视觉化编辑器。并且使用较特别的小抄的方法，这份文件是设计用来使您不需要花费太多时间即可以变成一个精通於vi的使用者。 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ZPVIP.github.io/posts/48">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="简洁的想法" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">简洁的想法</a></h1>
+  
+    <h2>仁爱、喜乐、和平、忍耐、恩慈、良善、信实、温柔、节制</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ZPVIP.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">日志</a></li>
+  <li><a href="/blog/archives">归档</a></li>
+  <li><a href="/posts/categories/website/">网站工程</a></li>
+  <li><a href="/posts/categories/collections/">网文收集</a></li>
+  <li><a href="/posts/categories/digitallife/">数字生活</a></li>
+  <li><a href="/posts/categories/memories/">路已成歌</a></li>
+  <li><a href="/posts/categories/beautifulsongs/">美曲美境</a></li>
+  <li><a href="/posts/categories/travel/">忆影斑斓</a></li>
+  <li><a href="http://bbs.neten.de">论坛</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">学习vi -- 小抄的方法</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-03-28T00:00:00+02:00" pubdate data-updated="true">Mar 28<span>th</span>, 2006</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>转自Gentoo文档繁体版本：<br/>http://www.gentoo.org/doc/zh_tw/vi-guide.xml<br/><br/><span style="color: Red;">1. 刚开始</span><br/><br/>简介<br/><br/>这份文件将会教您如何去使用vi，一个功能强大的视觉化编辑器。并且使用较特别的小抄的方法，这份文件是设计用来使您不需要花费太多时间即可以变成一个精通於vi的使用者。在这份文件中，您会学到在插入模式下如何移动，编辑文字，复制贴上文字和vi特别的功能，就像视觉模式和多视窗编辑。 <br/><br/>如果您不清楚或在用vi时感到不方便，您可以藉由这一篇文件来使您快速的学得在Linux/UNIX上最普遍且功能强大的视觉化编辑程式之一。 <!--more--><br/><br/><span style="color: Blue;">关於这篇文件</span><br/><br/>在学习vi时常常会遇到一个困难点 &#8212; vi有一大推指令。为了要能有效的利用vi ，您必须要去记忆其中的一些指令。这会花去您一段时间，而这份文件的其中一个目地就是不希望花去您太多时间。所以，首先我们必须先挑战 <del>- 我们应该如何帮您在短短的时间内记忆一大堆指令？ <br/><br/>为了要面对这挑战，就像是我之前提过的，我们将会把他通通放在一个vi的小抄里。这个小抄将会包含所有vi重要的指令。在您阅读完这份文件後，如果您忘记一些特定的指令您可以参考这一份小抄。经过一段时间，当您已经记住这些指令您依靠小抄的机会就会越来越小了。藉由利用做小抄的方法，您将可以快点学会如何使用vi。 <br/><br/><span style="color: Blue;">学习的步骤</span><br/><br/>在这份文件中，我们将会用一些方法去帮助您学习。第一步，我们将会为您解释一些特定的指令是如何运作，您应该会希望知道这个。再来，我们将会要求您试着在vi中使用这些指令(用来练习)，而且再来我们希望您能将这些指令写到您的小抄(为了以後参考用)中。如果您想要更快的学习vi，一步步跟着步骤做是很重要的。在vi中试试指令然後写到您的小抄中，这将会帮助您记忆这些指令。 <br/><br/><span style="color: Blue;">vim简介</span><br/><br/>vi有很多版本，我们将要为您介绍vi的其中一个版本叫vim。vim是一个普遍，且有更多的功能使得vi更好用(无论如何，我们将会用例子来说明，并且为他做个笔记)。如果您想安装vim，您可以从<a href="http://www.vim.org" target="_blank">www.vim.org</a> 取得。另外，为了增加vi的功能，也有gvim，一个可以被设定用在 GTK+ gui library的好用的图形化编辑器。以下是我的系统上面的gvim快照：<br/><br/>圖示 1.1: VIM快照<br/><a href="http://bbs.neten.de/attachments/1_89j91IVbyRmZ.png" target="_blank"><img src="http://bbs.neten.de/attachments/1_89j91IVbyRmZ.png" class="insertimage"  border="0"   /></a><br/>如果您是vi的新手，试着在您的系统上安装gvim。在gui介面使用vi可以让初心者较容易学习。<br/><br/><span style="color: Red;">2. 第一步</span><br/><br/><span style="color: Blue;">选一个档案</span><br/><br/>在您使用vi去编辑档案之前，您必须知道如何利用vi在一份资料中移动。vi有一堆移动的指令，我们将会带您看看其中的一些。在文件的这一部分，请藉由以下指令将一个不重要的文字档案载入进vi： <br/><br/>原始码 2.1: 载入一个档案到vi中<br/><coolcode>$ vi myfile.txt</coolcode><br/> <br/><span style="color: Blue;">在vi环境中</span><br/><br/>进入vi後，您应该会看到一部分的文字档案内容在您的萤幕上出现。恭喜</del>-您已经在 vi环境中了<img src="并不像其他编辑器，当vi启动时会在一个被称做指令模式的环境中。这表示当您从键盘按下l时，并非在目前的位置差入一个l的符号，而是会将游标移至那一行的最右边。在指令模式中，您在键盘上输入的字符是用来当作指令输入，而非把字符插入文字中。其中最必要的指令之一就是移动指令;让我们来看看吧" alt="" /> <br/><br/><span style="color: red;">3. 移动</span><br/><br/><span style="color: Blue;">在vi中移动，第一部份</span><br/><br/>当在指令模式中，您可以利用h，j，k和l 来将游标往左，下，上和右移动。当您在较新版本的vi中，您也可以使用方向键来达到这目地。而h，j，k和l没有取消，是因为当您习惯使用他们时，您的手可以不需移到方向键就可以移动游标。请试着利用h，j，k和l(和方向键)在档案中移动。试试利用h来移动游标直到移至一行的第一个位置。请注意当游标已经在一行的第一个位置如果您再继续按h，vi并不会将游标跳到上一行的位置。同样的，您也不行藉由输入l来从一行的最後一个字元移到上一行。 <br/><br/><span style="color: Blue;">在vi中移动，第二部份</span><br/><br/>vi有提供一些用来在一行开头或结尾处移动的热键。您可以按下0 (零) 来跳到一行的一第一个字母，或者用$来跳到最後一个字母。请试试看吧! 自从vi有了这些如此有用的移动指令後，这使得vi变得有一点像&quot;pager&quot;(就像是 more或是less指令)。如果您将vi当作pager来学习也会帮助您来更快速的学习移动的指令。 <br/><br/>您也可以利用&lt;<span class="caps">CTR</span>&gt;F和 &lt;<span class="caps">CTR</span>&gt;B来一次往下或往上移动一页。在较新版的vi(例如vim)也允许您使用PGUP和PGDOWN 键来达到一样的结果。 <br/><br/><span style="color: Blue;">文字中移动，第一部份</span><br/><br/>vi也允许您一次移动到单字的左边或右边。如果要移动到下一个字的第一字元，请按w。如果要移动到下一个字的最後字母，请按e。如您要移动到上一个字的第一个字母，请按b。试试看吧! <br/><br/><span style="color: Blue;">文字中移动，第二部份</span><br/><br/>在介绍过单字的移动指令後，您也许会发现vi将foo-bar-oni当成五个分开的单字!这是因为vi预设是利用空白或符号来分辨单字。因此foo-bar-oni 会被分成以下几个单字：foo, <del>, bar, &#8211; and oni. <br/><br/>有时候结果是您想要的，有时候则不是。幸运的，vi也能知道如何去辨别&quot;bigword&quot; 。vi可以只藉由空白或newlines来判定bigwords。这表示foo-bar-oni 会被分成五个单字，而只会被分成一个vi的bigword。 <br/><br/><span style="color: Blue;">文字中移动，第三部份</span><br/><br/>为了要往前或往後移动一个bigword，您可以利用大写的字母移动指令。利用W来移动到下一个bigword的第一个字母，E来跳到下一个 bigword的最後一个字母，而可以利用B来移动道前一个bigword的第一个字母。试试看吧，顺便比较看看单字和bigword的结果这样您就可以了解他们的差别。 <br/><br/><span style="color: Blue;">大一点的移动</span><br/><br/>我们刚刚已经学到一些指令了，现在可以开始将他们通通写进小抄中。您可以利用(和)符号在上一节或下一节间移动。再来，您可以按下{ 或}在目前这段的开始或下一段的开始间移动。试试看吧！ <br/><br/><span style="color: Red;">4. 离开</span><br/><br/>我们已经介绍了一些基本移动指令，但是还有一些连结的指令您必须应该要知道。输入:q会离开vi。如果这没有作用，可能是您有更动到档案内容。如果您想离开vi，不管您是否有改变档案内容，可以输入:q!。您现在应该已经回到指令列了。 <br/><br/>在vi中，任何的指令都是利用:做为开头这通常被称作ex-mode指令。这是因为vi有内建一个飞视觉化的编辑器叫做ex。他可以被称为一个以列为基本的小型编辑系统。再来，用来离开vi，刚刚我们已经看过了。如果您曾经在指令模式下输入Q，您会转换到ex模式中。如果您曾遇过这情形，您会被要求加上 : 符号，而且按下enter後他会将内部的画面往上卷。为了要回到vi，您可以输入vi并按下enter。 <br/><br/><span style="color: Red;">5. 小抄</span><br/><br/><span style="color: Blue;">小抄的一开始</span><br/><br/>我们已经介绍很多指令了，这时候也该是将他们写到我们小抄上的时候。为了写小抄，您将会需要一张信纸或一张A4大小的纸(我们将会将一大堆的资料写在小抄上面!)。这边有我写的小抄的照片，里面包含到目前为止所讲过的所有指令。如果可以您可以试着跟着我的格式将所有资料写上去。<br/><br/>[圖示 5.1: 小抄<br/><a href="http://bbs.neten.de/attachments/2_1O3zASLZYovX.png" target="_blank"><img src="http://bbs.neten.de/attachments/2_1O3zASLZYovX.png" class="insertimage"  border="0"   /></a><br/><br/><span style="color: Blue;">vi的其他功能</span><br/><br/>让我们继续快速的学习我们的vi指令。在指令模式下，您可以藉由输入G来一次移动到某一行。如果要移动到第一行，请输入1G。请注意G是大写。 <br/><br/>如果您想要移到下一个特定的文字片断，请输入/&lt;regexp&gt;并且按下 enter。请把&lt;regexp&gt;换成您要找寻的文字片断。如果您不晓得要如何使用正规化表示，别怕 -</del> 输入/foo 将会移动到下一个foo出现的位置。唯一您需要注意的是，当您想要找寻文字的^，.，$或 &#92;符号。请在前面加上倒斜线 (&#92;)，如此您就可以找到他。举例来说， /foo&#92;.gif将会搜寻下一个叫&quot;foo.gif&quot;的文字片断。 <br/><br/>如果想往前寻找，请按n。要往後寻找，请按N。同样的，请在您的vi 环境中试试看。您也可以试试看利用//来移动到最後找到的地方。 <br/><br/><span style="color: Red;">6. 储存和编辑</span><br/><br/><span style="color: Blue;">储存和另存</span><br/><br/>我们已经让您试过如何利用ex指令的:q来离开vi。如果您想要储存您的变更，请输入:w。如果您想将他存到另一个档案，请输入:w filename.txt 来将他存成filename.txt。如果您想要储存且离开，请输入:x或:wq。 <br/><br/>在vi(或是其他从vi发展出来的编辑器，像elvis)的中，您可以在缓冲区中一次开启多个档案。如果要在新的视窗中开一个档案，请输入:sp filename.txt。 filename.txt将会开启在一个新的编辑用的分割视窗中。为了要在分割视窗中转换，您可以输入&lt;<span class="caps">CTR</span>&gt;w&lt;<span class="caps">CTR</span>&gt;w(control-w 两次)。任何 :q，:q!，:w和:x只会作用在目前作用的视窗中。 <br/><br/><span style="color: Blue;">简单的编辑</span><br/><br/>现在是时候来学习一些简单的编辑指令。我们会将这些指令称为简单是因为他们仍是在指令模式下。而较复杂的编辑指令将会自动的放在插入模式中 &#8212; 一个可以让您从键盘中输入一些文字资料。我们将会在後面为您介绍。 <br/><br/>现在请试着重覆按下x来删除一些字。您会看到x会删除在游标下的字。现在请移动到您档案中的随便一处，并且按下J(大写)。您将会发现J指令会告诉vi将下一行的内容连到目前这行的结尾处。现在，请移动到一个字母上并且按下r，然後输入一个新的字母。您会发现原本的字母被替换了。最後，请移动到档案中的任何一行然後输入dd。您会发现 dd会消除目前这一整行。 <br/><br/><span style="color: Blue;">取代和删除</span><br/><br/>您可以藉由按下.键来重覆您上一次使用的指令。如果您想试，您将会发现如果您输入dd&#8230;将会删除4行，J&#8230;&#8230;会加入四行。同样的，vi 也有提供其他方便使用的捷径。 <br/><br/>要删除文字，您也可以利用d指令来与任何移动指令结合。例如， dw会删除从目前位置到下一个字中间的字母;d)会删除到下一节的结尾，而d}则会删除目前这一段所剩下的字。您可以试着结合其他的指令直到您可以好好用他。 <br/><br/><span style="color: Blue;">回复上一步!</span><br/><br/>我们已经学会了删除，现在应该是学习如何去回复任何改变。藉由按下u，较旧版本的vi可以允许您只回复到上一个动作。但是在较新版本的vi中可以允许您重覆按下u来持续回复任何在您档案中所做的改变。请试试看将一些d 的指令和u结合一起用。 <br/><br/><span style="color: Blue;">更新您的小抄</span><br/><br/>是时後来更新小抄了!在更新完所有我们讲过的指令，您的小抄应该起来像这样子: <br/>圖示 6.1: 含編輯指令的小抄<br/><a href="http://bbs.neten.de/attachments/3_IYjtFJ2zFNxn.png" target="_blank"><img src="http://bbs.neten.de/attachments/3_IYjtFJ2zFNxn.png" class="insertimage"  border="0"   /></a><br/><br/><span style="color: Red;">7. 插入模式</span><br/><br/>到目前为止，我们已经说明完如何在vi中移动，操作档案i/o，和操作一些简单的编辑指令。但是，我们到现在并没有教您如何在自由的型式中输入文字! 这是故意的，因为vi的插入模式在刚开始是有一点点复杂。但是当您熟悉插入模式後他的复杂(和弹性)将会变成一种很方便的功能。 <br/><br/>在vi的插入模式，您将可以直接的输入文字到萤幕上，就像其他许多编辑器一样。当您一旦做了改变，以可以按下Esc来回到指令模式。您可以利用i或a来进入插入模式。如果您输入i，您输入的字将会被插入到目前的字前面，而如果您按下a，您所加的字将会被 附加在目前的字後面。记住，在您入完文字後，请按下&lt;<span class="caps">ESC</span>&gt;来回到指令模式。 <br/><br/><span style="color: Blue;">插入模式的好处</span><br/><br/>请继续而且试着使用a和i指令。按下a或i，并且输入一些字，而且按下ESC来回到指令模式。在按下a或i後，试着按下&lt;<span class="caps">ENTER</span>&gt;，而且看看发生什麽事情。试着利用方向键和&lt;<span class="caps">DEL</span>&gt;键感觉一下插入模式是怎样运作的。藉由方向键和&lt;<span class="caps">DEL</span>&gt;键，您可以进行大量的编辑步骤而不需要一直输入指令和离开插入模式。 <br/><br/><span style="color: Blue;">插入模式的选项</span><br/><br/>这里也有其他方式可以进入插入模式。按下A(大写)来从该行的结尾 处增加资料，而不是从你目前的位置开始。另外，按下I(大写)来从该行的起头来插入文字。按下o在目前这行下建立一个新的一行来输入文字，而输入O(大写)可以增加一个空行在目前行的上面来增加文字。如果要用一整个新行来取代目前这行可以按下cc。如果要完全取代目前位置到该行结尾，输入c$。如果要取代目前位置到该行的起头，请输入c0 <br/><br/>为了要完成这种操作，这些指令将会进入插入模式。在输入完您的字之後，请按下&lt;<span class="caps">ESC</span>&gt;来回到指令模式。 <br/><br/><span style="color: Blue;">改变文字</span><br/><br/>到目前为止我们已经会使用一些c(改变,change)指令当我们按下。 cc，c0和c$时。cc是一种特别型式的改变指令，有点类似dd。而c0和c$指令是用来结合移动指令的范例。在这里，c作用的方式有点类似d，除了他让你自动进入差入模式输入你想要的文字在刚刚删除的区域。请试着将c结合一些移动指令并且在你的档案中测试一下(提示： cW，ce，c) <br/><br/><span style="color: Red;">8. 组合指令</span><br/><br/>vi真正变成有用是当你开始使用组合的(&quot;结合&quot;)指令，就像是d{ 和cw。除了这些指令外，您也可以结合一些数字和移动指令，就像是3w，这会告诉vi一次往右跳三个字。这里有一些移动&quot;结合&quot;指令的范例：12b，4j。 <br/><br/>vi，为了要让(数字)(移动指令)结合，也允许d或c去跟数字或移动指令作结合。所以d3w将会删除後三个字，d2j会删除目前和接下来两行，等等。试试看一些c和d结合移动指令来感受一下vi的强大功能和简单的编辑指令吧。一旦这些指令变成潜意识，您将可以非常快速的去编辑档案。 <br/><br/><span style="color: Blue;">更新您的小抄</span><br/><br/>又到了我们更新小超的时间啦!到目前为止应该长的像这样子：<br/>圖示 8.1: 有組合指令的小抄<br/><a href="http://bbs.neten.de/attachments/4_LiqQApbLAYTs.png" target="_blank"><img src="http://bbs.neten.de/attachments/4_LiqQApbLAYTs.png" class="insertimage"  border="0"   /></a><br/><br/><span style="color: Blue;">众多的特色</span><br/><br/>目前为止，我们已经介绍了如何移动，存档和离开，进行简单的编辑和删除，和使用插入模式。目前为止看到在小抄上的所有东西，您应该可以使用vi 来进行任何任务了。 <br/><br/>然而，vi虽然已经有如此多有用的指令。在这一节中，您将会学到如何剪下 ，复制和贴上，搜寻和取代，及如何使用自动断行 的功能。这些指令都将会使得vi更有趣和更有用。 <br/><br/><span style="color: Blue;">视觉模式</span><br/><br/>要使用复制和贴上最好的方式就是用视觉模式，一种特别的模式已经在新的版本中加入，就像是vim和elvis。您可以把视觉模式想成&quot;高亮度文字&quot;模式。一旦文字被提高亮度，他就可以被复制或删除，然後贴上。如果您使用gvim，您可以利用滑鼠左键简单的拖拉选取您想要的特定区域： <br/>圖示 8.2: 有被提高亮度文字的VIM<br/><a href="http://bbs.neten.de/attachments/5_RltGw4pX9uFA.png" target="_blank"><img src="http://bbs.neten.de/attachments/5_RltGw4pX9uFA.png" class="insertimage"  border="0"   /></a><br/><br/>除此知外，您可以藉由按下v来进入视觉模式(如果您在指令列下使用vi ，这可能是您唯一的选项。) 然後，利用移动指令来移动游标(基本上是方向键) ，您将可以将一个区域的文字提高亮度。一但提高了，接下来您可以准备剪下或贴上文字了。 <br/><br/>假如您想要复制文字，按y(意思是&quot;yank&quot;)。假如您想要剪下文字，按d。您将会回到指令模式。现在，移动到您想要插入您剪下或复制文字的地方，然後按P在游标的後面插入文字，或p在游标前插入。恭喜，剪下/复制和贴上已经完成!在进行下一个比较进阶的节之前请试试看复制/剪下和贴上的操作。 <br/><br/><span style="color: Blue;">取代文字</span><br/><br/>为了要取代片断的文字，我们使用ex模式。如果您想要取代在该行的第一个片断，请输入:s/&lt;regexp&gt;/&lt;replacement&gt;/然後按下&lt;<span class="caps">ENTER</span>&gt;其中 &lt;regexp&gt;是您所想要寻找且&lt;取代&gt; 的字串。如果要取代您那行中所有的片断，请输入:s/&lt;regexp&gt;/&lt;replacement&gt;/g 然後按下enter。如果要取代您档案中所有的片断(通常这是您想要的)，请输入:%s/&lt;regexp&gt;/&lt;replacement&gt;/g然後按下enter。如果您想要进行全域取代，但是需要vi提醒您做每一个改变，请输入 :%s/&lt;regexp&gt;/&lt;replacement&gt;/gc(c可以想成是&quot;confirm&quot;) 然後按下&lt;<span class="caps">ENTER</span>&gt; <br/><br/><span style="color: Blue;">缩行</span><br/><br/>vi支援自动缩行，是用於您想要编辑原始码时。大部份较新版本的vi中(像vim) 会自动开启自动缩行模式在您编辑原始码档案时(举例：像.c档)。当自动缩行被启动时，您可以利用&lt;<span class="caps">CTR</span>&gt;d(control-d)来往左缩行一格，利用&lt;<span class="caps">CTR</span>&gt;t (control-t)来往右缩行一格。如果自动缩行的功能没有自动启动，您可以藉由在ex下输入:set autoindent 来自动启动自动缩排。您也可以利用:set tabstop指令来设定您想要的缩排长度;:set tabstop=4是比较普遍使用的。 <br/><br/><span style="color: Blue;">我们最後的小抄</span><br/><br/>嗯<img src="~我本已经到达了vi手册结尾" alt="" />在增加完小抄上所有的进阶指令，他应该会长成这个样子:<br/>圖示 8.3: 最後的小抄<br/><a href="http://bbs.neten.de/attachments/6_3Q9ru8OUqdDP.png" target="_blank"><img src="http://bbs.neten.de/attachments/6_3Q9ru8OUqdDP.png" class="insertimage"  border="0"   /></a><br/>请随身带着小抄，然後开始利用vi来编辑档案和编排emails。当需要时拿看小抄;您将会发现在一个星期内，您将会记忆住所有的指令然後您的 vi技巧将会突飞猛进! <br/><br/>如果您想要使vi变成您预设的编辑器，请作一些改变到/etc/rc.conf: <br/><br/>原始码 8.1: 设定vi变成预设的编辑器<br/>(设定EDITOR变成您想要的编辑器。)<br/><coolcode>#<span class="caps">EDITOR</span>=&#8220;/bin/nano&#8221;<br /><span class="caps">EDITOR</span>=&#8220;/usr/bin/vim&#8221;<br />#<span class="caps">EDITOR</span>=&#8220;/usr/bin/emacs&#8221;</coolcode> <br/><br/><span style="color: Blue;">资源</span><br/><br/>当您继续学习vi时，下面有一些资源您也许需要: <br/><br/><a href="http://www.thomer.com/thomer/vi/vi.html" target="_blank">The vi Lovers Home Page</a>,超棒的资源关於vi的所有东西 <br/><a href="http://www.vim.org/" target="_blank">The vim homepage</a>这里可以 满足您想知道vim的所有东西 <br/>如果正在寻找一些好的，经典书籍，<a href="http://www.oreilly.com/catalog/vi6/" target="_blank">学习 vi 编辑器,第六版</a> 将会是一个最好的选择。包含很多好的vi资讯跟vi的演进。 <br/>关於这很文件<br/><br/>最原始版本是发布在IBM developerWorks，为Westtech Information Services 的财产。这文件是原始版本的更新版，并且Gentoo Linux文件组改进很多东西。</p></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Peter</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-03-28T00:00:00+02:00" pubdate data-updated="true">Mar 28<span>th</span>, 2006</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/posts/categories/digitallife/'>DigitalLife</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/posts/50/" title="Previous Post: 申请@MSN 邮箱">&laquo; 申请@MSN 邮箱</a>
+      
+      
+        <a class="basic-alignment right" href="/posts/45/" title="Next Post: 我的软件集">我的软件集 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/2014/01/27/install-mysql-using-homebrew/">在 Mac 下用 Homebrew 安装 MySQL</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2013/10/06/use-ffmpeg-to-burn-subtitles-into-the-video/">Use FFmpeg to burn subtitles into the video</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2013/02/17/ruby-block-proc-and-lambda/">Ruby -- block Proc and lambda</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/10/18/mac-os-x-10-dot-8-2-problems-after-update/">Mac OS X 10.8.2 Problems after update</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/02/mac-octopress-ioerror-invalid-python-installation/">Mac Octopress IOError invalid Python installation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/02/rstudio-non-utf8-warning-message/">RStudio non-UTF8 warning message</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/01/pdf-version-found-1-dot-5-but-allowed-1-dot-4/">PDF version found 1.5 but allowed 1.4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/07/21/fatal-error-stdio-dot-h-file-not-found/">fatal error: stdio.h file not found</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/06/06/mongodb-scaffolding-devise-omniauth-cancan-2/">MongoDB Scaffolding Devise Omniauth CanCan (2)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/05/19/mongodb-scaffolding-devise-omniauth-cancan-1/">MongoDB Scaffolding Devise Omniauth CanCan (1)</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>最近评论</h1>
+  <script type="text/javascript" src="http://neten.disqus.com/combination_widget.js?num_items=5&hide_mods=0&color=grey&default_tab=recent&excerpt_length=200"></script>
+</section>
+<section>
+  <h1>常用资料</h1>
+    <ul id="recent_posts">
+      <li class="post">
+        <a href="/posts/93">来几个Linux命令</a>
+      </li>
+      <li class="post">
+        <a href="/posts/344">Mysql 改变数据库目录</a>
+      </li>
+      <li class="post">
+        <a href="/posts/254">Latex & TexMakerX</a>
+      </li>
+      <li class="post">
+        <a href="/posts/241">在Ubuntu上通过SSH安装Virtualbox</a>
+      </li>
+      <li class="post">
+        <a href="/posts/73">汉德词典 for MDict & Babylon</a>
+      </li>
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2005 - 2016 - Peter - | 
+  <span><a href="/posts/94">Impressum</a></span>
+  <span class="credit" style="float:right">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'neten';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ZPVIP.github.io/posts/48/';
+        var disqus_url = 'http://ZPVIP.github.io/posts/48/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="/javascripts/jimdoclockzip.js"></script>
+</body>
+</html>

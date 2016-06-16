@@ -1,0 +1,1697 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Website | 简洁的想法]]></title>
+  <link href="http://ZPVIP.github.io/posts/categories/website/atom.xml" rel="self"/>
+  <link href="http://ZPVIP.github.io/"/>
+  <updated>2016-06-16T15:58:01+02:00</updated>
+  <id>http://ZPVIP.github.io/</id>
+  <author>
+    <name><![CDATA[Peter]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[在 Mac 下用 Homebrew 安装 MySQL]]></title>
+    <link href="http://ZPVIP.github.io/posts/2014/01/27/install-mysql-using-homebrew/"/>
+    <updated>2014-01-27T21:27:00+01:00</updated>
+    <id>http://ZPVIP.github.io/posts/2014/01/27/install-mysql-using-homebrew</id>
+    <content type="html"><![CDATA[<p>在 Mac 下用 Homebrew 安装 MySQL, 网上的教程倒是很多，不过大多数都很默契地雷同。如果稍有点定制要求，就无从下手了。</p>
+
+<p>我先也不免俗，从基本的开始：</p>
+
+<h2>一、首先安装 Homebrew</h2>
+
+<pre><code class="bash  ">$ ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"   
+$ brew install git  
+$ brew update  
+</code></pre>
+
+<h2>二、安装 MySQL</h2>
+
+<p>用下面的命令就可以自动安装了：
+<code>bash
+$ brew install mysql
+</code></p>
+
+<p>如果想让 MySQL 开机自动启动，可以如下操作：</p>
+
+<!--more-->
+
+
+<pre><code class="bash">$ mkdir -p ~/Library/LaunchAgents
+$ ln -sfv /usr/local/opt/mysql/*.plist ~/Library/LaunchAgents
+$ find /usr/local/Cellar/mysql/ -name "homebrew.mxcl.mysql.plist" -exec cp {} ~/Library/LaunchAgents/ \;
+$ launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+</code></pre>
+
+<p>设置 MySQL 用户以及数据存放地址
+<code>bash
+$ unset TMPDIR
+$ mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp
+</code></p>
+
+<p>好了，可以启动了
+<code>bash
+$ mysql.server start
+</code>
+另外的参数还有 <code>{start|stop|restart|reload|force-reload|status}</code></p>
+
+<p>大部分的介绍就在此结束了。</p>
+
+<h2>三、更详细的设置</h2>
+
+<h3>配置文件 my.cnf</h3>
+
+<p>作为用惯了 Linux 的人， 一定会去 <code>/etc</code> 下找 <code>my.cnf</code>, 让你失望了，这个文件要自己建立。如果看一下帮助
+<code>bash
+$ mysqld --help --verbose
+</code></p>
+
+<p>就会发现系统会按这个顺序去找 my.cnf</p>
+
+<ol>
+<li>/etc/my.cnf</li>
+<li>/etc/mysql/my.cnf</li>
+<li>/usr/local/etc/my.cnf</li>
+<li>~/.my.cnf</li>
+</ol>
+
+
+<p>一般网上大虾都会这么教小白建立 my.cnf, 其实这个默认的文件里面几乎没什么内容。
+<code>bash
+$ sudo cp $(brew --prefix mysql)/support-files/my-default.cnf /etc/my.cnf
+</code>
+所以，还是自己老老实实参考 linux 下的配置文件吧。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>my.cnf  (my.cnf.txt)</span> <a href='/attachment/code/mysql/my.cnf.txt'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+</pre></td><td class='code'><pre><code class='apache'><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c"># The MySQL database server configuration file.</span>
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c"># You can copy this to one of:</span>
+</span><span class='line'><span class="c"># - &quot;/etc/mysql/my.cnf&quot; to set global options,</span>
+</span><span class='line'><span class="c"># - &quot;~/.my.cnf&quot; to set user-specific options.</span>
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c"># One can use all long options that the program supports.</span>
+</span><span class='line'><span class="c"># Run program with --help to get a list of available options and with</span>
+</span><span class='line'><span class="c"># --print-defaults to see which it would actually understand and use.</span>
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c"># For explanations see</span>
+</span><span class='line'><span class="c"># http://dev.mysql.com/doc/mysql/en/server-system-variables.html</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># This will be passed to all mysql clients</span>
+</span><span class='line'><span class="c"># It has been reported that passwords should be enclosed with </span>
+</span><span class='line'><span class="c"># ticks/quotes escpecially if they contain &quot;#&quot; chars...</span>
+</span><span class='line'><span class="c"># Remember to edit /etc/mysql/debian.cnf when changing </span>
+</span><span class='line'><span class="c"># the socket location.</span>
+</span><span class='line'><span class="err">[client]</span>
+</span><span class='line'><span class="nb">port</span>        = <span class="m">3306</span>
+</span><span class='line'><span class="c">#socket     = /var/run/mysqld/mysqld.sock</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># Here is entries for some specific programs</span>
+</span><span class='line'><span class="c"># The following values assume you have at least 32M ram</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># This was formally known as [safe_mysqld]. Both versions </span>
+</span><span class='line'><span class="c"># are currently parsed.</span>
+</span><span class='line'><span class="err">[mysqld_safe]</span>
+</span><span class='line'><span class="c">#socket     = /var/run/mysqld/mysqld.sock</span>
+</span><span class='line'><span class="c">#nice       = 0</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">[mysqld]</span>
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c"># * Basic Settings</span>
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c"># * IMPORTANT</span>
+</span><span class='line'><span class="c">#   If you make changes to these settings and your system uses </span>
+</span><span class='line'><span class="c">#   apparmor, you may also need to also adjust </span>
+</span><span class='line'><span class="c">#   /etc/apparmor.d/usr.sbin.mysqld.</span>
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">#user       = mysql</span>
+</span><span class='line'><span class="c">#socket     = /var/run/mysqld/mysqld.sock</span>
+</span><span class='line'><span class="nb">port</span>        = <span class="m">3306</span>
+</span><span class='line'><span class="c">#basedir    = /usr</span>
+</span><span class='line'><span class="nb">datadir</span>    = <span class="sx">/usr/local/var/mysql</span>
+</span><span class='line'><span class="c">#tmpdir     = /tmp</span>
+</span><span class='line'><span class="err">skip-external-</span><span class="nb">locking</span>
+</span><span class='line'>#
+</span><span class='line'><span class="c"># Instead of skip-networking the default is now to listen only on</span>
+</span><span class='line'><span class="c"># localhost which is more compatible and is not less secure.</span>
+</span><span class='line'><span class="err">bind-</span><span class="nb">address</span>        = <span class="m">127.0.0.1</span>
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c"># * Fine Tuning</span>
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="err">key_</span><span class="nb">buffer</span>          = <span class="m">16</span>M
+</span><span class='line'><span class="err">max_allowed_</span><span class="nb">packet</span>  = <span class="m">16</span>M
+</span><span class='line'><span class="err">thread_</span><span class="nb">stack</span>        = <span class="m">192</span>K
+</span><span class='line'><span class="err">thread_cache_</span><span class="nb">size</span>   = <span class="m">8</span>
+</span><span class='line'><span class="c"># This replaces the startup script and checks MyISAM tables if needed</span>
+</span><span class='line'><span class="c"># the first time they are touched</span>
+</span><span class='line'><span class="err">myisam-</span><span class="nb">recover</span>         = BACKUP
+</span><span class='line'><span class="c">#max_connections       = 100</span>
+</span><span class='line'><span class="c">#table_cache           = 64</span>
+</span><span class='line'><span class="c">#thread_concurrency    = 10</span>
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c"># * Query Cache Configuration</span>
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="err">query_cache_</span><span class="nb">limit</span>   = <span class="m">1</span>M
+</span><span class='line'><span class="err">query_cache_</span><span class="nb">size</span>    = <span class="m">16</span>M
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c"># * Logging and Replication</span>
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c"># Both location gets rotated by the cronjob.</span>
+</span><span class='line'><span class="c"># Be aware that this log type is a performance killer.</span>
+</span><span class='line'><span class="c"># As of 5.1 you can enable the log at runtime!</span>
+</span><span class='line'><span class="c">#general_log_file        = /var/log/mysql/mysql.log</span>
+</span><span class='line'><span class="c">#general_log             = 1</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">log_</span><span class="nb">error</span>                = <span class="sx">/usr/local/var/mysql/MacBook15.local.err</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># Here you can see queries with especially long duration</span>
+</span><span class='line'><span class="c">#log_slow_queries   = /var/log/mysql/mysql-slow.log</span>
+</span><span class='line'><span class="c">#long_query_time = 2</span>
+</span><span class='line'><span class="c">#log-queries-not-using-indexes</span>
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c"># The following can be used as easy to replay backup logs or </span>
+</span><span class='line'><span class="c"># for replication.</span>
+</span><span class='line'><span class="c"># note: if you are setting up a replication slave, see </span>
+</span><span class='line'><span class="c">#       README.Debian about other settings you may need </span>
+</span><span class='line'><span class="c">#       to change.</span>
+</span><span class='line'><span class="c">#server-id          = 1</span>
+</span><span class='line'><span class="c">#log_bin            = /var/log/mysql/mysql-bin.log</span>
+</span><span class='line'><span class="err">expire_logs_</span><span class="nb">days</span>    = <span class="m">10</span>
+</span><span class='line'><span class="err">max_binlog_</span><span class="nb">size</span>     = <span class="m">100</span>M
+</span><span class='line'><span class="c">#binlog_do_db       = include_database_name</span>
+</span><span class='line'><span class="c">#binlog_ignore_db   = include_database_name</span>
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c"># * InnoDB</span>
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c"># InnoDB is enabled by default with a 10MB datafile in /var/lib/mysql/.</span>
+</span><span class='line'><span class="c"># Read the manual for more InnoDB related options. There are many!</span>
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c"># * Security Features</span>
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c"># Read the manual, too, if you want chroot!</span>
+</span><span class='line'><span class="c"># chroot = /var/lib/mysql/</span>
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c"># For generating SSL certificates I recommend the OpenSSL GUI &quot;tinyca&quot;.</span>
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c"># ssl-ca=/etc/mysql/cacert.pem</span>
+</span><span class='line'><span class="c"># ssl-cert=/etc/mysql/server-cert.pem</span>
+</span><span class='line'><span class="c"># ssl-key=/etc/mysql/server-key.pem</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># Query Caching</span>
+</span><span class='line'><span class="err">query-cache-</span><span class="nb">type</span> = <span class="m">1</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># Default to InnoDB</span>
+</span><span class='line'><span class="err">default-storage-engine=</span><span class="nb">innodb</span>
+</span><span class='line'>
+</span><span class='line'>[mysqldump]
+</span><span class='line'><span class="nb">quick</span>
+</span><span class='line'>quote-names
+</span><span class='line'><span class="err">max_allowed_</span><span class="nb">packet</span>  = <span class="m">16</span>M
+</span><span class='line'>
+</span><span class='line'><span class="err">[mysql]</span>
+</span><span class='line'><span class="c">#no-auto-rehash # faster start of mysql but no tab completition</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">[isamchk]</span>
+</span><span class='line'><span class="err">key_</span><span class="nb">buffer</span>      = <span class="m">16</span>M
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h3>错误日志</h3>
+
+<p>错误日志默认会存在数据目录下，也就是上面所定义的 <code>/usr/local/var/mysql/</code>，如果 Mac 电脑名字是 MacBook，那日志的全路径就是 <code>/usr/local/var/mysql/MacBook.local.err</code></p>
+
+<h3>让别的电脑访问数据库</h3>
+
+<p>取消下面两个文件中关于绑定 127.0.0.1 的语句<br/>
+/etc/my.cnf</p>
+
+<pre><code class="bash">bind-address = 127.0.0.1
+</code></pre>
+
+<p>~/Library/LaunchAgents/homebrew.mxcl.mysql.plist<br/>
+<code>xml
+&lt;string&gt;--bind-address=127.0.0.1&lt;/string&gt;
+</code></p>
+
+<p>就我个人而言，不需要 MySQL 自启动，所以只要在 <code>/etc/my.cnf</code> 改一下就好了。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Ruby -- block Proc and lambda]]></title>
+    <link href="http://ZPVIP.github.io/posts/2013/02/17/ruby-block-proc-and-lambda/"/>
+    <updated>2013-02-17T20:05:00+01:00</updated>
+    <id>http://ZPVIP.github.io/posts/2013/02/17/ruby-block-proc-and-lambda</id>
+    <content type="html"><![CDATA[<p>Block是Ruby中相当sexy的特性。对于常年在C/C++中Coding的码农来说，不管是表达方式还是思考方式都有点让人感觉不适应。
+Block是一个统称，中文名称又叫闭包，英文是Closure，表现形式有block, Proc and lambda。Proc是对block的面向对象的封装， lambda是对Proc的进一步封装。</p>
+
+<h1>block</h1>
+
+<p>虽然Ruby中万物皆对象，但block是作为一个特性而存在，不是对象。也许很多Rails程序员还没看Ruby语法就已经用scaffold写Blog了，对别人程序中的一些代码连蒙带猜也很看得差不多懂，就比如下面的代码：
+<code>ruby
+my_array = [ 1, 2, 3, 4, 5 ]
+my_array.each { | number | puts number}
+my_array.each do | number |
+  puts number
+end
+my_array.each_index { | index | puts "number has #{index}" }
+</code>
+简单来说，<code>each</code>后面的几种表达就是<code>block</code>，上面的例子就是调用<code>Array</code>对象的<code>block</code>方法。看起来好像很神秘，其实我们也可以为自己的类定义一个block方法。
+```ruby
+class MyArray
+  attr_accessor :my_arr
+  def initialize( my_arr )
+    @my_arr = my_arr
+  end</p>
+
+<p>  def my_each( &amp;my_block )
+    for i in 0..@my_arr.length-1
+      my_block.call( @my_arr[i] )
+    end
+  end
+end</p>
+
+<p>a = MyArray.new( [1,2,3,4] )
+a.my_each { | number | puts number }
+<code>
+结果很简单
+</code>
+1
+2
+3
+4
+<code>``
+之所以很多变量和方法都加个</code>my`前缀，是因为我想告诉大家这都是自定义的，是不是很帅？哦，不好意思，是不是很sexy？</p>
+
+<p>既然已经说到自定义了，不能这样就结束了，我们可以再复杂一点：
+```ruby
+class MyArray
+  attr_accessor :my_arr
+  def initialize( my_arr )
+    @my_arr = my_arr
+  end</p>
+
+<p>  def my_each( &amp;my_block )
+    for i in 0..@my_arr.length-1
+      my_block.call( @my_arr[i], i )
+    end
+  end
+end</p>
+
+<p>a = MyArray.new( [ 1, 2, 3, 4 ] )
+a.my_each { | number, index | puts "number at #{index} has value #{number}" }
+<code>
+结果如下：
+</code>
+number at 0 has value 1
+number at 1 has value 2
+number at 2 has value 3
+number at 3 has value 4
+```</p>
+
+<p>接下来不得不说一下<code>yield</code>这个关键字，我们从简单的例子开始：
+```ruby
+class MyArray
+  attr_accessor :my_arr
+  def initialize( my_arr )
+    @my_arr = my_arr
+  end</p>
+
+<p>  def my_yield
+    yield
+  end
+end</p>
+
+<p>a = MyArray.new( [ 1, 2, 3, 4 ] )
+a.my_yield { puts "yield is also sexy!" }
+<code>``
+请大家无视1,2,3,4, 上面的例子只会输出</code>yield is also sexy!<code>, 也就是说</code>a.my_yield<code>后面的所有内容都跑到</code>my_yield<code>中，替换了</code>yield`，简单吧。</p>
+
+<p>下面开始对其升级：</p>
+
+<pre><code class="ruby">class MyArray
+  attr_accessor :my_arr
+  def initialize( my_arr )
+    @my_arr = my_arr
+  end
+
+  def my_yield
+    yield( @my_arr )
+  end
+end
+
+a = MyArray.new( [ 1, 2, 3, 4 ] )
+a.my_yield {| my_tmp_arr |
+  puts "yield with parameter!"
+  my_tmp_arr.each{| number | puts number}
+}
+</code></pre>
+
+<p>输出如下：
+<code>text
+yield with parameter!
+1
+2
+3
+4
+</code>
+如果你不是高手，我相信你会回头再品一下代码的，这个<code>my_yield</code>中到底发生了什么事？其实也不难，按照上例中的，把<code>a.my_yield</code>后面的全部甩到<code>my_yield</code>中替换<code>yield</code>, 然后用<code>@my_arr</code>替换<code>my_tmp_arr</code>就可以了。</p>
+
+<h1>Proc</h1>
+
+<p>前面说到<code>Proc</code>是Ruby对<code>block</code>的面向对象的封装，简单来说，就是我自己定义一个可以多次重用的<code>block</code>。还是看个例子吧，比如我想计算一个长方形的面积：
+<code>ruby
+rectangle_area = Proc.new{ | a, b | puts a * b }
+rectangle_area.call( 5, 6 )
+</code>
+如果我的想固定长边，只输入宽度就好了，那我可以加入一个参数：
+```ruby
+def rectangle_area_with_length (length)
+  Proc.new{ | width | width * length }
+end</p>
+
+<p>area = rectangle_area_with_length(6)
+area.call(3)
+area[3]
+area.class # => Proc
+<code>``
+最后两种call的方式都行，结果都是18。我啰嗦一句，Ruby语法是可以省略</code>return<code>的，所以上面函数的返回值是个</code>Proc<code>，Proc里面的</code>block<code>返回值是</code>width * length`，没了return，眼睛里的确清静了很多。</p>
+
+<h1>lambda</h1>
+
+<p><code>lambda</code>是Ruby的一个函数，用来创建<code>Proc</code>。
+```ruby
+multiply_lambda_proc = lambda { | x, y | x * y }</p>
+
+<h1>and we can call as a normal Proc</h1>
+
+<p>multiply_lambda_proc.call( 3, 4 ) # return 12
+```</p>
+
+<p>其与 Proc 主要有两个不同点：</p>
+
+<p>第一，lambda 会检查参数，而 Proc 不会。
+```ruby
+multiply_lambda_proc = lambda { | x, y | x * y }
+multiply_proc = Proc.new { | x, y | x * y }</p>
+
+<p>multiply_lambda_proc.call( 3, 4, 5 ) # ArgumentError: wrong number of arguments (3 for 2)
+multiply_proc( 3, 4, 5 ) # return 12 as normal</p>
+
+<h1>This last command's error shows that Proc auto assigns missing argument with nil</h1>
+
+<p>multiply_proc( 3 )  # TypeError: nil can't be coerced into Fixnum
+```</p>
+
+<p>第二，lambda 会返回它的调用函数，但 Proc 会结束它所位于的 function。
+```ruby
+def return_from_proc
+  ruby_proc = Proc.new { return "return from a Proc" }
+  ruby_proc.call
+  return "The function will NOT reach here because a Proc containing a return statement has been called"
+end</p>
+
+<p>def return_from_lambda
+  ruby_lambda = lambda { return "return from lambda" }
+  ruby_lambda.call
+  return "The function will reach here"
+end</p>
+
+<p>puts return_from_proc # display return from proc
+puts return_from_lambda # display The function will reach here
+```</p>
+
+<p>参考：
+<a href="http://railstalk.com/?p=28">RUBY BLOCK, PROC &amp; LAMBDA</a></p>
+
+<p><a href="http://ruby-windy.iteye.com/blog/1197302">理解Ruby中block的本质</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[fatal error: stdio.h file not found]]></title>
+    <link href="http://ZPVIP.github.io/posts/2012/07/21/fatal-error-stdio-dot-h-file-not-found/"/>
+    <updated>2012-07-21T20:31:00+02:00</updated>
+    <id>http://ZPVIP.github.io/posts/2012/07/21/fatal-error-stdio-dot-h-file-not-found</id>
+    <content type="html"><![CDATA[<p>OS X 10.7.3 安装XCode 4.3.1 之后，如果你也安装了命令行：
+Preferences > Downloads > Components and click install on Command Line Tools</p>
+
+<p>那再编译什么东西的时候，就有可能收到报错信息，比如我就是在bundle install的时候得到如下信息：
+``` bash
+Installing rb-fsevent (0.4.3.1) with native extensions
+Gem::Installer::ExtensionBuildError: ERROR: Failed to build gem native extension.</p>
+
+<pre><code>    /usr/local/rvm/rubies/ruby-1.9.3-p194/bin/ruby extconf.rb 
+</code></pre>
+
+<p>creating Makefile
+CFLAGS='-isysroot /Developer/SDKs/MacOSX10.7.sdk -mmacosx-version-min=10.7 -mdynamic-no-pic -std=gnu99 -Os -pipe -Wmissing-prototypes -Wreturn-type -Wmissing-braces -Wparentheses -Wswitch -Wunused-function -Wunused-label -Wunused-parameter -Wunused-variable -Wunused-value -Wuninitialized -Wunknown-pragmas -Wshadow -Wfour-char-constants -Wsign-compare -Wnewline-eof -Wconversion -Wshorten-64-to-32 -Wglobal-constructors -pedantic' /usr/bin/clang -isysroot /Developer/SDKs/MacOSX10.7.sdk -mmacosx-version-min=10.7 -mdynamic-no-pic -std=gnu99 -dead_strip -framework CoreServices -o '/usr/local/rvm/gems/ruby-1.9.3-p194/gems/rb-fsevent-0.4.3.1/bin/fsevent_watch' fsevent/fsevent_watch.c
+fsevent/fsevent_watch.c:1:10: fatal error: 'stdio.h' file not found</p>
+
+<h1>include &lt;stdio.h></h1>
+
+<pre><code>     ^
+</code></pre>
+
+<p>1 error generated.
+extconf.rb:59:in `<main>': Compilation of fsevent_watch failed (see README) (RuntimeError)</p>
+
+<p>Gem files will remain installed in /usr/local/rvm/gems/ruby-1.9.3-p194/gems/rb-fsevent-0.4.3.1 for inspection.
+Results logged to /usr/local/rvm/gems/ruby-1.9.3-p194/gems/rb-fsevent-0.4.3.1/ext/gem_make.out
+An error occured while installing rb-fsevent (0.4.3.1), and Bundler cannot continue.
+Make sure that <code>gem install rb-fsevent -v '0.4.3.1'</code> succeeds before bundling.
+<code>``
+如果用心看一下，报的是</code>stdio.h file not found`.</p>
+
+<p>其实问题出在这个command line tools上，可以用下面这个命令修正：
+<code>bash
+sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/
+</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[MongoDB Scaffolding Devise Omniauth CanCan (2)]]></title>
+    <link href="http://ZPVIP.github.io/posts/2012/06/06/mongodb-scaffolding-devise-omniauth-cancan-2/"/>
+    <updated>2012-06-06T22:26:00+02:00</updated>
+    <id>http://ZPVIP.github.io/posts/2012/06/06/mongodb-scaffolding-devise-omniauth-cancan-2</id>
+    <content type="html"><![CDATA[<p><a id="TOP0606"></a>
+1. <a href="#Devise">Devise</a><br/>
+2. <a href="#Omniauth">Omniauth</a><br/>
+3. <a href="#CanCan">CanCan</a></p>
+
+<h2><a id="Devise"></a><a href="#TOP">Devise</a></h2>
+
+<p>现在安装Devise, 和使用其它数据库一样, 首先在Gemfile加入devise, 然后安装Devise:
+``` bash
+$ vi Gemfile
+...
+gem 'devise','2.1.0'
+...
+$ bundle install
+      create  config/initializers/devise.rb</p>
+
+<pre><code>  create  config/locales/devise.en.yml
+</code></pre>
+
+<hr />
+
+<p>Some setup you must do manually if you haven't yet:</p>
+
+<ol>
+<li><p>Ensure you have defined default url options in your environments files. Here
+ is an example of default_url_options appropriate for a development environment
+ in config/environments/development.rb:</p>
+
+<p>   config.action_mailer.default_url_options = { :host => 'localhost:3000' }</p>
+
+<p> In production, :host should be set to the actual host of your application.</p></li>
+<li><p>Ensure you have defined root_url to <em>something</em> in your config/routes.rb.
+ For example:</p>
+
+<p>   root :to => "home#index"</p></li>
+<li><p>Ensure you have flash messages in app/views/layouts/application.html.erb.
+ For example:</p>
+
+<p>   <p class="notice">&lt;%= notice %></p>
+   <p class="alert">&lt;%= alert %></p></p></li>
+<li><p>If you are deploying Rails 3.1 on Heroku, you may want to set:</p>
+
+<p>  config.assets.initialize_on_precompile = false</p>
+
+<p>On config/application.rb forcing your application to not access the DB
+ or load models when precompiling your assets.</p></li>
+</ol>
+
+
+<hr />
+
+<p>```</p>
+
+<!-- more -->
+
+
+<p>Devise会知道我们已经安装了Mongoid, 所以它会在<code>config/initializers/devise.rb</code>中加入ORM的支持:
+<code>ruby
+require 'devise/orm/mongoid'
+</code></p>
+
+<p>下面建立User model
+<code>bash
+$ rails generate devise User
+      invoke  mongoid
+      create    app/models/user.rb
+      insert    app/models/user.rb
+      insert    app/models/user.rb
+       route  devise_for :users
+</code></p>
+
+<p>Devise做的工作在上面已经表现得很清楚了, 一方面在route中增加了<code>devise_for :users</code>，另一方面生成User Model，我们可以在<code>app/models/user.rb</code>中看到Devise已经使用Mongoid了:
+``` ruby app/models/user.rb
+class User
+  include Mongoid::Document
+  # Include default devise modules. Others available are:
+  # :token_authenticatable, :confirmable,
+  # :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable</p>
+
+<p>  ## Database authenticatable
+  field :email,              :type => String, :null => false, :default => ""
+  field :encrypted_password, :type => String, :null => false, :default => ""</p>
+
+<p>  ## Recoverable
+  field :reset_password_token,   :type => String
+  field :reset_password_sent_at, :type => Time</p>
+
+<p>  ## Rememberable
+  field :remember_created_at, :type => Time</p>
+
+<p>  ## Trackable
+  field :sign_in_count,      :type => Integer, :default => 0
+  field :current_sign_in_at, :type => Time
+  field :last_sign_in_at,    :type => Time
+  field :current_sign_in_ip, :type => String
+  field :last_sign_in_ip,    :type => String</p>
+
+<p>  ## Confirmable
+  # field :confirmation_token,   :type => String
+  # field :confirmed_at,         :type => Time
+  # field :confirmation_sent_at, :type => Time
+  # field :unconfirmed_email,    :type => String # Only if using reconfirmable</p>
+
+<p>  ## Lockable
+  # field :failed_attempts, :type => Integer, :default => 0 # Only if lock strategy is :failed_attempts
+  # field :unlock_token,    :type => String # Only if unlock strategy is :email or :both
+  # field :locked_at,       :type => Time</p>
+
+<p>  ## Token authenticatable
+  # field :authentication_token, :type => String
+end
+```
+Devise由12个Modules组成， 在上面的注释中就有体现， 下面我大致翻译一下各个Module的功用( <a href="https://github.com/plataformatec/devise">原文可以去看官方文档</a> )：</p>
+
+<ol>
+<li>Database Authenticatable: 用户验证和登录过程中, 把用户的密码加密然后把加密后的密码存在数据库中。</li>
+<li>Token Authenticatable: 基于验证令牌的用户登录方法。</li>
+<li>Omniauthable: 添加Omniauth支持。</li>
+<li>Confirmable: 通过发E-Mail的方式验证用户帐号是否通过通过认证。</li>
+<li>Recoverable: 通过发E-Mail的方式支持用户找回密码。</li>
+<li>Registerable: 处理用户注册过程,也可以让他们编辑和销毁他们的帐户。</li>
+<li>Rememberable: 通过Cookie来记住用户。</li>
+<li>Trackable: 跟踪用户的登录次数、时间和IP地址。</li>
+<li>Timeoutable: 假如用户一段时间没有活动， 自动用户处于不登录状态。</li>
+<li>Validatable: 用户通过E-Mail和密码登录， 可以自定义，比如使用用户名和密码登录。</li>
+<li>Lockable: 几次失败的登录尝试后，锁定用户， 可以在一段时间后通过E-Mail解锁。</li>
+<li>Encryptable: 除了内置的Bcrypt(默认)，增加支持认证机制。</li>
+</ol>
+
+
+<p>用E-Mail登录可能不是所有网站都想要的风格，如果想要用用户名登录，我们就可以加一个字段，就像上一篇所说的，如果用MySql或Sqlite之类的，还要<code>rake migrate</code>，但现在，只要添加这个字段就好了：
+<code>ruby app/models/user.rb
+...
+field :user_name
+...
+</code></p>
+
+<p>用户表中有很多字段，我们希望在用户登录之前只有少量字段可以用来验证真实用户，所以<code>attr_accessible</code>就只包括用户名、邮件、密码和“记住我”，除此之外，用户名和邮件地址唯一性可以通过<code>validates_uniqueness_of</code>保障。
+<code>ruby app/models/user.rb
+validates_presence_of :user_name
+validates_uniqueness_of :user_name, :email, :case_sensitive =&gt; false
+attr_accessible :user_name, :email, :password, :password_confirmation, :remember_me
+</code>
+我们在User Model里面使用了Registerable, 这样我们就可以Devise来生成注册的Views：
+<code>ruby
+$ rails generate devise:views
+      invoke  Devise::Generators::SharedViewsGenerator
+      create    app/views/devise/shared
+      create    app/views/devise/shared/_links.erb
+      invoke  form_for
+      create    app/views/devise/confirmations
+      create    app/views/devise/confirmations/new.html.erb
+      create    app/views/devise/passwords
+      create    app/views/devise/passwords/edit.html.erb
+      create    app/views/devise/passwords/new.html.erb
+      create    app/views/devise/registrations
+      create    app/views/devise/registrations/edit.html.erb
+      create    app/views/devise/registrations/new.html.erb
+      create    app/views/devise/sessions
+      create    app/views/devise/sessions/new.html.erb
+      create    app/views/devise/unlocks
+      create    app/views/devise/unlocks/new.html.erb
+      invoke  erb
+      create    app/views/devise/mailer
+      create    app/views/devise/mailer/confirmation_instructions.html.erb
+      create    app/views/devise/mailer/reset_password_instructions.html.erb
+      create    app/views/devise/mailer/unlock_instructions.html.erb
+</code></p>
+
+<p>因为我们添加了user_name字段，所以相应地要在Views里面添加这个输入框：
+``` erb app/views/devise/registrations/edit.html.erb
+...</p>
+
+<div><%= f.label :user_name %><br />
+<%= f.text_field :user_name %></div>
+
+
+<p>...
+```</p>
+
+<p>``` erb app/views/devise/registrations/new.html.erb
+...</p>
+
+<div><%= f.label :user_name %><br />
+<%= f.text_field :user_name %></div>
+
+
+<p>...
+```</p>
+
+<p>因为Devise已经集成了创建、编辑和删除用户的Controller，所以我们不用在自己的项目中添加任何代码。</p>
+
+<p>为了在项目首页添加用户注册相关的链接，下面修改首页代码：
+首先确定一下哪个是首页
+<code>ruby config/routes.rb
+...
+root :to =&gt; 'articles#index'
+...
+</code></p>
+
+<p>然后再修改相应的View
+``` erb app/views/articles/index.html.erb</p>
+
+<div id="user_nav">
+  <% if user_signed_in? %>
+    Signed in as <strong><%= current_user.user_name %></strong>. Not you?
+    <%= link_to "Sign out", destroy_user_session_path, :method => :delete%>
+  <% else %>
+    <%= link_to "Sign up", new_user_registration_path %> or
+    <%= link_to "Sign in", new_user_session_path %>
+  <% end %>
+</div>
+
+
+<pre><code>把以下代码加入`app/views/layouts/application.html.erb`的`&lt;body&gt;`下方
+</code></pre>
+
+<p class="notice"><%= notice %></p>
+
+
+<p class="alert"><%= alert %></p>
+
+
+<pre><code>
+到现在为止，Devise就可以正常动作了。如果还需要用户管理界面之类的，那就请大家自己接着开发吧。
+
+## &lt;a id="Omniauth"&gt;&lt;/a&gt;[Omniauth](#TOP) ##
+下面继续为项目添加Omniauth。主要参考[Omniauth-facebook](https://github.com/plataformatec/devise/wiki/OmniAuth:-Overview)。
+
+首先添加Omniauth到Gemfile，别忘了`$ bundle install`:
+</code></pre>
+
+<p>...
+gem "omniauth", '1.1.0'
+gem "omniauth-facebook", '1.3.0'
+...
+```</p>
+
+<p>然后在Devise的初始化文件中定义facebook的一些参数：
+``` ruby config/initializers/devise.rb
+...</p>
+
+<h1>==> OmniAuth</h1>
+
+<h1>Add a new OmniAuth provider. Check the wiki for more information on setting</h1>
+
+<h1>up on your models and hooks.</h1>
+
+<h1>config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'</h1>
+
+<p>require "omniauth-facebook"
+config.omniauth :facebook, "APP_ID", "APP_SECRET", :strategy_class => OmniAuth::Strategies::Facebook
+...
+```
+其中"APP_ID"和"APP_SECRET"要去<a href="https://developers.facebook.com/apps/">Facebook</a>去申请。如果是本地测试，可以把Site URL设为http://localhost:3000/, Site Domain可设为localhost。</p>
+
+<p>Devise 12个Modules之一的:omniauthable要从注释中解放出来了：
+<code>ruby app/models/user.rb
+devise :omniauthable
+</code></p>
+
+<p>现在Devise已经在User Model中加入了两个方法：
+<code>ruby
+user_omniauth_authorize_path(:facebook)
+user_omniauth_callback_path(:facebook)
+</code></p>
+
+<p>接下来把<code>Sign in with Facebook</code>的链接加到<code>Sign up</code>和<code>Sign in</code>的后面，这样点击这个链接就会把用户带到Facebook，如果用户成功登录Facebook，那Fackbook会把用户信息返回给开始设定好的Callback方法。
+``` erb cat app/views/articles/index.html.erb</p>
+
+<div id="user_nav">
+  <% if user_signed_in? %>
+    Signed in as <strong><%= current_user.user_name %></strong>. Not you?
+    <%= link_to "Sign out", destroy_user_session_path, :method => :delete%>
+  <% else %>
+    <%= link_to "Sign up", new_user_registration_path %> or
+    <%= link_to "Sign in", new_user_session_path %>
+        <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
+  <% end %>
+</div>
+
+
+<pre><code>
+Callback的方法在`config/routes.rb`中定义：
+</code></pre>
+
+<p>devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+```</p>
+
+<p>既然定义了Callback是<code>users/omniauth_callbacks</code>，那就要建立相应的文件：
+``` ruby app/controllers/users/omniauth_callbacks_controller.rb
+class Users::OmniauthCallbacksController &lt; Devise::OmniauthCallbacksController
+  def facebook
+    # You need to implement the method below in your model
+    @user = User.find_for_facebook_oauth(request.env["omniauth.auth"], current_user)</p>
+
+<pre><code>if @user.persisted?
+  flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind =&gt; "Facebook"
+  sign_in_and_redirect @user, :event =&gt; :authentication
+else
+  session["devise.facebook_data"] = request.env["omniauth.auth"]
+  redirect_to new_user_registration_url
+end
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>从代码中不难发现，所有从Facebook中传来的信息都存在request.env["omniauth.auth"], 从服务器日志来看，具体信息如下：
+<code>html
+&lt;Hashie::Mash email="zhangsan@gmail.com"
+first_name="三"
+gender="male"
+id="100000531508888"
+last_name="张"
+link="http://www.facebook.com/profile.php?id=100000531508888"
+locale="zh_CN"
+name="张三"
+timezone=2
+updated_time="2011-06-01T20:26:05+0000"
+verified=true&gt;
+</code></p>
+
+<p>上面这个Controller中的<code>find_for_facebook_oauth</code>还没有定义呢，把下面的代码添加到User Model里面吧：
+``` ruby app/models/user.rb
+  def self.find_by_email(email)
+    where(:email => email).first
+  end</p>
+
+<p>  def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
+    data = access_token.extra.raw_info
+    if user = self.find_by_email(data.email)
+      user
+    else # Create a user with a stub password.
+      self.create!(:email => data.email, :password => Devise.friendly_token[0,20])
+    end
+  end</p>
+
+<p>  def self.new_with_session(params, session)
+    super.tap do |user|
+      if data = session["devise.facebook_data"] &amp;&amp; session["devise.facebook_data"]["extra"]["raw_info"]
+        user.email = data["email"]
+      end
+    end
+  end
+```</p>
+
+<p>好了，重启Web服务，测试一下用Facebook登录吧。</p>
+
+<h2><a id="CanCan"></a><a href="#TOP">CanCan</a></h2>
+
+<p>现在进入最后一个主题<a href="https://github.com/ryanb/cancan">CanCan</a>，也就是权限系统。
+第一件事照旧就是Gemfile和<code>$ bundle install</code>，CanCan从版本1.5开始就支持Mongoid了，但在Gemfile中要在CanCan之前包含Mongoid。
+<code>ruby Gemfile
+gem "mongoid", "~&gt; 2.4"
+gem 'cancan','1.6.7'
+</code></p>
+
+<p>然后生成ability.rb文件。
+<code>bash
+$ rails g cancan:ability
+      create  app/models/ability.rb
+</code></p>
+
+<p>接下来参考这篇<a href="https://github.com/ryanb/cancan/wiki/Role-Based-Authorization">文章</a>，在User Model中添加一个字段<code>roles_mask</code>, 然后把用户角色的定义加入User Model。
+<code>ruby app/models/user.rb
+field :roles_mask
+ROLES = %w[admin moderator author]
+</code></p>
+
+<p>下面的代码是为了给用户getting 和 setting角色的
+``` ruby app/models/user.rb
+def roles=(roles)
+  self.roles_mask = (roles &amp; ROLES).map { |r| 2**ROLES.index(r) }.sum
+end</p>
+
+<p>def roles
+  ROLES.reject do |r|
+    ((roles_mask || 0) &amp; 2**ROLES.index(r)).zero?
+  end
+end</p>
+
+<p>def role?(role)
+  roles.include?(role.to_s)
+end
+```</p>
+
+<p>因为项目集成了Devise，所以要把roles这个属性设置为accessible
+<code>ruby app/models/user.rb
+attr_accessible :user_name, :email, :password, :password_confirmation, :remember_me, :roles
+</code></p>
+
+<p>application.html.erb 中可以加上如下代码，可以用来检查current_user
+<code>ruby app/views/layouts/application.html.erb
+&lt;br /&gt;
+&lt;% if current_user != nil %&gt;
+user:&lt;%= current_user.user_name %&gt;&lt;br /&gt;
+user_id:&lt;%= current_user.id %&gt;&lt;br /&gt;
+user_role:&lt;%= current_user.roles_mask %&gt;&lt;br /&gt;
+&lt;% else %&gt;
+&lt;%= "nil user" %&gt;
+&lt;% end %&gt;
+</code></p>
+
+<p>因为前面Article Model没有和User Model里面的user_name联系起来，所以只能用Article里面<code>引用关联 Reference Type Associations</code>的Author Model中的<code>author_id</code>和User Model的<code>user_name</code>比较，如果一样，就让用户可以编辑文章。这只是个CanCan示例，真用起来千万别这么干。
+```ruby app/models/ability.rb
+class Ability
+  include CanCan::Ability</p>
+
+<p>  def initialize(user)
+    user ||= User.new # guest user (not logged in)
+    if user.role? :admin
+      can :manage, :all
+    else
+      can :read, :all
+      can :create, Comment
+      if user.role?(:author)
+        can :create, Article
+        can :update, Article do |article|
+          article.try(:author_id) == user.user_name
+        end
+      end
+    end
+  end
+end
+```</p>
+
+<p>最后在Article Controller加上一句就可以实现权限控制了
+<code>ruby app/controllers/articles_controller.rb
+class ArticlesController &lt; ApplicationController
+   load_and_authorize_resource
+     ...
+end
+</code></p>
+
+<p>为了版面好看，在view中加入权限控制也很简单
+<code>ruby app/views/articles/index.html.erb
+&lt;% if can? :update, article %&gt;
+  &lt;td&gt;&lt;%= link_to 'Edit', edit_article_path(article) %&gt;&lt;/td&gt;
+&lt;% end %&gt;
+&lt;% if can? :destroy, article %&gt;
+  &lt;td&gt;&lt;%= link_to 'Destroy', article, confirm: 'Are you sure?', method: :delete %&gt;&lt;/td&gt;
+&lt;% end %&gt;
+</code></p>
+
+<p>至此，这个练习的小站就建好了，比较@_@的是
+首先要在http://localhost:3000/authors/ 添加一个用户名，比如neten
+然后在http://localhost:3000/articles/new 添加文章的时候选择neten作为Author
+最后注册一个Role为Author的用户neten, 这样，neten登录的时候，在http://localhost:3000/看到的文章列表中，他自己发的文章都可以Show，也可以Edit,但不可以destroy，如果用户是admin，那所有的链接都是有效的。</p>
+
+<p>这两篇blog只是自己的学习记录，希望对大家有所帮助，如果设计真实项目还要精细思考一下。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[MongoDB Scaffolding Devise Omniauth CanCan (1)]]></title>
+    <link href="http://ZPVIP.github.io/posts/2012/05/19/mongodb-scaffolding-devise-omniauth-cancan-1/"/>
+    <updated>2012-05-19T22:42:00+02:00</updated>
+    <id>http://ZPVIP.github.io/posts/2012/05/19/mongodb-scaffolding-devise-omniauth-cancan-1</id>
+    <content type="html"><![CDATA[<p><a id="TOP"></a>
+Ruby on Rails 的学习曲线还算是有一点陡的, 作为一个初学者, 建议先看一下Ruby的语法书, 再看一下Rails的<a href="http://guides.rubyonrails.org">入门教材和示例</a>, 但真正做项目的时候, 可能就要和各种各样Gems打交道了, 因为自己走了很多弯路, 所以想把一些笔记分享出来, 希望对新生有点帮助.</p>
+
+<p>我准备用一个Blog的示例把Scaffolding MongoDB Devise Omniauth CanCan串起来.</p>
+
+<ol>
+<li><a href="#MongoDB">MongoDB</a><br/>
+1.1 <a href="#Help">Help</a><br/>
+1.2. <a href="#CRUD">CRUD</a><br/>
+1.3. <a href="#Security">Security</a><br/>
+1.4. <a href="#Port">Port</a></li>
+<li><a href="#Prepare">准备工作</a></li>
+<li><a href="#Git">Git</a></li>
+<li><a href="#Scaffold">Scaffold</a><br/>
+4.1. <a href="#AddField">添加字段</a><br/>
+4.2. <a href="#Validations">验证输入</a><br/>
+4.3. <a href="#Associations">表关联</a><br/>
+4.4. <a href="#ReferenceTypeAssociations">引用关联</a></li>
+</ol>
+
+
+<!-- more -->
+
+
+<h2><a id="MongoDB"></a><a href="#TOP">MongoDB</a></h2>
+
+<p>首先讲 <a href="http://www.mongodb.org/">MongoDB</a>, Mongo 取自 hu<strong>mongo</strong>us, 意思是大得无比的.</p>
+
+<p>在Ubuntu上安装MongoDB相当简单. <a href="http://docs.mongodb.org/manual/tutorial/install-mongodb-on-debian-or-ubuntu-linux/">其网站上有详细资料</a>, 我仅copy一下几条命令:
+``` bash
+$ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
+$ sudo vi /etc/apt/sources.list.d/10gen.list
+deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen</p>
+
+<p>$ sudo apt-get update
+$ sudo apt-get install mongodb-10gen
+<code>
+配置文件, 可以改变数据库存储目录等, 默认是 `/var/lib/mongodb`
+</code> bash
+$ sudo vi /etc/mongodb.conf
+```</p>
+
+<p>数据库启动停用重启命令和其它service一样:
+<code>bash
+$ sudo service mongodb start | stop | restart
+</code></p>
+
+<p>命令行输入<code>mongo</code>可以打开数据库操作台:</p>
+
+<h3><a id="Help"></a><a href="#TOP">Help</a></h3>
+
+<pre><code class="sql">&gt; help                          // --top level help
+&gt; db.help()                     // --help on db-specific methods
+&gt; db.mycollection.help()        // --help on collection methods
+&gt; db.mycollection.find().help() // --cursor help
+</code></pre>
+
+<pre><code class="sql">&gt; show dbs // --displays all the databases on the server you are connected to
+&gt; use db_name // --switches to db_name on the same server
+&gt; show collections // --displays a list of all the collections in the current database
+</code></pre>
+
+<p>不能免俗, 可以在默认的<code>test</code>数据库来个<code>hello world!</code>:
+``` sql</p>
+
+<blockquote><p>db.test.save( { mongo: "Hello World!" } )
+db.test.find()
+{ "_id" : ObjectId("4fb947a9e7ffc7b413ce9c54"), "mongo" : "Hello World!" }
+```</p></blockquote>
+
+<h3><a id="CRUD"></a><a href="#TOP">CRUD</a></h3>
+
+<h4>C: create</h4>
+
+<pre><code class="sql">&gt; db.test.save({ website : "blog.neten.de"});
+&gt; db.test.save({ website : "bbs.neten.de"});
+</code></pre>
+
+<h4>R: read</h4>
+
+<pre><code class="sql">&gt; db.test.find();
+{ "_id" : ObjectId("4fb947a9e7ffc7b413ce9c54"), "mongo" : "Hello World!" }
+{ "_id" : ObjectId("4fb94971e7ffc7b413ce9c55"), "website" : "blog.neten.de" }
+{ "_id" : ObjectId("4fb94978e7ffc7b413ce9c56"), "website" : "bbs.neten.de" }
+&gt; db.test.findOne( { mongo: "Hello World!" } );
+{
+        "_id" : ObjectId("4fb947a9e7ffc7b413ce9c54"),
+        "mongo" : "Hello World!",
+        "website" : "www.neten.de"
+}
+</code></pre>
+
+<h4>U: update</h4>
+
+<pre><code class="sql">&gt; person = db.test.findOne( { mongo: "Hello World!" } );
+&gt; person.website = "www.neten.de";
+&gt; db.test.save( person );
+&gt; db.test.find();
+{ "_id" : ObjectId("4fb94971e7ffc7b413ce9c55"), "website" : "blog.neten.de" }
+{ "_id" : ObjectId("4fb94978e7ffc7b413ce9c56"), "website" : "bbs.neten.de" }
+{ "_id" : ObjectId("4fb947a9e7ffc7b413ce9c54"), "mongo" : "Hello World!", "website" : "www.neten.de" }
+</code></pre>
+
+<h4>D: delete</h4>
+
+<pre><code class="sql">&gt; db.test.drop() // --drop the entire test collection
+&gt; db.test.remove() // --remove all objects from the collection
+&gt; db.test.remove( { mongo : "Hello World!" } ) // --remove objects from the collection where name is mongo
+&gt; use [database];
+&gt; db.dropDatabase();
+</code></pre>
+
+<p>如果删除Collection之后, 可能要重启才能看到Collection不见了.</p>
+
+<h3><a id="Security"></a><a href="#TOP">Security</a></h3>
+
+<p>还有一个重要工作就是<a href="http://www.mongodb.org/display/DOCS/Security+and+Authentication">安全工作</a>:</p>
+
+<p>添加管理员用户laoda(老大), 管理员的名字最好不要用admin, root之类的
+``` sql</p>
+
+<blockquote><p>use admin
+switched to db admin
+db.addUser("laoda","neten")
+{ "n" : 0, "connectionId" : 2, "err" : null, "ok" : 1 }
+{
+    "user" : "laoda",
+    "readOnly" : false,
+    "pwd" : "3d075670621dfa6f25d9b6b9caa1d987",
+    "_id" : ObjectId("4fbb5c2c124f3221f45162b4")
+}
+```</p></blockquote>
+
+<p>验证函数:
+``` sql</p>
+
+<blockquote><p>db.auth("laoda","neten")
+1
+db.auth("laoda","neten.de")
+0
+```</p></blockquote>
+
+<p>添加普通用户xiaodi(小弟)和只读用户(龙套):
+``` sql</p>
+
+<blockquote><p>use test
+switched to db test
+db.addUser("xiaodi","neten")
+{ "n" : 0, "connectionId" : 2, "err" : null, "ok" : 1 }
+{
+    "user" : "xiaodi",
+    "readOnly" : false,
+    "pwd" : "8cb78b1a918c6c5cca2b9cea00673180",
+    "<em>id" : ObjectId("4fbb5c96124f3221f45162b5")
+}
+db.addUser("longtao","neten",true)
+{ "n" : 0, "connectionId" : 2, "err" : null, "ok" : 1 }
+{
+    "user" : "longtao",
+    "readOnly" : true,
+    "pwd" : "fe130c893dd5c69a5a1cb96feba00f7d",
+    "</em>id" : ObjectId("4fbb5cc7124f3221f45162b6")
+}
+```
+虽然我取的密码都是neten, 但hash过后的字符串都不一样, 比md5靠谱.</p></blockquote>
+
+<p>查找当前数据库用户:
+``` sql</p>
+
+<blockquote><p>db.system.users.find()
+{ "<em>id" : ObjectId("4fbb5c96124f3221f45162b5"), "user" : "xiaodi", "readOnly" : false, "pwd" : "8cb78b1a918c6c5cca2b9cea00673180" }
+{ "</em>id" : ObjectId("4fbb5cc7124f3221f45162b6"), "user" : "longtao", "readOnly" : true, "pwd" : "fe130c893dd5c69a5a1cb96feba00f7d" }
+db.removeUser( username )
+```</p></blockquote>
+
+<p>删除用户, 以下两种方法效果一样:
+<code>sql
+db.removeUser("longtao")
+db.system.users.remove({user: "longtao"})
+</code></p>
+
+<h3><a id="Port"></a><a href="#TOP">Port</a></h3>
+
+<p>数据库默认端口:
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Standalone mongod : 27017
+</span><span class='line'>mongos : 27017
+</span><span class='line'>shard server (mongod --shardsvr) : 27018
+</span><span class='line'>config server (mongod --configsvr) : 27019</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2><a id="Prepare"></a><a href="#TOP">准备工作</a></h2>
+
+<p>第一步, 创建一个Rails App:
+<code>bash
+$ rails new neten -T -O
+</code>
+用-T -O 是为了不产生Test::Unit 和 Active Record 文件. 由rails产生的Gemfile修改后的内容如下:
+``` ruby
+source 'https://rubygems.org'</p>
+
+<p>gem 'rails', '3.2.3'</p>
+
+<p>group :assets do
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
+  gem 'uglifier', '>= 1.0.3'
+end</p>
+
+<p>gem 'jquery-rails', '2.0.2'
+gem "mongoid", "~> 2.4"
+gem "bson_ext", "~> 1.5"
+```
+最后两行是mongoid相关的.</p>
+
+<p>为项目管理方便, 可以创建gemset, 并设置它作为默认的gemset</p>
+
+<pre><code class="bash">$ rvm --create 1.9.3@neten
+$ rvm --default use 1.9.3@neten
+$ echo "rvm 1.9.3@neten" &gt; .rvmrc
+</code></pre>
+
+<p>安装gems, 并检查本机安装的gems, 最好把Gemfile里面的gems都按<code>gem list</code>所显示的标上版本号, 这样在远程部署的时候就不会出现版本问题.</p>
+
+<pre><code class="bash">$ bundle install
+$ gem list --local
+</code></pre>
+
+<p>为了简化过程, 在此就不涉及RSpec了, 但无用的test模块可以删除.
+``` bash
+$ rm -rf test/
+$ vi config/application.rb</p>
+
+<h1>...</h1>
+
+<h1>require 'rails/test_unit/railtie'</h1>
+
+<h1>...</h1>
+
+<pre><code>
+使用Mongoid, 执行下面的命令后, 会生成配置文件`config/mongoid.yml`
+</code></pre>
+
+<p>$ rails generate mongoid:config
+```</p>
+
+<p>Mongoid会自动处理<code>config/application.rb</code>文件, 禁用ActiveRecord, <code>require 'rails/all'</code>会被以下代码替代:
+<code>ruby
+require "action_controller/railtie"
+require "action_mailer/railtie"
+require "active_resource/railtie"
+</code></p>
+
+<p>原来的数据库配置文件<code>config/database.yml</code>可以删除了.</p>
+
+<h2><a id="Git"></a><a href="#TOP">Git</a></h2>
+
+<p>做了这么多工作, git是时候要登场了:</p>
+
+<pre><code class="bash">$ vi .gitignore
+.bundle
+db/*.sqlite3*
+log/*.log
+*.log
+tmp/**/*
+tmp/*
+doc/api
+doc/app
+*.swp
+*~
+.*~
+
+$ git init
+Initialized empty Git repository in /home/user/neten/.git/
+$ git add .
+$ git commit -am "Initial commit"
+</code></pre>
+
+<h2><a id="Scaffold"></a><a href="#TOP">Scaffold</a></h2>
+
+<p>用 scaffold 生成文章系统, 主要copy于<a href="http://railscasts.com/episodes/238-mongoid?view=asciicast">railscasts</a>
+<code>bash
+$ rails g scaffold article name:string content:text
+      invoke  mongoid
+      create    app/models/article.rb
+       route  resources :articles
+      invoke  scaffold_controller
+      create    app/controllers/articles_controller.rb
+      invoke    erb
+      create      app/views/articles
+      create      app/views/articles/index.html.erb
+      create      app/views/articles/edit.html.erb
+      create      app/views/articles/show.html.erb
+      create      app/views/articles/new.html.erb
+      create      app/views/articles/_form.html.erb
+      invoke    helper
+      create      app/helpers/articles_helper.rb
+      invoke  assets
+      invoke    coffee
+      create      app/assets/javascripts/articles.js.coffee
+      invoke    scss
+      create      app/assets/stylesheets/articles.css.scss
+      invoke  scss
+      create    app/assets/stylesheets/scaffolds.css.scss
+</code>
+事就这么成了:)  <code>rake db:migrate</code>? 不用了, MongoDB是schemaless database.</p>
+
+<p>因为首页还是默认的Welcome页面, 所以要处理一下:
+<code>bash
+$ rm public/index.html
+$ vi config/routes.rb
+Neten::Application.routes.draw do
+  resources :articles
+  root :to =&gt; 'articles#index'
+end
+</code>
+现在去<a href="http://localhost:3000">http://localhost:3000</a> 预览一下吧</p>
+
+<h3><a id="AddField"></a><a href="#TOP">添加字段</a></h3>
+
+<p>Mongoid为model提供了generator, <code>ActiveRecord</code>没有用到, 包含了<code>Mongoid::Document</code>,如果到现在才发现没有加入文章发布时间也关系不大, MongoDB嘛, schema-less, 好处就是在model直接加个字段名称就好了, 不用在db文件夹那里添加东西了.</p>
+
+<p>另外因为加入了<code>Date</code>类型的字段, 所以要加上这句<code>include Mongoid::MultiParameterAttributes</code>, <a href="http://stackoverflow.com/questions/7620047">不然没办法显示出来</a>.</p>
+
+<pre><code class="ruby /app/models/article.rb">class Article
+  include Mongoid::Document
+  include Mongoid::MultiParameterAttributes
+  field :name, :type =&gt; String
+  field :content, :type =&gt; String
+  field :published_on, :type =&gt; Date
+end
+</code></pre>
+
+<p>view也要相应改一下:
+``` erb /app/views/articles/_form.html.erb</p>
+
+<div class="field">
+<%= f.label :name %><br />
+<%= f.text_field :name %>
+</div>
+
+
+<div class="field">
+<%= f.label :published_on %><br />
+<%= f.date_select :published_on %>
+</div>
+
+
+<div class="field">
+<%= f.label :content %><br />
+<%= f.text_area :content %>
+</div>
+
+
+<div class="actions">
+<%= f.submit %>
+</div>
+
+
+<pre><code></code></pre>
+
+<p id="notice"><%= notice %></p>
+
+
+
+
+<p>
+  <b>Name:</b>
+  <%= @article.name %>
+</p>
+
+
+
+
+<p>
+  <b>Content:</b>
+  <%= @article.content %>
+</p>
+
+
+<p>
+  <b>Published:</b>
+  <%= @article.published_on %>
+</p>
+
+
+<p>&lt;%= link_to 'Edit', edit_article_path(@article) %> |
+&lt;%= link_to 'Back', articles_path %>
+&lt;%= debug @article %>
+```</p>
+
+<p><code>&lt;%= debug @article %&gt;</code> 是调试信息, 有这句话, 在前台页面上就会在页脚出现@article的信息.</p>
+
+<h3><a id="Validations"></a><a href="#TOP">验证输入 Validations</a></h3>
+
+<p>Mongoid 会使用 ActiveModel 来处理一些事务, 这就有点像我们熟悉的ActiveRecord一样. 比如说在ActiveRecord中用到的validations, callbacks, dirty tracking, attr_accessible都可以搬过来用.</p>
+
+<p>下面我们为<code>:name</code>字段加上 必需输入 的验证要求:
+<code>ruby /app/models/article.rb
+class Article
+  include Mongoid::Document
+  include Mongoid::MultiParameterAttributes
+  field :name, :type =&gt; String
+  field :content, :type =&gt; String
+  field :published_on, :type =&gt; Date
+  validates_presence_of :name
+end
+</code></p>
+
+<h3><a id="Associations"></a><a href="#TOP">表关联 Associations</a></h3>
+
+<p>不允许评论的blog会表现得有点言论暴力, 要加上<code>comments</code>在用数据库的情况下, 一个<code>has_many</code>, 就解决问题了, 现在我们就要在mongoid中寻找<code>has_many</code>的替代了.
+<code>ruby /app/models/article.rb
+class Article
+  include Mongoid::Document
+  include Mongoid::MultiParameterAttributes
+  field :name, :type =&gt; String
+  field :content, :type =&gt; String
+  field :published_on, :type =&gt; Date
+  validates_presence_of :name
+    embeds_many :comments
+end
+</code></p>
+
+<p>添加完关联后, 来生成评论model
+<code>bash
+$ rails g model comment name:string content:text
+      invoke  mongoid
+      create    app/models/comment.rb
+</code></p>
+
+<p>再让comment和article手拉手:
+<code>ruby app/models/comment.rb
+class Comment
+  include Mongoid::Document
+  field :name
+  field :content
+  embedded_in :article, :inverse_of =&gt; :comments
+end
+</code>
+<code>embedded_in</code>顾名思意就是说Comment是嵌在Article里面的, <code>inverse_of</code>呢是表明comment是通过comments嵌套在Article里面的.</p>
+
+<p>这个手拉手的关系也要在routes里面申明一下:
+<code>ruby confing/routes.rb
+Neten::Application.routes.draw do
+  resources :articles do
+    resources :comments
+  end
+end
+</code></p>
+
+<p>好了, 现在创建comment的controller
+<code>bash
+$ rails g controller comments
+      create  app/controllers/comments_controller.rb
+      invoke  erb
+      create    app/views/comments
+      invoke  helper
+      create    app/helpers/comments_helper.rb
+      invoke  assets
+      invoke    coffee
+      create      app/assets/javascripts/comments.js.coffee
+      invoke    scss
+      create      app/assets/stylesheets/comments.css.scss
+</code></p>
+
+<p>Comment和Article手拉手之后, 一切都要看Article的眼色(:article_id)行事
+<code>ruby app/controllers/comments_controller.rb
+class CommentsController &lt; ApplicationController
+  def create
+    @article = Article.find(params[:article_id])
+    @comment = @article.comments.create!(params[:comment])
+    redirect_to @article, :notice =&gt; "Comment created!"  
+  end
+end
+</code></p>
+
+<p>在<code>app/views/articles/show.html.erb</code>的最后面加上comments的代码:
+``` erb app/views/articles/show.html.erb
+&lt;% if @article.comments.size > 0 %>
+  <h2>Comments</h2>
+  &lt;% for comment in @article.comments %>
+    <h3>&lt;%= comment.name %></h3>
+    <p>&lt;%= comment.content %></p>
+  &lt;% end %>
+&lt;% end %></p>
+
+<h2>New Comment</h2>
+
+
+<p>&lt;%= form_for [@article, Comment.new] do |f| %>
+  <p>&lt;%= f.label :name %> &lt;%= f.text_field :name %></p>
+  <p>&lt;%= f.text_area :content, :rows => 10 %></p>
+  <p>&lt;%= f.submit %></p>
+&lt;% end %>
+```</p>
+
+<p>好, 现在打开网站尽情地发表自己的观点吧.</p>
+
+<h3><a id="ReferenceTypeAssociations"></a><a href="#TOP">引用关联 Reference Type Associations</a></h3>
+
+<p>有的blog可能是夫妻店, 所以把Blog的作者放到文章里面还是很有用处的, scaffold又要上班了.
+<code>bash
+$ rails g scaffold author name:string
+      invoke  mongoid
+      create    app/models/author.rb
+       route  resources :authors
+      invoke  scaffold_controller
+      create    app/controllers/authors_controller.rb
+      invoke    erb
+      create      app/views/authors
+      create      app/views/authors/index.html.erb
+      create      app/views/authors/edit.html.erb
+      create      app/views/authors/show.html.erb
+      create      app/views/authors/new.html.erb
+      create      app/views/authors/_form.html.erb
+      invoke    helper
+      create      app/helpers/authors_helper.rb
+      invoke  assets
+      invoke    coffee
+      create      app/assets/javascripts/authors.js.coffee
+      invoke    scss
+      create      app/assets/stylesheets/authors.css.scss
+      invoke  scss
+   identical    app/assets/stylesheets/scaffolds.css.scss
+</code></p>
+
+<p>添加一个key字段, 这样可以在生成链接的时候, 将小写的:name字段做链接名称, 并在表中作_id. 中文没有小写, 不过没关系, 直接用汉字做链接, 比如: <code>http://localhost:3000/authors/张三/edit</code>, <code>references_many</code>可以定义其与articles的关系.</p>
+
+<pre><code class="ruby app/models/author.rb">class Author
+  include Mongoid::Document
+  field :name, :type =&gt; String
+  key :name, :type =&gt; String
+  references_many :articles
+end
+</code></pre>
+
+<p>用这个链接可以添加一些作者 <a href="http://localhost:3000/authors/">http://localhost:3000/authors/</a>
+添加过后去命令行看一下:
+``` sql</p>
+
+<blockquote><p>use neten_development
+switched to db neten_development
+db.authors.find()
+{ "<em>id" : "peter", "name" : "Peter" }
+{ "</em>id" : "paul", "name" : "Paul" }
+```</p></blockquote>
+
+<p>在<code>app/models/article.rb</code>里面要用<code>referenced_in</code>.
+<code>ruby app/models/article.rb
+class Article
+  include Mongoid::Document
+  field :name
+  field :content
+  field :published_on, :type =&gt; Date
+  validates_presence_of :name
+  embeds_many :comments
+  referenced_in :author
+end
+</code></p>
+
+<p>为了方便写Blog的人能够添加作者, 我们可以建立一个Select代码.
+``` erb app/views/articles/_form.html.erb</p>
+
+<div class="field">
+  <%= f.label :author_id %><br />
+  <%= f.collection_select :author_id, Author.all, :id, :name %>
+</div>
+
+
+<pre><code>
+当然不要忘记在展示页面也要让作者出现, 因为前面有可能没有定义作者, 还是加个if吧, 这样不会出错.
+</code></pre>
+
+<p>&lt;% if @article.author.name.size > 0 %></p>
+
+<p>
+  <b>Author:</b>
+  <%= @article.author.name %>
+</p>
+
+
+<p>&lt;% end %>
+```</p>
+
+<p>最后总结一下Comment和Author, 因为Comments是Embeded在Articles中的, 所以它就是个附庸, 没有自己的家(Collection), 而Author是一个Reference, 所以它有自己的房子(Collection).
+``` sql</p>
+
+<blockquote><p>show collections
+articles
+authors
+system.indexes
+<code>
+从Rails控制台检索一下结果:
+</code> ruby
+$ rails c
+Loading development environment (Rails 3.2.3)
+1.9.3p194 :001 > Article.first
+ => #<Article _id: 4fbd001de6fc8c2470000002, _type: nil, name: "first", content: "first post", published_on: 2012-03-03 00:00:00 UTC, author_id: "peter", published_on(1i): "2012", published_on(2i): "3", published_on(3i): "3"></p></blockquote>
+
+<p>1.9.3p194 :009 > Article.first.comments
+ => [#<Comment _id: 4fbe5755e6fc8c6c3f000004, _type: nil, name: "good", content: "this is a awesome blog">]
+```</p>
+
+<p>从MongoDB的命令行检索一下, 和上面作个对比:
+``` sql
+$ mongo</p>
+
+<blockquote><p>use neten_development
+switched to db neten_development
+db.articles.find( {name: "first"})
+{ "<em>id" : ObjectId("4fbd001de6fc8c2470000002"), "author_id" : "peter", "comments" : [   {   "</em>id" : ObjectId("4fbe5755e6fc8c6c3f000004"),   "name" : "good",    "content" : "this is a awesome blog" } ], "content" : "first post", "name" : "first", "published_on" : ISODate("2012-03-03T00:00:00Z"), "published_on(1i)" : "2012", "published_on(2i)" : "3", "published_on(3i)" : "3" }
+```</p></blockquote>
+]]></content>
+  </entry>
+  
+</feed>

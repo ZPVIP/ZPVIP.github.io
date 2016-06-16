@@ -1,0 +1,583 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>简洁的想法</title>
+  <meta name="author" content="Peter">
+
+  
+  <meta name="description" content="PHP Version 5.2.0发布了，本是件高兴的事情，结果让我又花了一个小时升级原来的代码。因为session_set_save_handler() 这个函数在现在不支持Global的对象了，系统会认为这是个non-existent object &nbsp;--&#124;&#124;&# &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ZPVIP.github.io/posts/page/20">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="简洁的想法" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">简洁的想法</a></h1>
+  
+    <h2>仁爱、喜乐、和平、忍耐、恩慈、良善、信实、温柔、节制</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ZPVIP.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">日志</a></li>
+  <li><a href="/blog/archives">归档</a></li>
+  <li><a href="/posts/categories/website/">网站工程</a></li>
+  <li><a href="/posts/categories/collections/">网文收集</a></li>
+  <li><a href="/posts/categories/digitallife/">数字生活</a></li>
+  <li><a href="/posts/categories/memories/">路已成歌</a></li>
+  <li><a href="/posts/categories/beautifulsongs/">美曲美境</a></li>
+  <li><a href="/posts/categories/travel/">忆影斑斓</a></li>
+  <li><a href="http://bbs.neten.de">论坛</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/83/">PHP Session类 - PHP Version 5.2.0</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-11-09T00:00:00+01:00" pubdate data-updated="true">Nov 9<span>th</span>, 2006</time>
+        
+         | <a href="/posts/83/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><span style="color: #0000FF;"><span class="caps">PHP</span> Version 5.2.0</span>发布了，本是件高兴的事情，结果让我又花了一个小时升级原来的代码。因为session_set_save_handler() 这个函数在现在不支持Global的对象了，系统会认为这是个<br/>non-existent object &nbsp;<span style="color: #FF0000;">-<i>-&#124;&#124;&#124;</span><br/><br/>我原来自己封装了一个Session类，目的是用数据库保存Session信息，Session类中的数据库的操作又用到了数据库类。我在session的类的成员函数里面声明一个global变量，而这个global变量是在另外文件里面已经实例化了的一个数据库对象。原来低版本的PHP是容许这种做法的，今天那个服务器提供商把PHP升级了，就出现了一个致命错误。<br/><br/>后来我在每个成员函数里面都声明了一下这个对象，问题就解决了。不过又多了很多重复的代码 ：（<br/>我可能有点代码洁癖 ^</i>^<br/><br/>相关信息可以看一下有关这个Bug的详细信息。<br/>http://bugs.php.net/bug.php?id=31454<br/>也就是说呢，PHP Version 5.2.0本来是治理一个Bug的，结果把我那个没有Bug的Session类也一并治理了。<br/><br/>下面是我的Session类，欢迎过来砸砖：<br/>[sfile]attachment/2006-11-09/class_sessions.7z[/sfile]<br/></p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/82/">巴洛克,洛可可,哥特和罗马式风格的差别</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-11-05T00:00:00+01:00" pubdate data-updated="true">Nov 5<span>th</span>, 2006</time>
+        
+         | <a href="/posts/82/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><span style="color: #0000FF;">巴洛克</span>艺术是指（16世纪）后期开始在欧洲流行的一种艺术形式，不仅在绘画方面，巴洛克艺术代表整个艺术领域，包括音乐、建筑、装饰艺术等。 <br/><br/>巴洛克建筑是欧洲17世纪和18世纪初的巴洛克艺术风格中的一个层面。17世纪起源於意大利的罗马，后传至德、奥、法、英、西葡，直至拉丁美洲的殖民地。从语源学上讲，巴洛克是一切杂乱、奇异、不规则、流於装饰的代名词。而这一时期的建筑也确实体现了这一点。它能用直观的感召力给教堂、府邸的使用者以震撼。 <br/><br/>知名建筑师:贝尔尼尼(Gian Lorenzo Bernini)、博罗米尼(Borromini)、约翰·巴塔萨·纽曼(Johann Balthasar Neumann) <br/>知名建筑：圣保罗大教堂、圣安德烈·阿尔·奎亚纳教堂、圣彼得大教堂、无忧宫、凡尔赛宫等。</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/posts/82/">More &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/81/">Skin on Skin - Sarah Connor</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-10-22T00:00:00+02:00" pubdate data-updated="true">Oct 22<span>nd</span>, 2006</time>
+        
+         | <a href="/posts/81/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>我不是一个追星族，以前不是，以后应该也不会变，我一般通过作品了解明星，并且大部分只通过代表作。<br/><br/>正如Sarah Connor，她唱的歌很多，在<a href="http://www.sarahconnor.de" target="_blank">她的网站</a>上光浏览一遍CD的目录都不知道要多少时间，不过我就喜欢一首老歌：Skin on skin。<br/><br/>这让我想起那句 “弱水三千，只取一瓢饮”<br/><br/><a href="http://blog.neten.de/attachment/2006-10-22/Sarah-connor.jpg" target="_blank"><img src="http://blog.neten.de/attachment/2006-10-22/Sarah-connor.jpg" class="insertimage"  border="0"   /></a><br/><object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="425" height="350" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"><param name="src" value="http://www.youtube.com/v/I-0-Tspb0ws" /><embed type="application/x-shockwave-flash" width="425" height="350" src="http://www.youtube.com/v/I-0-Tspb0ws"></embed></object><br/><br/><span style="color: #0000FF;">Sarah Connor &#8211; Skin on skin</span><br/>[intro]<br/>Just a little bit more love<br/>Just a little bit more passion<br/>This is how it should begin<br/>Skin on skin</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/posts/81/">More &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/80/">Bro&#8217;Sis - HEAVEN MUST BE MISSING an ANGEL</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-10-19T00:00:00+02:00" pubdate data-updated="true">Oct 19<span>th</span>, 2006</time>
+        
+         | <a href="/posts/80/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>推荐一首老歌，也就是在2002年，德国音乐台经常放的一首歌，这个歌唱组合的名字是 Bro&#039;Sis 。成员中四男两女，我很欣赏最左边那个女生的高音。当然我觉得她也是最养眼的，呵呵。<br/><a href="http://blog.neten.de/attachment/2006-10-19/brosis.jpg" target="_blank"><img src="http://blog.neten.de/attachment/2006-10-19/brosis.jpg" class="insertimage"  border="0"   /></a><br/><br/><br/><span style="color: #0000FF;"><span class="caps">HEAVEN</span> <span class="caps">MUST</span> BE <span class="caps">MISSING</span> AN <span class="caps">ANGEL</span></span><br/><br/>Did i dream you could you be true<br/>Cause when I&#039;m with you I can&#039;t believe that you&#039;re with me<br/>Girl I never thought I&#039;d ever find you<br/>And be the one who&#039;s holding you,and loving you</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/posts/80/">More &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/79/">张靓颖 the One</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-10-18T00:00:00+02:00" pubdate data-updated="true">Oct 18<span>th</span>, 2006</time>
+        
+         | <a href="/posts/79/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>给她免费做个广告。因为她一年以来做了很多事，而我却相反。<br/><br/>我对小张的感觉真的有点奇怪，情感上是很接受她的，不过我对她的歌的推崇远远没有凉粉那样痴狂。我听阿桑的歌可以很愉快的写程序，但听小张的却不行。<br/><br/>搜狗上可以试听：http://d.sogou.com/sogou_phb/detail_star.jsp?alplid=4517<br/><a href="http://blog.neten.de/attachment/2006-10-18/TheOne.jpg" target="_blank"><img src="http://blog.neten.de/attachment/2006-10-18/TheOne.jpg" class="insertimage"  border="0"   /></a><br/></p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/78/">蝴蝶效应</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-10-17T00:00:00+02:00" pubdate data-updated="true">Oct 17<span>th</span>, 2006</time>
+        
+         | <a href="/posts/78/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://blog.neten.de/attachment/2006-10-17/butterflyeffect2.jpg" target="_blank"><img src="http://blog.neten.de/attachment/2006-10-17/butterflyeffect2.jpg" class="insertimage"  border="0"   width="300" height="427" /></a><br/><br/>看蝴蝶效应1的时候，我记得是看得快要窒息了，没吃晚饭可能是原因之一，不过我觉得最主要的还是被新颖的剧情吸引了。接下来的几天，每每想到这部戏都头皮发麻。回想自己的过去，我也同样可以找到很多个一闪而过的念头把我带向另一块开阔的领域。真难想像，如果我改动其中的某个主意，我现在身在何方呢？<br/><br/>这部戏的续集并没有太多惊喜，我对结局也不太满意，小尼克看着晃动的相片也许是蝴蝶效应3的伏笔，正如哥斯拉那个最后幸存的孩子。不过还是希望它们都不要有续集了，就让它们成为经典吧。<br/><br/>另外新尝到的两句英文还不错，摘下来写在下面。<br/>第一句是AD：<br/><span style="color: #0000FF;">Can you change your past without destroying your future?</span><br/>第二句是关于创业的：<br/><span style="color: #0000FF;">80% of all start-ups fail within the first two years。</span></p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/77/">又有一种感觉</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-10-13T00:00:00+02:00" pubdate data-updated="true">Oct 13<span>th</span>, 2006</time>
+        
+         | <a href="/posts/77/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>鉴于以前写过一篇<a href="read.php?10" target="_blank">有一种感觉</a>，所以把这篇Blog的名字加一个字。<br/><br/>说到感觉真是一件奇妙的事，因为感觉往往是自己的，说给别人听，还不一定能被理解。所以如果能和读者达到共鸣，那的确是不容易的。<br/><br/>遥远的记忆触角伸向N年前的童年。那个时候，夏天的绿豆冰棒真是一种经典。不过最深刻的记忆往往锁定在那一瞬间，就是手里拿着一根小木棍，而眼睛却深情地望着刚刚掉到地上的最后一口冰。这种感觉我真想用<a href="http://bbs.pdafans.com/thread-253850-1-1.html" target="_blank">Friends</a>里面的那句台词：It sucks!<br/><br/>这种感觉的重现似乎也在证明历史的相似性。一位刚从国内成功长胖的朋友带给我一包开心果，genießen的过程就不多说了，最后，我特别挑了一粒最漂亮的作为结束。我细心的剥开它，微笑着欣赏它饱满的绿色，当我还没来得及想像它的芳香的时候，它却呼啸着夺地而逃。。。<br/><br/>伤心总能让人清醒。虽然抱着这样的心情吃葡萄的确有点愧对周末的闲暇，但不管怎样，我成功地让最后一颗落入了我的口中，不过我马上想起了一句劳动人民的名言：Misfortune never comes singly，你不知道发生了什么吗？It sucks!最后一颗是烂的！<br/><br/>这种感觉你找到了？最后一口饭的沙子？烂花生？烂瓜子？呵呵，你要共鸣了。</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/76/">虚拟主机管理系统</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-10-06T00:00:00+02:00" pubdate data-updated="true">Oct 6<span>th</span>, 2006</time>
+        
+         | <a href="/posts/76/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://blog.neten.de/attachment/2006-10-06/zpanel.jpg" target="_blank"><img src="http://blog.neten.de/attachment/2006-10-06/zpanel.jpg" class="insertimage"  border="0"   /></a><br/><br/><a href="http://www.thezpanel.com" target="_blank">ZPanel</a> is a hosting control interface developed for both Windows and Linux hosts. We will soon be developing two different distributions to fit the needs of both platforms.<br/><br/>开源虚拟主机管理系统，赞一个。<br/><br/><br/>ISPConfig<br/>http://www.ispconfig.org<br/><br/>SysCP<br/>http://www.syscp.de</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/75/">Slackware 11.0 Is Released!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-10-04T00:00:00+02:00" pubdate data-updated="true">Oct 4<span>th</span>, 2006</time>
+        
+         | <a href="/posts/75/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://www.slackware.com/grfx/shared/logo.png" target="_blank"><img src="http://www.slackware.com/grfx/shared/logo.png" class="insertimage"  border="0"   /></a><br/><a href="http://www.slackware.com/index.php" target="_blank"><span style="color: #0000FF;">it took some time but is well worth the wait.</span></a><br/><br/>I deeply agree with that :)<br/><br/>很久以前，当我第一眼看到<a href="http://www.slackware.com/index.php" target="_blank">Slackware</a>的网站时，真是感到有点吃惊，居然这么朴素，虽然现在V11也发布了，但首页也没有来朵小花渲染一下，让我越加感觉到这位S先生的不凡的内涵。<br/><br/>第一次接触到 Slackware ，是因为发现了她的妹妹<a href="http://www.slackware.com/zipslack/" target="_blank"> ZipSlack </a>。她苗条的身材，只有100M左右，并且为人友善，极好相处（可以在Windows 分区下使用），如果稍稍打扮一下，戴个LAMP(Linux,Apache,MySQL,<span class="caps">PHP</span>)牌的荧光彩环，披一条<a href="http://www.openssh.com/" target="_blank">OpenSSH</a>彩带，那在Web Server的聚会上，她就会是最耀眼的明星了。<br/><br/>你也许愿意花点时间用原文读一下这封能打动你的情书：<br/><a href="http://www.slackware.com/info/" target="_blank"><span style="color: #0000FF;"><span style="font-size: 18px;">The Slackware Philosophy</span></span></a><br/><br/>Since its first release in April of 1993, the Slackware Linux Project has aimed at producing the most &quot;<span class="caps">UNIX</span>-like&quot; Linux distribution out there. Slackware complies with the published Linux standards, such as the Linux File System Standard. We have always considered <span style="color: #0000FF;">simplicity</span> and <span style="color: #0000FF;">stability</span> paramount, and as a result Slackware has become one of the most popular, stable, and friendly distributions available. <br/><br/></p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/74/">Xda Neo 中文乱码解决方案</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-09-13T00:00:00+02:00" pubdate data-updated="true">Sep 13<span>th</span>, 2006</time>
+        
+         | <a href="/posts/74/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>前不久我将O2的 Xda neo 刷成了中文，不知道是不是因为我安装的是德文版的Extended_Rom中的软件，导致发送中文短信时出现乱码。<br/>不过解决的方法也是很简单的：<br/><a href="http://blog.neten.de/attachment/2006-09-13/sms.jpg" target="_blank"><img src="http://blog.neten.de/attachment/2006-09-13/sms.jpg" class="insertimage"  border="0"   /></a></div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/posts/74/">More &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/posts/page/21/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/posts/page/19/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/2014/01/27/install-mysql-using-homebrew/">在 Mac 下用 Homebrew 安装 MySQL</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2013/10/06/use-ffmpeg-to-burn-subtitles-into-the-video/">Use FFmpeg to burn subtitles into the video</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2013/02/17/ruby-block-proc-and-lambda/">Ruby &#8211; block Proc and lambda</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/10/18/mac-os-x-10-dot-8-2-problems-after-update/">Mac OS X 10.8.2 Problems after update</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/02/mac-octopress-ioerror-invalid-python-installation/">Mac Octopress IOError invalid Python installation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/02/rstudio-non-utf8-warning-message/">RStudio non-UTF8 warning message</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/01/pdf-version-found-1-dot-5-but-allowed-1-dot-4/">PDF version found 1.5 but allowed 1.4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/07/21/fatal-error-stdio-dot-h-file-not-found/">fatal error: stdio.h file not found</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/06/06/mongodb-scaffolding-devise-omniauth-cancan-2/">MongoDB Scaffolding Devise Omniauth CanCan (2)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/05/19/mongodb-scaffolding-devise-omniauth-cancan-1/">MongoDB Scaffolding Devise Omniauth CanCan (1)</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>最近评论</h1>
+  <script type="text/javascript" src="http://neten.disqus.com/combination_widget.js?num_items=5&hide_mods=0&color=grey&default_tab=recent&excerpt_length=200"></script>
+</section>
+<section>
+  <h1>常用资料</h1>
+    <ul id="recent_posts">
+      <li class="post">
+        <a href="/posts/93">来几个Linux命令</a>
+      </li>
+      <li class="post">
+        <a href="/posts/344">Mysql 改变数据库目录</a>
+      </li>
+      <li class="post">
+        <a href="/posts/254">Latex & TexMakerX</a>
+      </li>
+      <li class="post">
+        <a href="/posts/241">在Ubuntu上通过SSH安装Virtualbox</a>
+      </li>
+      <li class="post">
+        <a href="/posts/73">汉德词典 for MDict & Babylon</a>
+      </li>
+  </ul>
+</section>
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2005 - 2016 - Peter - | 
+  <span><a href="/posts/94">Impressum</a></span>
+  <span class="credit" style="float:right">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'neten';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="/javascripts/jimdoclockzip.js"></script>
+</body>
+</html>

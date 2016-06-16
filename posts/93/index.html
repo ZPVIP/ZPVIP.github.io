@@ -1,0 +1,861 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>来几个Linux命令 - 简洁的想法</title>
+  <meta name="author" content="Peter">
+
+  
+  <meta name="description" content="1,常用：
+UbuntuSkills
+#uname -a
+#lshw 察看硬件信息（要安装）
+#cat /etc/issue
+#cat /proc/cpuinfo
+#lsb_release -a 查看Ubuntu版本
+#du -hs /home/* | sort -nr 察看目录大小 -s &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ZPVIP.github.io/posts/93">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="简洁的想法" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">简洁的想法</a></h1>
+  
+    <h2>仁爱、喜乐、和平、忍耐、恩慈、良善、信实、温柔、节制</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ZPVIP.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">日志</a></li>
+  <li><a href="/blog/archives">归档</a></li>
+  <li><a href="/posts/categories/website/">网站工程</a></li>
+  <li><a href="/posts/categories/collections/">网文收集</a></li>
+  <li><a href="/posts/categories/digitallife/">数字生活</a></li>
+  <li><a href="/posts/categories/memories/">路已成歌</a></li>
+  <li><a href="/posts/categories/beautifulsongs/">美曲美境</a></li>
+  <li><a href="/posts/categories/travel/">忆影斑斓</a></li>
+  <li><a href="http://bbs.neten.de">论坛</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">来几个Linux命令</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-12-16T00:00:00+01:00" pubdate data-updated="true">Dec 16<span>th</span>, 2006</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>1,常用：<br />
+<a href="http://wiki.ubuntu.org.cn/index.php?title=UbuntuSkills&amp;variant=zh-cn" target="_blank">UbuntuSkills</a><br />
+<span style="color: #ff0000;">#uname -a</span><br />
+<span style="color: #ff0000;">#lshw 察看硬件信息（要安装）</span><br />
+<span style="color: #ff0000;">#cat /etc/issue</span><br />
+<span style="color: #ff0000;">#cat /proc/cpuinfo</span><br />
+<span style="color: #ff0000;">#lsb_release -a</span> 查看Ubuntu版本<br />
+<span style="color: #ff0000;">#du -hs /home/* | sort -nr</span> 察看目录大小 -s 仅显示总计 -h  以K、M、G为单位</p>
+<p><span style="color: #ff0000;">#find  /somewhere/ -name some.file</span>找出文件<br />
+<span style="color: #ff0000;">#find . -name some.file</span>当前目录下找出文件 <a href="http://www.linuxsir.org/main/?q=node/137" target="_blank">More&#8230;</a><br />
+<span style="color: #ff0000;">#find . -name \* -type f -print | xargs grep &#8220;some text&#8221;</span> \*所有文件，  -type f 普通文件 d 目录</p>
+<p><span style="color: #ff0000;">#sof | grep deleted</span> 找出已经被打开，但被删除的文件<br />
+<span style="color: #ff0000;">#free -m</span> 察看内存使用<br />
+<span style="color: #ff0000;">#df</span> 察看硬盘使用<br />
+<span style="color: #ff0000;">#ls -d */ | wc -l</span> 察看当前目录下子目录的个数<br />
+<span style="color: #ff0000;">#lastlog last</span> 察看最后登录的用户<br />
+<span style="color: #ff0000;">#export <span class="caps">PATH</span>=$<span class="caps">PATH</span>:/usr/mysql/bin</span><br />
+<span style="color: #ff0000;">#chmod ug+w,o-x file</span> u=属主,g=属组,o=其它用户</p>
+<p><span style="color: #ff0000;">apache2ctl -l</span> 查看apache工作模式<br />
+<span style="color: #ff0000;">pgrep apache2|wc -l</span> 查看当前连接数<br />
+<span style="color: #ff0000;">ps aux|grep -v grep|awk &#8216;/apache2/{sum+=$6;n++};END{print sum/n}&#8217;</span> 计算httpd占用内存的平均数<br />
+<span style="color: #ff0000;">dpkg -l | grep &#8216;^ii&#8217;</span> 查看已经安装了的软件</p>
+<p><span style="color: #ff0000;">find ./ -name &#8220;*.php&#8221; | xargs -n 1 sed -i -e &#8216;s/aaa/bbb/g&#8217;</span> 把aaa换成bbb</p>
+<p>2,查看SuSE版本：# <span style="color: #ff0000;">cat /etc/SuSE-release</span></p>
+<p>3,查看进程，资源　<span style="color: #ff0000;">top</span></p>
+<p>4,kill进程 <div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">kill</span> -9 进程号
+</span></code></pre></td></tr></table></div></figure></div></notextile><br />
+常与ps连用<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>ps aux | grep firefox
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>5,<span style="color: #ff0000;">nohup</span><br />
+我一般用ssh登录linux服务器，如果要用服务器下载某个文件，我就一直要使终端窗口保持打开状态，这是不合理的。好在用nohup帮忙，它可以让程序在后台运行，就算你关掉终端窗口也没关系。例如，我想下载MiCTeX的字体：<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>nohup wget ftp://user:user@219.153.35.69/MiCTeX/MiCTeX-GBKfonts.exe
+</span></code></pre></td></tr></table></div></figure></div></notextile><br />
+这个命令运行后，屏幕输出： <br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>ServerName:~ <span class="c"># appending output to nohup.out</span>
+</span></code></pre></td></tr></table></div></figure></div></notextile><br />
+鼠标这时一动不动，直到文件下载完毕前你再也不能输出任何命令了。不过在关掉这个窗口后，你可以观察到MiCTeX-GBKfonts.exe的文件大小一直在增加。</p>
+<p>如果在命令最后加上&amp;，就可以让这个下载命令彻底在后台运行，但我实验的结果表明，加了&amp;以后，如果关掉终端，进程也同时关掉了：<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>nohup wget ftp://user:user@219.153.35.69/MiCTeX/MiCTeX-GBKfonts.exe &amp;
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>6,<span style="color: #ff0000;">screen</span><br />
+我其实是把文件下载到 /home/zhang/temp/ 里面，当我N久以后再联上服务器，想看看文件下载情况怎样，那又要 cd 老半天，这时候 screen 就是好帮手了。<!--more--></p>
+<p>顾名思义 screen 就是屏幕，这个命令可以让你有N个屏幕。那我先建一个名字叫做zhang的Screen，用来下载文件：<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>screen -S zhang
+</span><span class='line'><span class="nb">cd</span> /home/zhang/temp
+</span><span class='line'>nohup wget ftp://user:user@219.153.35.69/MiCTeX/MiCTeX-GBKfonts.exe
+</span></code></pre></td></tr></table></div></figure></div></notextile><br />
+然后按 Ctrl + a 再按 d。这时系统提示 ： [detached] 表示离开这个屏幕了。</p>
+<p>我再建一个名字叫做zhangvim的Screen，用来编一个vi文档：<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>screen -S zhangvim
+</span><span class='line'>vi <span class="nb">test</span>
+</span></code></pre></td></tr></table></div></figure></div></notextile><br />
+编了几行字，我又想看看文件下载得如何了（我是个急性子），那像前面一样，按 Ctrl + a 再按 d。这时系统提示 ： [detached] 离开zhangvim这个屏幕。接下来连上屏幕zhang：<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>screen -r zhang
+</span></code></pre></td></tr></table></div></figure></div></notextile><br />
+这时，你看到的屏幕和你原来离开zhang时一模一样。<span style="color: #ff0000;">让我很开心的是，就算我把断掉ssh，再连上Server的时候，还能找回这个屏幕。</span></p>
+<p>如果你有兴趣，你可以开n个Screen，还可以在一个Screen里面再嵌套一个。如果多到你都不记得要连哪个了，那加个参数看一看：<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>ServerName:~ <span class="c"># screen -ls</span>
+</span><span class='line'>There are screens on:
+</span><span class='line'>25108.zhang     <span class="o">(</span>Detached<span class="o">)</span>
+</span><span class='line'>25130.zhangvim  <span class="o">(</span>Attached<span class="o">)</span>
+</span><span class='line'>25147.zhangpy   <span class="o">(</span>Attached<span class="o">)</span>
+</span><span class='line'>25183.zhangLaTex        <span class="o">(</span>Attached<span class="o">)</span>
+</span><span class='line'>25235.Zhangwget <span class="o">(</span>Attached<span class="o">)</span>
+</span><span class='line'>6 Sockets in /var/run/screens/S-root.
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>是不是有点太多了，有的联着的，有的是断开的，但是没关系，可以把它们一个一个关掉：<br />
+如果是(Detached)，用这个命令：screen -r zhang<br />
+如果是(Attached)，用这个命令：screen -x zhangvim<br />
+连上后，输入exit就可退出这个Screen。系统提示：[screen is terminating]</p>
+<p>好了，足够清楚也足够啰嗦了。如果还想进阶请自己查man。</p>
+<p>7,<span style="color: #ff0000;">wget</span><br />
+虽然讯雷是好样的，但我还是希望介绍一位新朋友给大家：wget<br />
+我想下载MiCTeX目录下的所有文件，那个服务器还限线程，我又没那么多时间开着台式机拖文件，那ssh连上服务器，用wget是再好不过了。把上面的命令也用上：）<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>screen -S ZhangMiCTeX
+</span><span class='line'><span class="nb">cd</span> /home/zhang/temp
+</span><span class='line'>nohup wget -c -r -nH --cut-dirs<span class="o">=</span>1 ftp://user:user@219.153.35.69/MiCTeX/
+</span></code></pre></td></tr></table></div></figure></div></notextile><br />
+按 Ctrl + a 再按 d，离开这个屏幕，再把ssh断开，睡一觉醒来，那些文件就会乖乖地躺在我的文件夹里了。<br />
+稍微解释一下wget参数：<br />
+<span style="color: #0000ff;"><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>-c</span></code></pre></td></tr></table></div></figure></div></notextile></span> resume getting a partially-downloaded file. 断点续传</p>
+<p><span style="color: #0000ff;"><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>-r</span></code></pre></td></tr></table></div></figure></div></notextile></span> specify recursive download.下载目录下所有文件，包括子目录</p>
+<p><span style="color: #0000ff;"><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>-nH</span></code></pre></td></tr></table></div></figure></div></notextile></span> don&#8217;t create host directories.不要创建一个服务器名称的文件夹，通常这个文件夹用来存放下载的文件。</p>
+<p><span style="color: #0000ff;"><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>--cut-dirs=NUMBER</span></code></pre></td></tr></table></div></figure></div></notextile></span> ignore <span class="caps">NUMBER</span> remote directory components.上面命令中出现的目录MiCTeX也cut掉。NUMBER 表示去掉几层目录。</p>
+<p>这样一来，下载的文件都会放在 /home/zhang/temp 文件夹里面。如果没有参数<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>-nH --cut-dirs=1</span></code></pre></td></tr></table></div></figure></div></notextile>的话，文件会放在/home/zhang/temp/219.153.35.69/MiCTeX/ 文件夹里面。</p>
+<p>再来个例子：<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>nohup wget -c  --ftp-user<span class="o">=</span>USER1 --ftp-password<span class="o">=</span><span class="s2">&quot;a&amp;&amp;b.c&quot;</span> --no-passive-ftp ftp://ftp.neten.de/abc.rar &amp;
+</span></code></pre></td></tr></table></div></figure></div></notextile><br />
+简单解释：<br />
+用户：<span style="color: #0000ff;"><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>--ftp-user=USER1</span></code></pre></td></tr></table></div></figure></div></notextile></span><br />
+密码：<span style="color: #0000ff;"><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>--ftp-password="a&&b.c"</span></code></pre></td></tr></table></div></figure></div></notextile></span> （之所以加&quot;，是因为密码含有特殊字符&amp;）<br />
+非PASV模式：<span style="color: #0000ff;"><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>--no-passive-ftp</span></code></pre></td></tr></table></div></figure></div></notextile></span></p>
+<p>wget的man会很长，大家还是自己研究吧，这样印象会深点。</p>
+<p>8,<span style="color: #ff0000;">ps </span></p>
+<p>使用方式：<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ps [options] [--help]</span></code></pre></td></tr></table></div></figure></div></notextile><br />
+说明：显示瞬间行程 (process) 的动态<br />
+参数：<br />
+ps 的参数非常多, 在此仅列出几个常用的参数并大略介绍含义<br />
+-A 列出所有的行程<br />
+-w 显示加宽可以显示较多的资讯<br />
+-au 显示较详细的资讯<br />
+-aux 显示所有包含其他使用者的行程</p>
+<p>au(x) 输出格式 :</p>
+<p><span class="caps">USER</span> <span class="caps">PID</span> %<span class="caps">CPU</span> %<span class="caps">MEM</span> <span class="caps">VSZ</span> <span class="caps">RSS</span> <span class="caps">TTY</span> <span class="caps">STAT</span> <span class="caps">START</span> <span class="caps">TIME</span> <span class="caps">COMMAND</span><br />
+<span class="caps">USER</span>: 行程拥有者<br />
+<span class="caps">PID</span>: pid<br />
+%<span class="caps">CPU</span>: 占用的 <span class="caps">CPU</span> 使用率<br />
+%<span class="caps">MEM</span>: 占用的记忆体使用率<br />
+<span class="caps">VSZ</span>: 占用的虚拟记忆体大小<br />
+<span class="caps">RSS</span>: 占用的记忆体大小<br />
+<span class="caps">TTY</span>: 终端的次要装置号码 (minor device number of tty)<br />
+<span class="caps">STAT</span>: 该行程的状态:<br />
+D: 不可中断的静止 (通悸□□缜b进行 I/O 动作)<br />
+R: 正在执行中<br />
+S: 静止状态<br />
+T: 暂停执行<br />
+Z: 不存在但暂时无法消除<br />
+W: 没有足够的记忆体分页可分配<br />
+&lt;: 高优先序的行程<br />
+N: 低优先序的行程<br />
+L: 有记忆体分页分配并锁在记忆体内 (即时系统或捱A I/O)<br />
+<span class="caps">START</span>: 行程开始时间<br />
+<span class="caps">TIME</span>: 执行的时间<br />
+<span class="caps">COMMAND</span>:所执行的指令</p>
+<p>9,<span style="color: #ff0000;">md5sum </span></p>
+<p><span style="color: #0000ff;">输入文件的md5码：</span><br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>md5sum file &gt; file.md5
+</span><span class='line'>md5sum file &gt;&gt; file.md5
+</span></code></pre></td></tr></table></div></figure></div></notextile><br />
+注：&gt;和&gt;&gt;的区别在于:<br />
+&gt;只产生当前文件的md5码 file.md5，<br />
+&gt;&gt;则将输出的md5码附加到file.md5文件的后面。</p>
+<p>也可以把多个文件的md5码输出到一个md5文件中，这要使用通配符*,比如某目录下有几个iso文件，要把这几个iso文件的摘要输出到iso.md5文件中，命令如下：<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>md5sum *.iso &gt; iso.md5
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p><span style="color: #0000ff;">使用md5报文摘要验证文件，方法有二：</span><br />
+（1）把文件file.iso和file.md5文件放在同一个目录下，然后用如下命令进行验证：md5sum -c file.md5然后如果验证成功，则会输出file.iso:OK<br />
+（2）比如下载了文件file，然后运行下面的命令：md5sum file.iso<br />
+命令会输出一个md5码，然后把这个md5码直接与file.md5中的内容比较，如果一样，就说明验证正确。</p>
+<p>另外，在linux下还有一个md5验证的图形界面，http://www.md5summer.org</p>
+<p>10,<span style="color: #ff0000;">删除巨量文件 </span></p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>find 0*.php|xargs rm
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>11,<span style="color: #ff0000;">Ubuntu的软件安装</span><br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo apt-get install packagename
+</span><span class='line'>sudo apt-get remove packagename <span class="c">#（保留配置文档）</span>
+</span><span class='line'>sudo apt-get --purge remove packagename <span class="c">#（删除配置文档）</span>
+</span><span class='line'>sudo dpkg --force-all --purge packagename <span class="c">#(有些软件很难卸载，而且还阻止了别的软件的应用，就能够用这个，但是有点冒险。)</span>
+</span><span class='line'>sudo apt-get clean <span class="c">#(会把安装的软件的备份删除，但是这样不会影响软件的使用。)</span>
+</span><span class='line'>sudo apt-get upgrade <span class="c">#(更新任何已安装的软件包)</span>
+</span><span class='line'>sudo apt-get dist-upgrade <span class="c">#(将系统升级到新版本)</span>
+</span><span class='line'>sudo apt-cache search string
+</span><span class='line'>sudo apt-cache showpkg firefox <span class="c">#(显示软件包信息。)</span>
+</span><span class='line'>sudo apt-get autoclean <span class="c">#(清除那些已卸载的软件包的.deb文档。)</span>
+</span><span class='line'>sudo dpkg -i -force-all linuxqq.deb <span class="c">#(强制安装软件包)</span>
+</span><span class='line'>sudo dpkg -r linuxqq <span class="c">#(卸载软件包)</span>
+</span><span class='line'>
+</span><span class='line'>sudo add-apt-repository ppa:showard314/ppa <span class="c">#ppa</span>
+</span><span class='line'>sudo apt-get update
+</span><span class='line'>sudo apt-get install librecad
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>12,<span style="color: #ff0000;">Ubuntu改root密码</span><br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo passwd root
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>13,<span style="color: #ff0000;">查看Linux文件夹大小</span><br />
+统计总数大小<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>du -sh folder/
+</span><span class='line'>du -sm * | sort -n <span class="c">#统计当前目录大小 并安大小 排序</span>
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>14,<span style="color: #ff0000;">查找文件</span><br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>find . -name <span class="s2">&quot;*.conf&quot;</span>
+</span><span class='line'>find . -size +1000000c <span class="c">#文件大于1M</span>
+</span></code></pre></td></tr></table></div></figure></div></notextile><br />
+<a href="http://www.linuxsir.org/main/?q=node/137" target="_blank">更多&#8230;</a></p>
+<p>15,<span style="color: #ff0000;">traceroute</span><br />
+windows下tracert的对应命令</p>
+<p>16,<span style="color: #ff0000;">批量改名</span><br />
+把 wort* 文件加一个前缀 abc_<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="k">for </span>files in <span class="sb">`</span>ls wort*<span class="sb">`</span>
+</span><span class='line'><span class="k">do</span>
+</span><span class='line'>mv <span class="nv">$files</span> <span class="sb">`</span><span class="nb">echo </span>abc_<span class="k">${</span><span class="nv">files</span><span class="k">}</span><span class="sb">`</span>
+</span><span class='line'><span class="k">done</span>
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>16,<span style="color: #ff0000;">排错</span><br />
+Unable to open env file: /etc/default/locale: No such file or directory<br />
+请运行<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo locale-gen en_US.UTF-8
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>17,<span style="color: #ff0000;">硬盘测速</span><br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo fdisk -l
+</span><span class='line'>sudo hdparm -Tt /dev/sdb
+</span></code></pre></td></tr></table></div></figure></div></notextile><br />
+这个命令还可以把硬盘休眠<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo hdparm -Y /dev/sdb
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>17,<span style="color: #ff0000;">SSH建立代理</span><br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>ssh -qTfnN -p 12345 user@123.234.123.234 -D 127.0.0.1:7070
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p><del>q :</del> be very quite, we are acting only as a tunnel.<br />
+<del>T :</del> Do not allocate a pseudo tty, we are only acting a tunnel.<br />
+<del>f :</del> move the ssh process to background, as we don’t want to interact with this ssh session directly.<br />
+<del>N :</del> Do not execute remote command.<br />
+<del>n :</del> redirect standard input to /dev/null.</p>
+<p>18,<span style="color: #ff0000;">ps查找进程</span><br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>ps aux | grep program_filter_word
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>ps a 显示现行终端机下的所有程序，包括其他用户的程序。<br />
+ps -A 显示所有程序。<br />
+ps c 列出程序时，显示每个程序真正的指令名称，而不包含路径，参数或常驻服务的标示。<br />
+ps -e 此参数的效果和指定&quot;A&quot;参数相同。<br />
+ps e 列出程序时，显示每个程序所使用的环境变量。<br />
+ps f 用ASCII字符显示树状结构，表达程序间的相互关系。<br />
+ps -H 显示树状结构，表示程序间的相互关系。<br />
+ps -N 显示所有的程序，除了执行ps指令终端机下的程序之外。<br />
+ps s 采用程序信号的格式显示程序状况。<br />
+ps S 列出程序时，包括已中断的子程序资料。<br />
+ps -t&lt;终端机编号&gt; 指定终端机编号，并列出属于该终端机的程序的状况。<br />
+ps u 以用户为主的格式来显示程序状况。<br />
+ps x 显示所有程序，不以终端机来区分。<br />
+最常用的方法是ps aux,然后再通过管道使用grep命令过滤查找特定的进程,然后再对特定的进程进行操作。</p>
+<p>19,<span style="color: #ff0000;">Debian/Ubuntu下如何查看已经安装了哪些软件包？</span><br />
+如果安装了Synaptic软件包管理器直接打开管理器就可以看见（不过不是默认安装的）<br />
+apt-get也是用dpkg的包装，直接使用dpkg -l就可以查看已经安装的软件包<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>dpkg -l | grep <span class="s1">&#39;^ii&#39;</span>
+</span></code></pre></td></tr></table></div></figure></div></notextile><br />
+对于server版，推荐使用aptitude来查看、安装、删除deb包。<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo apt-get install aptitude
+</span></code></pre></td></tr></table></div></figure></div></notextile><br />
+然后执行<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo aptitude
+</span></code></pre></td></tr></table></div></figure></div></notextile><br />
+进入管理界面即可<br />
+已安装的deb包默认放在<br />
+/var/cache/apt/archives/下</p>
+<p>20,<span style="color: #ff0000;">用户&amp;用户组</span><br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>adduser neten
+</span><span class='line'>groupadd
+</span><span class='line'>groupdel
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>查看所有用户<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>cat /etc/passwd
+</span></code></pre></td></tr></table></div></figure></div></notextile><br />
+第一字段：用户名（也被称为登录名）；<br />
+第二字段：口令；在例子中我们看到的是一个x，其实密码已被映射到/etc/shadow 文件中；<br />
+第三字段：UID ；<br />
+第四字段：GID；<br />
+第五字段：用户名全称，这是可选的，可以不设置；<br />
+第六字段：用户的家目录所在位置；<br />
+第七字段：用户所用SHELL 的类型；<br />
+例:<br />
+neten:x:1001:1001:neten,,,:/home/neten:/bin/bash</p>
+<p>查看用户组<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>cat /etc/group
+</span></code></pre></td></tr></table></div></figure></div></notextile><br />
+第一字段：用户组名称；<br />
+第二字段：用户组密码；<br />
+第三字段：GID<br />
+第四字段：用户列表，每个用户之间用,号分割；本字段可以为空；如果字段为空表示用户组为GID的用户名；<br />
+例:<br />
+neten:x:1001:neten</p>
+<p>usermod:<br />
+-g initial_group 改变用户的默认用户组。<br />
+-G group,[&#8230;] 把用户规入很多组, 组名用逗号分开。如果用户现在的用户组不再此列，则将用户由该用户组中移除。<br />
+neten默认组为neten.<br />
+-aG append group,[&#8230;] 不管原来用户属于多少个组, 再加上一些组.</p>
+<p>例:<br />
+1, 默认neten属于neten组:<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>id neten
+</span><span class='line'><span class="nv">uid</span><span class="o">=</span>1001<span class="o">(</span>neten<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>1001<span class="o">(</span>neten<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>1001<span class="o">(</span>neten<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>2, 把用户加入cdrom组:<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>usermod -G cdrom neten
+</span><span class='line'>id neten
+</span><span class='line'><span class="nv">uid</span><span class="o">=</span>1001<span class="o">(</span>neten<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>1001<span class="o">(</span>neten<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>1001<span class="o">(</span>neten<span class="o">)</span>, 24<span class="o">(</span>cdrom<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>3, 把用户加入www-data组:<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>usermod -aG www-data neten
+</span><span class='line'>id neten
+</span><span class='line'><span class="nv">uid</span><span class="o">=</span>1001<span class="o">(</span>neten<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>1001<span class="o">(</span>neten<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>1001<span class="o">(</span>neten<span class="o">)</span>, 24<span class="o">(</span>cdrom<span class="o">)</span>, 33<span class="o">(</span>www-data<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>4, 再把用户加入mysql组:<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>usermod -aG mysql neten
+</span><span class='line'>id neten
+</span><span class='line'><span class="nv">uid</span><span class="o">=</span>1001<span class="o">(</span>neten<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>1001<span class="o">(</span>neten<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>1001<span class="o">(</span>neten<span class="o">)</span>, 24<span class="o">(</span>cdrom<span class="o">)</span>, 33<span class="o">(</span>www-data<span class="o">)</span>, 125<span class="o">(</span>mysql<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>5, 上面三个命令加起来可以用下面一个命令实现:<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>usermod -G cdrom, www-data, mysql neten
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>6, 也可以用下面两条命令实现:<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>usermod -G cdrom neten
+</span><span class='line'>usermod -aG www-data, mysql neten
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>7, 要回到原始用户组:<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>usermod -G neten neten
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>8, 我现在把neten的原始组换成www-data, 原来的原始组地位就下降了:<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>usermod -g www-data neten
+</span><span class='line'>id neten
+</span><span class='line'><span class="nv">id</span><span class="o">=</span>1001<span class="o">(</span>neten<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>1001<span class="o">(</span>neten<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span>, 1001<span class="o">(</span>neten<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>9, 我再加入一个组:<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>usermod -aG cdrom neten
+</span><span class='line'>id neten
+</span><span class='line'><span class="nv">uid</span><span class="o">=</span>1001<span class="o">(</span>neten<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>1001<span class="o">(</span>neten<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span>, 1001<span class="o">(</span>neten<span class="o">)</span>, 24<span class="o">(</span>cdrom<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>10, 变回上一步的样子:<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>usermod -G neten neten
+</span><span class='line'>id neten
+</span><span class='line'><span class="nv">id</span><span class="o">=</span>1001<span class="o">(</span>neten<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>1001<span class="o">(</span>neten<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span>, 1001<span class="o">(</span>neten<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>11, 如果要把neten变回原始组:<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>usermod -g neten neten
+</span><span class='line'>id neten
+</span><span class='line'><span class="nv">id</span><span class="o">=</span>1001<span class="o">(</span>neten<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>1001<span class="o">(</span>neten<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>1001<span class="o">(</span>neten<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure></div></notextile><br />
+这一步和第8步不同, neten本来就是原始组, 现在变回去的话, 那www-data就不会再附加在后面了.</p>
+<p>顺便记录一下, 第一个默认sudo用户的id<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">uid</span><span class="o">=</span>1000<span class="o">(</span>user<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>1000<span class="o">(</span>user<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>1000<span class="o">(</span>user<span class="o">)</span>,4<span class="o">(</span>adm<span class="o">)</span>,20<span class="o">(</span>dialout<span class="o">)</span>,24<span class="o">(</span>cdrom<span class="o">)</span>,46<span class="o">(</span>plugdev<span class="o">)</span>,109<span class="o">(</span>lpadmin<span class="o">)</span>,110<span class="o">(</span>sambashare<span class="o">)</span>,111<span class="o">(</span>admin<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>21,<span style="color: #ff0000;">mount新磁盘</span><br />
+首先找到新磁盘:<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo fdisk -l
+</span><span class='line'>Disk /dev/sda: 80.0 GB, 80026361856 bytes
+</span><span class='line'>255 heads, 63 sectors/track, 9729 cylinders
+</span><span class='line'><span class="nv">Units</span> <span class="o">=</span> cylinders of 16065 * <span class="nv">512</span> <span class="o">=</span> 8225280 bytes
+</span><span class='line'>Sector size <span class="o">(</span>logical/physical<span class="o">)</span>: 512 bytes / 512 bytes
+</span><span class='line'>I/O size <span class="o">(</span>minimum/optimal<span class="o">)</span>: 512 bytes / 512 bytes
+</span><span class='line'>Disk identifier: 0xff81ff81
+</span><span class='line'>
+</span><span class='line'>   Device Boot      Start         End      Blocks   Id  System
+</span><span class='line'>/dev/sda1   *           1        9327    74919096   83  Linux
+</span><span class='line'>/dev/sda2            9328        9729     3229065    5  Extended
+</span><span class='line'>/dev/sda5            9328        9729     3229033+  82  Linux swap / Solaris
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>然后mount它<br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo mount /dev/sda1 /mnt/olddisk
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>22,<span style="color: #ff0000;">查看硬件</span><br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#CPU</span>
+</span><span class='line'>lscpu
+</span><span class='line'>cat /proc/cpuinfo
+</span><span class='line'>
+</span><span class='line'><span class="c">#内存</span>
+</span><span class='line'>cat /proc/meminfo
+</span><span class='line'>
+</span><span class='line'><span class="c">#IO端口</span>
+</span><span class='line'>cat /proc/ioports
+</span><span class='line'>
+</span><span class='line'><span class="c">#交换分区</span>
+</span><span class='line'>cat /proc/swaps
+</span><span class='line'>
+</span><span class='line'><span class="c">#中断信息</span>
+</span><span class='line'>cat /proc/interrupts
+</span><span class='line'>
+</span><span class='line'><span class="c">#磁盘分区</span>
+</span><span class='line'>fdisk -l
+</span><span class='line'>cat /proc/partitions
+</span><span class='line'>
+</span><span class='line'><span class="c">#磁盘参数</span>
+</span><span class='line'>hdparm -i /dev/sda
+</span><span class='line'>
+</span><span class='line'><span class="c">#磁盘分区信息</span>
+</span><span class='line'>df -h
+</span><span class='line'>
+</span><span class='line'><span class="c">#USB</span>
+</span><span class='line'>lsusb
+</span><span class='line'>cat /proc/bus/usb/devices
+</span><span class='line'>
+</span><span class='line'><span class="c">#输入设备</span>
+</span><span class='line'>cat /proc/bus/input/devices
+</span><span class='line'>
+</span><span class='line'><span class="c">#PCI设备</span>
+</span><span class='line'>lspci
+</span><span class='line'>cat /proc/bus/pci/devices
+</span><span class='line'>
+</span><span class='line'><span class="c">#系统负载</span>
+</span><span class='line'>cat /proc/loadavg
+</span><span class='line'>
+</span><span class='line'><span class="c">#查看开机检查的硬件，可以使用grep过虑：eth,cpu,mem,pci,usb,vga,sda……</span>
+</span><span class='line'>dmesg
+</span><span class='line'>cat /var/log/demsg
+</span><span class='line'>
+</span><span class='line'><span class="c">#报告虚拟内存统计信息</span>
+</span><span class='line'>vmstat
+</span><span class='line'>
+</span><span class='line'><span class="c">#读取系统DMI表来显示硬件和BIOS信息。</span>
+</span><span class='line'>dmidecode
+</span><span class='line'>
+</span><span class='line'><span class="c">#当前加载的驱动</span>
+</span><span class='line'>lsmod
+</span><span class='line'>
+</span><span class='line'><span class="c">#查看系统负载</span>
+</span><span class='line'>uptime
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p>23,<span style="color: #ff0000;">mount ftp &amp; iso</span><br />
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo apt-get install curlftpfs
+</span><span class='line'>curlftpfs user:pass@ftp.yourdomain.com ~/ftpfolder/
+</span><span class='line'>sudo umount ~/ftpfolder/
+</span></code></pre></td></tr></table></div></figure></div></notextile></p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo mount -o loop R2011a_UNIX_OSX.iso /media/matlab
+</span></code></pre></td></tr></table></div></figure></div></notextile></p></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Peter</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-12-16T00:00:00+01:00" pubdate data-updated="true">Dec 16<span>th</span>, 2006</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/posts/categories/digitallife/'>DigitalLife</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/posts/92/" title="Previous Post: PHP4 update to PHP5">&laquo; PHP4 update to PHP5</a>
+      
+      
+        <a class="basic-alignment right" href="/posts/95/" title="Next Post: 申请Barclaybank的VISA-MASTER的中文指导">申请Barclaybank的VISA-MASTER的中文指导 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/2014/01/27/install-mysql-using-homebrew/">在 Mac 下用 Homebrew 安装 MySQL</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2013/10/06/use-ffmpeg-to-burn-subtitles-into-the-video/">Use FFmpeg to burn subtitles into the video</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2013/02/17/ruby-block-proc-and-lambda/">Ruby -- block Proc and lambda</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/10/18/mac-os-x-10-dot-8-2-problems-after-update/">Mac OS X 10.8.2 Problems after update</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/02/mac-octopress-ioerror-invalid-python-installation/">Mac Octopress IOError invalid Python installation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/02/rstudio-non-utf8-warning-message/">RStudio non-UTF8 warning message</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/08/01/pdf-version-found-1-dot-5-but-allowed-1-dot-4/">PDF version found 1.5 but allowed 1.4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/07/21/fatal-error-stdio-dot-h-file-not-found/">fatal error: stdio.h file not found</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/06/06/mongodb-scaffolding-devise-omniauth-cancan-2/">MongoDB Scaffolding Devise Omniauth CanCan (2)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2012/05/19/mongodb-scaffolding-devise-omniauth-cancan-1/">MongoDB Scaffolding Devise Omniauth CanCan (1)</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>最近评论</h1>
+  <script type="text/javascript" src="http://neten.disqus.com/combination_widget.js?num_items=5&hide_mods=0&color=grey&default_tab=recent&excerpt_length=200"></script>
+</section>
+<section>
+  <h1>常用资料</h1>
+    <ul id="recent_posts">
+      <li class="post">
+        <a href="/posts/93">来几个Linux命令</a>
+      </li>
+      <li class="post">
+        <a href="/posts/344">Mysql 改变数据库目录</a>
+      </li>
+      <li class="post">
+        <a href="/posts/254">Latex & TexMakerX</a>
+      </li>
+      <li class="post">
+        <a href="/posts/241">在Ubuntu上通过SSH安装Virtualbox</a>
+      </li>
+      <li class="post">
+        <a href="/posts/73">汉德词典 for MDict & Babylon</a>
+      </li>
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2005 - 2016 - Peter - | 
+  <span><a href="/posts/94">Impressum</a></span>
+  <span class="credit" style="float:right">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'neten';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ZPVIP.github.io/posts/93/';
+        var disqus_url = 'http://ZPVIP.github.io/posts/93/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="/javascripts/jimdoclockzip.js"></script>
+</body>
+</html>

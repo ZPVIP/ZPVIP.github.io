@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: DigitalLife | 简洁的想法]]></title>
-  <link href="http://ZPVIP.github.io/posts/categories/digitallife/atom.xml" rel="self"/>
-  <link href="http://ZPVIP.github.io/"/>
-  <updated>2016-06-16T16:18:45+02:00</updated>
-  <id>http://ZPVIP.github.io/</id>
+  <link href="http://blog.neten.de/posts/categories/digitallife/atom.xml" rel="self"/>
+  <link href="http://blog.neten.de/"/>
+  <updated>2016-06-18T01:56:23+02:00</updated>
+  <id>http://blog.neten.de/</id>
   <author>
     <name><![CDATA[Peter]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Use FFmpeg to burn subtitles into the video]]></title>
-    <link href="http://ZPVIP.github.io/posts/2013/10/06/use-ffmpeg-to-burn-subtitles-into-the-video/"/>
+    <link href="http://blog.neten.de/posts/2013/10/06/use-ffmpeg-to-burn-subtitles-into-the-video/"/>
     <updated>2013-10-06T12:41:00+02:00</updated>
-    <id>http://ZPVIP.github.io/posts/2013/10/06/use-ffmpeg-to-burn-subtitles-into-the-video</id>
+    <id>http://blog.neten.de/posts/2013/10/06/use-ffmpeg-to-burn-subtitles-into-the-video</id>
     <content type="html"><![CDATA[<p><a href="http://www.ffmpeg.org/">FFmpeg</a> 是个强大的跨平台软件，在Mac下使用的时候要稍注意一下。我这记录一下自己的摸索过程。</p>
 
 <p>我想在一个 MP4 文件里面添加字幕，不是把 .srt 字幕文件集成到 MP4 文件里，然后在播放器里选择字幕，这种集成字幕比较简单，速度也相当快：
@@ -75,9 +75,9 @@ source ~/.bashrc
   
   <entry>
     <title type="html"><![CDATA[Mac OS X 10.8.2 Problems after update]]></title>
-    <link href="http://ZPVIP.github.io/posts/2012/10/18/mac-os-x-10-dot-8-2-problems-after-update/"/>
+    <link href="http://blog.neten.de/posts/2012/10/18/mac-os-x-10-dot-8-2-problems-after-update/"/>
     <updated>2012-10-18T21:51:00+02:00</updated>
-    <id>http://ZPVIP.github.io/posts/2012/10/18/mac-os-x-10-dot-8-2-problems-after-update</id>
+    <id>http://blog.neten.de/posts/2012/10/18/mac-os-x-10-dot-8-2-problems-after-update</id>
     <content type="html"><![CDATA[<p>Mac OS X 升级到10.8.2 以后，至少Retina Mac Pro 连接HDMI设备会出现问题，表现是笔记本和外接设备都黑屏，并且有个大大的鼠标，就像是分辨率变小了似的。</p>
 
 <p>系统升级到OS X 10.8.2 (12C60)之后也没有改观。</p>
@@ -95,9 +95,9 @@ sudo shutdown -r now
   
   <entry>
     <title type="html"><![CDATA[Mac Octopress IOError invalid Python installation]]></title>
-    <link href="http://ZPVIP.github.io/posts/2012/08/02/mac-octopress-ioerror-invalid-python-installation/"/>
+    <link href="http://blog.neten.de/posts/2012/08/02/mac-octopress-ioerror-invalid-python-installation/"/>
     <updated>2012-08-02T21:49:00+02:00</updated>
-    <id>http://ZPVIP.github.io/posts/2012/08/02/mac-octopress-ioerror-invalid-python-installation</id>
+    <id>http://blog.neten.de/posts/2012/08/02/mac-octopress-ioerror-invalid-python-installation</id>
     <content type="html"><![CDATA[<p>经过这么多天的与Warning的邂逅，今天终于开云见日迎来了一个Error. 就在全国人民喜迎这个<code>IOError</code>之际，我三省吾身，不知道是因为升级了Mountain Lion 还是因为我最近折腾系统太厉害的缘故，好好的一个Octopress今天居然在<code>rake generate</code>的时候给我报错：
 <code>
 Building site: source -&gt; public
@@ -124,9 +124,9 @@ $ sudo ln -s /System/Library/Frameworks/Python.framework/Versions/2.7/include/py
   
   <entry>
     <title type="html"><![CDATA[RStudio non-UTF8 warning message]]></title>
-    <link href="http://ZPVIP.github.io/posts/2012/08/02/rstudio-non-utf8-warning-message/"/>
+    <link href="http://blog.neten.de/posts/2012/08/02/rstudio-non-utf8-warning-message/"/>
     <updated>2012-08-02T20:06:00+02:00</updated>
-    <id>http://ZPVIP.github.io/posts/2012/08/02/rstudio-non-utf8-warning-message</id>
+    <id>http://blog.neten.de/posts/2012/08/02/rstudio-non-utf8-warning-message</id>
     <content type="html"><![CDATA[<p>Rstudio 是一个不错的R语言IDE, 因为集成<a href="http://yihui.name/knitr">knitr</a>, 使得这样一个编程IDE可以用Markdown来生成漂亮的PDF文本，甚至可以用LaTEX的语法加入公式，这样小篇幅的科技短文都可以用Markdown来写了。</p>
 
 <p>我饶有兴致地安装了RStudio，结果一运行居然报了一个Warning，看来最近我的Warning不少。</p>
@@ -151,13 +151,13 @@ system("defaults write org.R-project.R force.LANG en_US.UTF-8")
   
   <entry>
     <title type="html"><![CDATA[sed 批量替换文件中的字符]]></title>
-    <link href="http://ZPVIP.github.io/posts/2012/05/16/sed-pi-liang-ti-huan-wen-jian-zhong-de-zi-fu/"/>
+    <link href="http://blog.neten.de/posts/2012/05/16/sed-pi-liang-ti-huan-wen-jian-zhong-de-zi-fu/"/>
     <updated>2012-05-16T20:49:00+02:00</updated>
-    <id>http://ZPVIP.github.io/posts/2012/05/16/sed-pi-liang-ti-huan-wen-jian-zhong-de-zi-fu</id>
+    <id>http://blog.neten.de/posts/2012/05/16/sed-pi-liang-ti-huan-wen-jian-zhong-de-zi-fu</id>
     <content type="html"><![CDATA[<p>下载了ruby的Standard Library Documentation, 发现其离线版本的home链接居然是'/', 这在使用中会指向file:///, 所以还是替换一下吧:
 把
 <code>html
-&lt;a href='http://ZPVIP.github.io/' target='_top' &gt;Home&lt;/a&gt;
+&lt;a href='http://blog.neten.de/' target='_top' &gt;Home&lt;/a&gt;
 </code>
 替换成
 <code>html

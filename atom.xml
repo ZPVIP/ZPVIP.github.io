@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[简洁的想法]]></title>
-  <link href="http://ZPVIP.github.io/atom.xml" rel="self"/>
-  <link href="http://ZPVIP.github.io/"/>
-  <updated>2016-06-16T16:18:45+02:00</updated>
-  <id>http://ZPVIP.github.io/</id>
+  <link href="http://blog.neten.de/atom.xml" rel="self"/>
+  <link href="http://blog.neten.de/"/>
+  <updated>2016-06-18T01:56:23+02:00</updated>
+  <id>http://blog.neten.de/</id>
   <author>
     <name><![CDATA[Peter]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[在 Mac 下用 Homebrew 安装 MySQL]]></title>
-    <link href="http://ZPVIP.github.io/posts/2014/01/27/install-mysql-using-homebrew/"/>
+    <link href="http://blog.neten.de/posts/2014/01/27/install-mysql-using-homebrew/"/>
     <updated>2014-01-27T21:27:00+01:00</updated>
-    <id>http://ZPVIP.github.io/posts/2014/01/27/install-mysql-using-homebrew</id>
+    <id>http://blog.neten.de/posts/2014/01/27/install-mysql-using-homebrew</id>
     <content type="html"><![CDATA[<p>在 Mac 下用 Homebrew 安装 MySQL, 网上的教程倒是很多，不过大多数都很默契地雷同。如果稍有点定制要求，就无从下手了。</p>
 
 <p>我先也不免俗，从基本的开始：</p>
@@ -120,7 +120,7 @@
 <p>
 所以，还是自己老老实实参考 linux 下的配置文件吧。</p>
 
-<figure class='code'><figcaption><span>my.cnf  (my.cnf.txt)</span> <a href='http://ZPVIP.github.io/attachment/code/mysql/my.cnf.txt'>download</a></figcaption>
+<figure class='code'><figcaption><span>my.cnf  (my.cnf.txt)</span> <a href='http://blog.neten.de/attachment/code/mysql/my.cnf.txt'>download</a></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -417,9 +417,9 @@
   
   <entry>
     <title type="html"><![CDATA[Use FFmpeg to burn subtitles into the video]]></title>
-    <link href="http://ZPVIP.github.io/posts/2013/10/06/use-ffmpeg-to-burn-subtitles-into-the-video/"/>
+    <link href="http://blog.neten.de/posts/2013/10/06/use-ffmpeg-to-burn-subtitles-into-the-video/"/>
     <updated>2013-10-06T12:41:00+02:00</updated>
-    <id>http://ZPVIP.github.io/posts/2013/10/06/use-ffmpeg-to-burn-subtitles-into-the-video</id>
+    <id>http://blog.neten.de/posts/2013/10/06/use-ffmpeg-to-burn-subtitles-into-the-video</id>
     <content type="html"><![CDATA[<p><a href="http://www.ffmpeg.org/">FFmpeg</a> 是个强大的跨平台软件，在Mac下使用的时候要稍注意一下。我这记录一下自己的摸索过程。</p>
 
 <p>我想在一个 MP4 文件里面添加字幕，不是把 .srt 字幕文件集成到 MP4 文件里，然后在播放器里选择字幕，这种集成字幕比较简单，速度也相当快：</p>
@@ -495,9 +495,9 @@
   
   <entry>
     <title type="html"><![CDATA[Ruby -- block Proc and lambda]]></title>
-    <link href="http://ZPVIP.github.io/posts/2013/02/17/ruby-block-proc-and-lambda/"/>
+    <link href="http://blog.neten.de/posts/2013/02/17/ruby-block-proc-and-lambda/"/>
     <updated>2013-02-17T20:05:00+01:00</updated>
-    <id>http://ZPVIP.github.io/posts/2013/02/17/ruby-block-proc-and-lambda</id>
+    <id>http://blog.neten.de/posts/2013/02/17/ruby-block-proc-and-lambda</id>
     <content type="html"><![CDATA[<p>Block是Ruby中相当sexy的特性。对于常年在C/C++中Coding的码农来说，不管是表达方式还是思考方式都有点让人感觉不适应。
 Block是一个统称，中文名称又叫闭包，英文是Closure，表现形式有block, Proc and lambda。Proc是对block的面向对象的封装， lambda是对Proc的进一步封装。</p>
 
@@ -817,9 +817,9 @@ Block是一个统称，中文名称又叫闭包，英文是Closure，表现形�
   
   <entry>
     <title type="html"><![CDATA[Mac OS X 10.8.2 Problems after update]]></title>
-    <link href="http://ZPVIP.github.io/posts/2012/10/18/mac-os-x-10-dot-8-2-problems-after-update/"/>
+    <link href="http://blog.neten.de/posts/2012/10/18/mac-os-x-10-dot-8-2-problems-after-update/"/>
     <updated>2012-10-18T21:51:00+02:00</updated>
-    <id>http://ZPVIP.github.io/posts/2012/10/18/mac-os-x-10-dot-8-2-problems-after-update</id>
+    <id>http://blog.neten.de/posts/2012/10/18/mac-os-x-10-dot-8-2-problems-after-update</id>
     <content type="html"><![CDATA[<p>Mac OS X 升级到10.8.2 以后，至少Retina Mac Pro 连接HDMI设备会出现问题，表现是笔记本和外接设备都黑屏，并且有个大大的鼠标，就像是分辨率变小了似的。</p>
 
 <p>系统升级到OS X 10.8.2 (12C60)之后也没有改观。</p>
@@ -841,9 +841,9 @@ Block是一个统称，中文名称又叫闭包，英文是Closure，表现形�
   
   <entry>
     <title type="html"><![CDATA[Mac Octopress IOError invalid Python installation]]></title>
-    <link href="http://ZPVIP.github.io/posts/2012/08/02/mac-octopress-ioerror-invalid-python-installation/"/>
+    <link href="http://blog.neten.de/posts/2012/08/02/mac-octopress-ioerror-invalid-python-installation/"/>
     <updated>2012-08-02T21:49:00+02:00</updated>
-    <id>http://ZPVIP.github.io/posts/2012/08/02/mac-octopress-ioerror-invalid-python-installation</id>
+    <id>http://blog.neten.de/posts/2012/08/02/mac-octopress-ioerror-invalid-python-installation</id>
     <content type="html"><![CDATA[<p>经过这么多天的与Warning的邂逅，今天终于开云见日迎来了一个Error. 就在全国人民喜迎这个<code>IOError</code>之际，我三省吾身，不知道是因为升级了Mountain Lion 还是因为我最近折腾系统太厉害的缘故，好好的一个Octopress今天居然在<code>rake generate</code>的时候给我报错：</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -884,9 +884,9 @@ Block是一个统称，中文名称又叫闭包，英文是Closure，表现形�
   
   <entry>
     <title type="html"><![CDATA[RStudio non-UTF8 warning message]]></title>
-    <link href="http://ZPVIP.github.io/posts/2012/08/02/rstudio-non-utf8-warning-message/"/>
+    <link href="http://blog.neten.de/posts/2012/08/02/rstudio-non-utf8-warning-message/"/>
     <updated>2012-08-02T20:06:00+02:00</updated>
-    <id>http://ZPVIP.github.io/posts/2012/08/02/rstudio-non-utf8-warning-message</id>
+    <id>http://blog.neten.de/posts/2012/08/02/rstudio-non-utf8-warning-message</id>
     <content type="html"><![CDATA[<p>Rstudio 是一个不错的R语言IDE, 因为集成<a href="http://yihui.name/knitr">knitr</a>, 使得这样一个编程IDE可以用Markdown来生成漂亮的PDF文本，甚至可以用LaTEX的语法加入公式，这样小篇幅的科技短文都可以用Markdown来写了。</p>
 
 <p>我饶有兴致地安装了RStudio，结果一运行居然报了一个Warning，看来最近我的Warning不少。</p>
@@ -921,9 +921,9 @@ Block是一个统称，中文名称又叫闭包，英文是Closure，表现形�
   
   <entry>
     <title type="html"><![CDATA[PDF version found 1.5 but allowed 1.4]]></title>
-    <link href="http://ZPVIP.github.io/posts/2012/08/01/pdf-version-found-1-dot-5-but-allowed-1-dot-4/"/>
+    <link href="http://blog.neten.de/posts/2012/08/01/pdf-version-found-1-dot-5-but-allowed-1-dot-4/"/>
     <updated>2012-08-01T09:47:00+02:00</updated>
-    <id>http://ZPVIP.github.io/posts/2012/08/01/pdf-version-found-1-dot-5-but-allowed-1-dot-4</id>
+    <id>http://blog.neten.de/posts/2012/08/01/pdf-version-found-1-dot-5-but-allowed-1-dot-4</id>
     <content type="html"><![CDATA[<p>用Latex的时候，如果嵌入的PDF图片版本是1.5，而Latex只支持1.4的时候，就会出现很多Warning：</p>
 
 <p><code>
@@ -947,9 +947,9 @@ Block是一个统称，中文名称又叫闭包，英文是Closure，表现形�
   
   <entry>
     <title type="html"><![CDATA[fatal error: stdio.h file not found]]></title>
-    <link href="http://ZPVIP.github.io/posts/2012/07/21/fatal-error-stdio-dot-h-file-not-found/"/>
+    <link href="http://blog.neten.de/posts/2012/07/21/fatal-error-stdio-dot-h-file-not-found/"/>
     <updated>2012-07-21T20:31:00+02:00</updated>
-    <id>http://ZPVIP.github.io/posts/2012/07/21/fatal-error-stdio-dot-h-file-not-found</id>
+    <id>http://blog.neten.de/posts/2012/07/21/fatal-error-stdio-dot-h-file-not-found</id>
     <content type="html"><![CDATA[<p>OS X 10.7.3 安装XCode 4.3.1 之后，如果你也安装了命令行：
 Preferences > Downloads > Components and click install on Command Line Tools</p>
 
@@ -1005,9 +1005,9 @@ Preferences > Downloads > Components and click install on Command Line Tools</p>
   
   <entry>
     <title type="html"><![CDATA[MongoDB Scaffolding Devise Omniauth CanCan (2)]]></title>
-    <link href="http://ZPVIP.github.io/posts/2012/06/06/mongodb-scaffolding-devise-omniauth-cancan-2/"/>
+    <link href="http://blog.neten.de/posts/2012/06/06/mongodb-scaffolding-devise-omniauth-cancan-2/"/>
     <updated>2012-06-06T22:26:00+02:00</updated>
-    <id>http://ZPVIP.github.io/posts/2012/06/06/mongodb-scaffolding-devise-omniauth-cancan-2</id>
+    <id>http://blog.neten.de/posts/2012/06/06/mongodb-scaffolding-devise-omniauth-cancan-2</id>
     <content type="html"><![CDATA[<p><a id="TOP0606"></a>
 1. <a href="#Devise">Devise</a><br/>
 2. <a href="#Omniauth">Omniauth</a><br/>
@@ -1739,9 +1739,9 @@ Preferences > Downloads > Components and click install on Command Line Tools</p>
   
   <entry>
     <title type="html"><![CDATA[MongoDB Scaffolding Devise Omniauth CanCan (1)]]></title>
-    <link href="http://ZPVIP.github.io/posts/2012/05/19/mongodb-scaffolding-devise-omniauth-cancan-1/"/>
+    <link href="http://blog.neten.de/posts/2012/05/19/mongodb-scaffolding-devise-omniauth-cancan-1/"/>
     <updated>2012-05-19T22:42:00+02:00</updated>
-    <id>http://ZPVIP.github.io/posts/2012/05/19/mongodb-scaffolding-devise-omniauth-cancan-1</id>
+    <id>http://blog.neten.de/posts/2012/05/19/mongodb-scaffolding-devise-omniauth-cancan-1</id>
     <content type="html"><![CDATA[<p><a id="TOP"></a>
 Ruby on Rails 的学习曲线还算是有一点陡的, 作为一个初学者, 建议先看一下Ruby的语法书, 再看一下Rails的<a href="http://guides.rubyonrails.org">入门教材和示例</a>, 但真正做项目的时候, 可能就要和各种各样Gems打交道了, 因为自己走了很多弯路, 所以想把一些笔记分享出来, 希望对新生有点帮助.</p>
 
@@ -2710,9 +2710,9 @@ Ruby on Rails 的学习曲线还算是有一点陡的, 作为一个初学者, �
   
   <entry>
     <title type="html"><![CDATA[sed 批量替换文件中的字符]]></title>
-    <link href="http://ZPVIP.github.io/posts/2012/05/16/sed-pi-liang-ti-huan-wen-jian-zhong-de-zi-fu/"/>
+    <link href="http://blog.neten.de/posts/2012/05/16/sed-pi-liang-ti-huan-wen-jian-zhong-de-zi-fu/"/>
     <updated>2012-05-16T20:49:00+02:00</updated>
-    <id>http://ZPVIP.github.io/posts/2012/05/16/sed-pi-liang-ti-huan-wen-jian-zhong-de-zi-fu</id>
+    <id>http://blog.neten.de/posts/2012/05/16/sed-pi-liang-ti-huan-wen-jian-zhong-de-zi-fu</id>
     <content type="html"><![CDATA[<p>下载了ruby的Standard Library Documentation, 发现其离线版本的home链接居然是&#8217;/&#8217;, 这在使用中会指向file:///, 所以还是替换一下吧:
 把</p>
 
@@ -2901,9 +2901,9 @@ Ruby on Rails 的学习曲线还算是有一点陡的, 作为一个初学者, �
   
   <entry>
     <title type="html"><![CDATA[Wordpress to Octopress rewrite rules]]></title>
-    <link href="http://ZPVIP.github.io/posts/2012/05/16/wordpress-to-octopress-rewrite-rules/"/>
+    <link href="http://blog.neten.de/posts/2012/05/16/wordpress-to-octopress-rewrite-rules/"/>
     <updated>2012-05-16T14:45:00+02:00</updated>
-    <id>http://ZPVIP.github.io/posts/2012/05/16/wordpress-to-octopress-rewrite-rules</id>
+    <id>http://blog.neten.de/posts/2012/05/16/wordpress-to-octopress-rewrite-rules</id>
     <content type="html"><![CDATA[<ol>
 <li>首先编辑Gemfile, 添加gem &#8216;rack-rewrite&#8217;</li>
 </ol>
@@ -2980,9 +2980,9 @@ Ruby on Rails 的学习曲线还算是有一点陡的, 作为一个初学者, �
   
   <entry>
     <title type="html"><![CDATA[first blog using octopress]]></title>
-    <link href="http://ZPVIP.github.io/posts/2012/05/14/first-blog-using-octopress/"/>
+    <link href="http://blog.neten.de/posts/2012/05/14/first-blog-using-octopress/"/>
     <updated>2012-05-14T22:19:00+02:00</updated>
-    <id>http://ZPVIP.github.io/posts/2012/05/14/first-blog-using-octopress</id>
+    <id>http://blog.neten.de/posts/2012/05/14/first-blog-using-octopress</id>
     <content type="html"><![CDATA[<p>Octopress 真是太棒了, 可以用vi来写blog, 用git来管理, 相当省心.</p>
 
 <ul>
@@ -3406,9 +3406,9 @@ Ruby on Rails 的学习曲线还算是有一点陡的, 作为一个初学者, �
   
   <entry>
     <title type="html"><![CDATA[如何使用ActiveRecordStore（数据库）做为session存储方案 ]]></title>
-    <link href="http://ZPVIP.github.io/posts/345/"/>
+    <link href="http://blog.neten.de/posts/345/"/>
     <updated>2012-03-25T00:00:00+01:00</updated>
-    <id>http://ZPVIP.github.io/posts/345</id>
+    <id>http://blog.neten.de/posts/345</id>
     <content type="html"><![CDATA[<p>首先交待环境：<br />
 <div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -3463,9 +3463,9 @@ config/initializers/session_store.rb<br />
   
   <entry>
     <title type="html"><![CDATA[mysql 改变数据库目录不能启动]]></title>
-    <link href="http://ZPVIP.github.io/posts/344/"/>
+    <link href="http://blog.neten.de/posts/344/"/>
     <updated>2012-03-23T00:00:00+01:00</updated>
-    <id>http://ZPVIP.github.io/posts/344</id>
+    <id>http://blog.neten.de/posts/344</id>
     <content type="html"><![CDATA[<p>mysql默认的目录是/var/lib/mysql, 修改该目录看起来很简单:<br />
 <div class='bogus-wrapper'><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -3511,9 +3511,9 @@ config/initializers/session_store.rb<br />
   
   <entry>
     <title type="html"><![CDATA[DHL hotline 01803-365365]]></title>
-    <link href="http://ZPVIP.github.io/posts/342/"/>
+    <link href="http://blog.neten.de/posts/342/"/>
     <updated>2012-03-10T00:00:00+01:00</updated>
-    <id>http://ZPVIP.github.io/posts/342</id>
+    <id>http://blog.neten.de/posts/342</id>
     <content type="html"><![CDATA[<p><span class="caps">DHL</span> Packstation 热线<br />
 01803-365365<br />
 可以用这个0800替换<br />
@@ -3522,9 +3522,9 @@ config/initializers/session_store.rb<br />
   
   <entry>
     <title type="html"><![CDATA[Ubuntu precise 12.04 无线网卡 慢 Broadcom brcmsmac]]></title>
-    <link href="http://ZPVIP.github.io/posts/341/"/>
+    <link href="http://blog.neten.de/posts/341/"/>
     <updated>2012-03-10T00:00:00+01:00</updated>
-    <id>http://ZPVIP.github.io/posts/341</id>
+    <id>http://blog.neten.de/posts/341</id>
     <content type="html"><![CDATA[<p>标题没看懂是正常的， 我写的全是关键字。</p>
 <p>装12.04后， 无线网卡网速超级慢。 Google后发现<a href="http://tuxcanfly.appspot.com/2011/10/Ubuntu-11-10-Broadcom-Wifi-driver-43xx">解决方法</a>：</p>
 <p>If the output of:<br />
@@ -3560,9 +3560,9 @@ Hope ubuntu devs fix this and push out updates soon.</p>]]></content>
   
   <entry>
     <title type="html"><![CDATA[用matlab求应力Sigma]]></title>
-    <link href="http://ZPVIP.github.io/posts/339/"/>
+    <link href="http://blog.neten.de/posts/339/"/>
     <updated>2011-11-10T00:00:00+01:00</updated>
-    <id>http://ZPVIP.github.io/posts/339</id>
+    <id>http://blog.neten.de/posts/339</id>
     <content type="html"><![CDATA[<p>工字钢沿Z轴向下, <br />
 Lz是nx1的Array<br />
 Mz是nx2的Vector, Mz(:,1)是x向, Mz(:,2)是y向:</p>
@@ -3637,9 +3637,9 @@ Mz是nx2的Vector, Mz(:,1)是x向, Mz(:,2)是y向:</p>
   
   <entry>
     <title type="html"><![CDATA[没有配置用户名的时候git报错信息 ]]></title>
-    <link href="http://ZPVIP.github.io/posts/337/"/>
+    <link href="http://blog.neten.de/posts/337/"/>
     <updated>2011-10-25T00:00:00+02:00</updated>
-    <id>http://ZPVIP.github.io/posts/337</id>
+    <id>http://blog.neten.de/posts/337</id>
     <content type="html"><![CDATA[<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -3673,9 +3673,9 @@ Mz是nx2的Vector, Mz(:,1)是x向, Mz(:,2)是y向:</p>
   
   <entry>
     <title type="html"><![CDATA[SparkleShare]]></title>
-    <link href="http://ZPVIP.github.io/posts/335/"/>
+    <link href="http://blog.neten.de/posts/335/"/>
     <updated>2011-10-23T00:00:00+02:00</updated>
-    <id>http://ZPVIP.github.io/posts/335</id>
+    <id>http://blog.neten.de/posts/335</id>
     <content type="html"><![CDATA[<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>

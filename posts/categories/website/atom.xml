@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Website | 简洁的想法]]></title>
-  <link href="http://ZPVIP.github.io/posts/categories/website/atom.xml" rel="self"/>
-  <link href="http://ZPVIP.github.io/"/>
-  <updated>2016-06-16T16:18:45+02:00</updated>
-  <id>http://ZPVIP.github.io/</id>
+  <link href="http://blog.neten.de/posts/categories/website/atom.xml" rel="self"/>
+  <link href="http://blog.neten.de/"/>
+  <updated>2016-06-18T01:56:23+02:00</updated>
+  <id>http://blog.neten.de/</id>
   <author>
     <name><![CDATA[Peter]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[在 Mac 下用 Homebrew 安装 MySQL]]></title>
-    <link href="http://ZPVIP.github.io/posts/2014/01/27/install-mysql-using-homebrew/"/>
+    <link href="http://blog.neten.de/posts/2014/01/27/install-mysql-using-homebrew/"/>
     <updated>2014-01-27T21:27:00+01:00</updated>
-    <id>http://ZPVIP.github.io/posts/2014/01/27/install-mysql-using-homebrew</id>
+    <id>http://blog.neten.de/posts/2014/01/27/install-mysql-using-homebrew</id>
     <content type="html"><![CDATA[<p>在 Mac 下用 Homebrew 安装 MySQL, 网上的教程倒是很多，不过大多数都很默契地雷同。如果稍有点定制要求，就无从下手了。</p>
 
 <p>我先也不免俗，从基本的开始：</p>
@@ -378,9 +378,9 @@ $ sudo cp $(brew --prefix mysql)/support-files/my-default.cnf /etc/my.cnf
   
   <entry>
     <title type="html"><![CDATA[Ruby -- block Proc and lambda]]></title>
-    <link href="http://ZPVIP.github.io/posts/2013/02/17/ruby-block-proc-and-lambda/"/>
+    <link href="http://blog.neten.de/posts/2013/02/17/ruby-block-proc-and-lambda/"/>
     <updated>2013-02-17T20:05:00+01:00</updated>
-    <id>http://ZPVIP.github.io/posts/2013/02/17/ruby-block-proc-and-lambda</id>
+    <id>http://blog.neten.de/posts/2013/02/17/ruby-block-proc-and-lambda</id>
     <content type="html"><![CDATA[<p>Block是Ruby中相当sexy的特性。对于常年在C/C++中Coding的码农来说，不管是表达方式还是思考方式都有点让人感觉不适应。
 Block是一个统称，中文名称又叫闭包，英文是Closure，表现形式有block, Proc and lambda。Proc是对block的面向对象的封装， lambda是对Proc的进一步封装。</p>
 
@@ -569,9 +569,9 @@ puts return_from_lambda # display The function will reach here
   
   <entry>
     <title type="html"><![CDATA[fatal error: stdio.h file not found]]></title>
-    <link href="http://ZPVIP.github.io/posts/2012/07/21/fatal-error-stdio-dot-h-file-not-found/"/>
+    <link href="http://blog.neten.de/posts/2012/07/21/fatal-error-stdio-dot-h-file-not-found/"/>
     <updated>2012-07-21T20:31:00+02:00</updated>
-    <id>http://ZPVIP.github.io/posts/2012/07/21/fatal-error-stdio-dot-h-file-not-found</id>
+    <id>http://blog.neten.de/posts/2012/07/21/fatal-error-stdio-dot-h-file-not-found</id>
     <content type="html"><![CDATA[<p>OS X 10.7.3 安装XCode 4.3.1 之后，如果你也安装了命令行：
 Preferences > Downloads > Components and click install on Command Line Tools</p>
 
@@ -611,9 +611,9 @@ sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer/Platforms/M
   
   <entry>
     <title type="html"><![CDATA[MongoDB Scaffolding Devise Omniauth CanCan (2)]]></title>
-    <link href="http://ZPVIP.github.io/posts/2012/06/06/mongodb-scaffolding-devise-omniauth-cancan-2/"/>
+    <link href="http://blog.neten.de/posts/2012/06/06/mongodb-scaffolding-devise-omniauth-cancan-2/"/>
     <updated>2012-06-06T22:26:00+02:00</updated>
-    <id>http://ZPVIP.github.io/posts/2012/06/06/mongodb-scaffolding-devise-omniauth-cancan-2</id>
+    <id>http://blog.neten.de/posts/2012/06/06/mongodb-scaffolding-devise-omniauth-cancan-2</id>
     <content type="html"><![CDATA[<p><a id="TOP0606"></a>
 1. <a href="#Devise">Devise</a><br/>
 2. <a href="#Omniauth">Omniauth</a><br/>
@@ -1073,9 +1073,9 @@ end
   
   <entry>
     <title type="html"><![CDATA[MongoDB Scaffolding Devise Omniauth CanCan (1)]]></title>
-    <link href="http://ZPVIP.github.io/posts/2012/05/19/mongodb-scaffolding-devise-omniauth-cancan-1/"/>
+    <link href="http://blog.neten.de/posts/2012/05/19/mongodb-scaffolding-devise-omniauth-cancan-1/"/>
     <updated>2012-05-19T22:42:00+02:00</updated>
-    <id>http://ZPVIP.github.io/posts/2012/05/19/mongodb-scaffolding-devise-omniauth-cancan-1</id>
+    <id>http://blog.neten.de/posts/2012/05/19/mongodb-scaffolding-devise-omniauth-cancan-1</id>
     <content type="html"><![CDATA[<p><a id="TOP"></a>
 Ruby on Rails 的学习曲线还算是有一点陡的, 作为一个初学者, 建议先看一下Ruby的语法书, 再看一下Rails的<a href="http://guides.rubyonrails.org">入门教材和示例</a>, 但真正做项目的时候, 可能就要和各种各样Gems打交道了, 因为自己走了很多弯路, 所以想把一些笔记分享出来, 希望对新生有点帮助.</p>
 
